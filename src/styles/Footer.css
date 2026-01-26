@@ -1,0 +1,119 @@
+/* ============================================
+   FOOTER - Minimal Single Row
+   ============================================ */
+
+.footer {
+    padding: 24px 0;
+    background: #1f2937;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Logo */
+.footer-brand {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.footer-brand:hover {
+    transform: scale(1.05);
+}
+
+.footer-logo {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* Copyright */
+.footer-copyright {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin: 0;
+}
+
+/* Social Links */
+.footer-links {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-link {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    color: #9ca3af;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+    background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+    border-color: transparent;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 600px) {
+    .footer {
+        padding: 20px 0;
+    }
+
+    .footer-container {
+        padding: 0 16px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .footer-logo {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .footer-copyright {
+        font-size: 0.8rem;
+        order: 2;
+    }
+
+    .footer-links {
+        order: 1;
+    }
+
+    .footer-link {
+        width: 36px;
+        height: 36px;
+    }
+}

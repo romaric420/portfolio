@@ -1,0 +1,552 @@
+/* ============================================
+   HERO SECTION - Modern Light Design
+   ============================================ */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 120px 0 80px;
+  overflow: hidden;
+}
+
+/* Decorative Background Elements */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 25s ease-in-out infinite reverse;
+  pointer-events: none;
+}
+
+.hero-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================
+   LEFT CONTENT
+   ============================================ */
+
+.hero-content {
+  animation: fadeInLeft 0.8s ease both;
+}
+
+/* Status Badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  margin-bottom: 32px;
+  animation: fadeInDown 0.6s ease both;
+  animation-delay: 0.2s;
+}
+
+.badge-dot-container {
+  position: relative;
+  width: 12px;
+  height: 12px;
+}
+
+.badge-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.badge-ring {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #10b981;
+  border-radius: 50%;
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+.badge-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+/* Title */
+.hero-title {
+  margin-bottom: 28px;
+}
+
+.hero-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.1;
+  margin-bottom: 8px;
+  animation: fadeInUp 0.7s ease both;
+  animation-delay: 0.3s;
+}
+
+.hero-role {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  animation: fadeInUp 0.7s ease both;
+  animation-delay: 0.4s;
+}
+
+.hero-subtitle {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  line-height: 1.3;
+  animation: fadeInUp 0.7s ease both;
+  animation-delay: 0.5s;
+}
+
+/* Description */
+.hero-description {
+  font-size: 1.15rem;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  margin-bottom: 36px;
+  max-width: 520px;
+  animation: fadeInUp 0.7s ease both;
+  animation-delay: 0.6s;
+}
+
+/* CTA Buttons */
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 48px;
+  animation: fadeInUp 0.7s ease both;
+  animation-delay: 0.7s;
+}
+
+/* Info Items */
+.hero-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  animation: fadeInUp 0.7s ease both;
+  animation-delay: 0.8s;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 20px;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-normal);
+}
+
+.info-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-hover);
+}
+
+.info-icon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.info-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 2px;
+}
+
+.info-sub {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   RIGHT VISUAL - Profile with Orbits
+   ============================================ */
+
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInRight 0.8s ease both;
+  animation-delay: 0.4s;
+}
+
+.profile-wrapper {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Orbit Rings */
+.orbit-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(37, 99, 235, 0.2);
+  pointer-events: none;
+}
+
+.orbit-ring-1 {
+  width: 100%;
+  height: 100%;
+  animation: rotate 60s linear infinite;
+}
+
+.orbit-ring-2 {
+  width: 75%;
+  height: 75%;
+  animation: rotate 45s linear infinite reverse;
+  border-color: rgba(124, 58, 237, 0.15);
+}
+
+.orbit-ring-3 {
+  width: 50%;
+  height: 50%;
+  animation: rotate 30s linear infinite;
+  border-color: rgba(6, 182, 212, 0.2);
+}
+
+/* Orbiting Icons Container */
+.orbit-icons {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: rotate 40s linear infinite;
+}
+
+.orbit-icons-reverse {
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  animation: rotate 30s linear infinite reverse;
+}
+
+/* Orbit Icon Positions */
+.orbit-icon {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  background: white;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-normal);
+  animation: rotate 40s linear infinite reverse;
+}
+
+.orbit-icons-reverse .orbit-icon {
+  width: 44px;
+  height: 44px;
+  animation: rotate 30s linear infinite;
+}
+
+.orbit-icon:hover {
+  transform: scale(1.15);
+  box-shadow: var(--shadow-lg);
+  z-index: 10;
+}
+
+.orbit-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.orbit-icons-reverse .orbit-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Outer orbit positions (8 icons) */
+.pos-1 { top: 0; left: 50%; transform: translate(-50%, -50%); }
+.pos-2 { top: 15%; right: 0; transform: translate(50%, -50%); }
+.pos-3 { top: 50%; right: 0; transform: translate(50%, -50%); }
+.pos-4 { bottom: 15%; right: 0; transform: translate(50%, 50%); }
+.pos-5 { bottom: 0; left: 50%; transform: translate(-50%, 50%); }
+.pos-6 { bottom: 15%; left: 0; transform: translate(-50%, 50%); }
+.pos-7 { top: 50%; left: 0; transform: translate(-50%, -50%); }
+.pos-8 { top: 15%; left: 0; transform: translate(-50%, -50%); }
+
+/* Inner orbit positions (4 icons) */
+.inner-1 { top: 5%; left: 50%; transform: translate(-50%, -50%); }
+.inner-2 { top: 50%; right: 5%; transform: translate(50%, -50%); }
+.inner-3 { bottom: 5%; left: 50%; transform: translate(-50%, 50%); }
+.inner-4 { top: 50%; left: 5%; transform: translate(-50%, -50%); }
+
+/* Profile Circle */
+.profile-circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  padding: 4px;
+  box-shadow: 
+    0 0 0 4px white,
+    var(--shadow-lg),
+    0 0 60px rgba(37, 99, 235, 0.25);
+  animation: glow 3s ease-in-out infinite;
+  z-index: 5;
+}
+
+.profile-circle-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: white;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-circle-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-emoji {
+  font-size: 80px;
+  line-height: 1;
+}
+
+/* Floating Tech Badges */
+.tech-badge {
+  position: absolute;
+  background: white;
+  padding: 12px 18px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  z-index: 6;
+  animation: float 5s ease-in-out infinite;
+}
+
+.tech-badge.top-left {
+  top: 60px;
+  left: 0;
+  animation-delay: -1s;
+}
+
+.tech-badge.bottom-right {
+  bottom: 60px;
+  right: 0;
+  animation-delay: -3s;
+}
+
+.tech-badge-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+/* ============================================
+   SCROLL INDICATOR
+   ============================================ */
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: fadeIn 1s ease both;
+  animation-delay: 1.5s;
+}
+
+.scroll-text {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.scroll-mouse {
+  width: 26px;
+  height: 42px;
+  border: 2px solid var(--color-border);
+  border-radius: 13px;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+  background: white;
+}
+
+.scroll-wheel {
+  width: 4px;
+  height: 10px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+  animation: bounce 1.5s ease-in-out infinite;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    text-align: center;
+  }
+  
+  .hero-content {
+    order: 2;
+  }
+  
+  .hero-visual {
+    order: 1;
+  }
+  
+  .hero-description {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-cta {
+    justify-content: center;
+  }
+  
+  .hero-info {
+    justify-content: center;
+  }
+  
+  .profile-wrapper {
+    width: 380px;
+    height: 380px;
+  }
+  
+  .profile-circle {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .tech-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 100px 0 60px;
+  }
+  
+  .hero-container {
+    padding: 0 20px;
+    gap: 40px;
+  }
+  
+  .hero-badge {
+    padding: 8px 16px;
+  }
+  
+  .badge-text {
+    font-size: 0.8rem;
+  }
+  
+  .hero-cta {
+    flex-direction: column;
+  }
+  
+  .hero-info {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .info-item {
+    width: 100%;
+  }
+  
+  .profile-wrapper {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .profile-circle {
+    width: 130px;
+    height: 130px;
+  }
+  
+  .orbit-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .orbit-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .orbit-icons-reverse .orbit-icon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .scroll-indicator {
+    display: none;
+  }
+}
