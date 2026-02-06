@@ -13,7 +13,7 @@ const Navbar = ({ onProjectsClick }) => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
       
-      // Update active section based on scroll position
+      // Update active section based on scroll position here
       const sections = ['home', 'about', 'skills', 'experience', 'contact'];
       for (const section of sections.reverse()) {
         const element = document.getElementById(section);
