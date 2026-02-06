@@ -6,7 +6,7 @@ import '../styles/Contact.css';
 
 const CONFIG = {
   email: 'hippolytetchoffo3@gmail.com',
-  phone: '+33 753728781',
+  phone: '+33753728781',
 };
 
 const Contact = ({ onProjectsClick }) => {
