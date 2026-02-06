@@ -93,7 +93,7 @@ const Navbar = ({ onProjectsClick }) => {
           </div>
 
           {/* CV Download */}
-          <a href="/cv-romaric.pdf" download className="navbar-cta">
+          <a href="/pas encore" download className="navbar-cta">
             <Download size={16} />
             <span>CV</span>
           </a>
@@ -136,7 +136,7 @@ const Navbar = ({ onProjectsClick }) => {
                 EN
               </button>
             </div>
-            <a href="/cv-romaric.pdf" download className="navbar-cta">
+            <a href="/romaric.pdf" download className="navbar-cta">
               <Download size={16} />
               <span>CV</span>
             </a>

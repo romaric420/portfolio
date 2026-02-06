@@ -25,13 +25,13 @@ const Footer = () => {
 
           {/* Social Links */}
           <div className="footer-links">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="footer-link">
+            <a href="https://github.com/romaric420" target="_blank" rel="noopener noreferrer" className="footer-link">
               <Github size={18} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="footer-link">
+            <a href="https://www.linkedin.com/in/romaric-tchoffo-b23921250 " target="_blank" rel="noopener noreferrer" className="footer-link">
               <Linkedin size={18} />
             </a>
-            <a href="mailto:contact@example.com" className="footer-link">
+            <a href="hippolytetchoffo3@gmail.com" className="footer-link">
               <Mail size={18} />
             </a>
           </div>

@@ -3,10 +3,10 @@ import { useTranslation } from '../hooks/useTranslation.jsx';
 import { Mail, Phone, FileDown, ArrowRight } from 'lucide-react';
 import '../styles/Contact.css';
 
-// Configuration - MODIFIER ICI
+
 const CONFIG = {
-  email: 'votre.email@example.com',
-  phone: '+33 6 XX XX XX XX',
+  email: 'hippolytetchoffo3@gmail.com',
+  phone: '+33 753728781',
 };
 
 const Contact = ({ onProjectsClick }) => {
@@ -32,7 +32,7 @@ const Contact = ({ onProjectsClick }) => {
       icon: <FileDown size={20} />,
       label: t.cv?.label,
       action: t.cv?.action,
-      href: '/cv-romaric.pdf',
+      href: '/cv/cv_romaric.pdf',
       isDownload: true
     }
   ];

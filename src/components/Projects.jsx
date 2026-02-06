@@ -1,39 +1,38 @@
 import React from 'react';
 import { useTranslation } from '../hooks/useTranslation';
-import { ArrowLeft, ExternalLink, Github, Layers, Shield, Users, TrendingUp, Database, Sparkles } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Layers, Shield, Users, TrendingUp, Sparkles } from 'lucide-react';
 import '../styles/Projects.css';
 
-// Configuration des projets - MODIFIER LES URLs ICI
 const PROJECTS_CONFIG = [
   {
     id: 1,
     icon: Shield,
     color: '#2563eb',
     gradient: 'linear-gradient(135deg, #2563eb 0%, #3b82f6 100%)',
-    image: '/images/churnguard.png',
+    image: '/images/churn.png', // Image intégrée
     tags: ['Python', 'Streamlit', 'Scikit-learn', 'XGBoost', 'Pandas'],
-    liveUrl: '', // Mets ton lien Streamlit ici
-    githubUrl: '', // Mets ton lien GitHub ici
+    liveUrl: 'https://churnguard-app-version-1-0-0.streamlit.app/',
+    githubUrl: 'https://github.com/romaric420/churnguard_app', 
   },
   {
     id: 2,
     icon: Users,
     color: '#7c3aed',
     gradient: 'linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)',
-    image: '/images/talentmatch.png',
+    image: '/images/talen.png', // Image intégrée
     tags: ['Python', 'Streamlit', 'NLP', 'Machine Learning', 'Matching'],
-    liveUrl: '', // Mets ton lien Streamlit ici
-    githubUrl: '', // Mets ton lien GitHub ici
+    liveUrl: 'https://talentmatch-app-version-1.streamlit.app/', 
+    githubUrl: 'https://github.com/romaric420/churnguard_app', 
   },
   {
     id: 3,
     icon: TrendingUp,
     color: '#10b981',
     gradient: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)',
-    image: '/images/priceprediction.png',
+    image: '/images/price.png', // Image intégrée
     tags: ['Python', 'Streamlit', 'Régression', 'Data Analysis', 'Plotly'],
-    liveUrl: '', // Mets ton lien Streamlit ici
-    githubUrl: '', // Mets ton lien GitHub ici
+    liveUrl: 'https://immobilierprice-version-1.streamlit.app/', 
+    githubUrl: 'https://github.com/romaric420/churnguard_app', 
   },
 ];
 
@@ -70,6 +69,7 @@ const Projects = ({ onBack }) => {
       {/* Projects Grid */}
       <div className="projects-grid">
         {PROJECTS_CONFIG.map((project, index) => {
+          // Récupération des textes depuis le JSON de traduction
           const projectData = projectsList[index] || {};
           const IconComponent = project.icon;
           
@@ -83,20 +83,14 @@ const Projects = ({ onBack }) => {
                 <div className="project-card-pattern" />
               </div>
 
-              {/* Image Placeholder */}
+              {/* Image Container - Images intégrées ici */}
               <div className="project-image-container">
-                <div className="project-image-placeholder">
-                  <Database size={40} strokeWidth={1} />
-                  <span>{t.imagePlaceholder || 'Image à venir'}</span>
-                </div>
-                {/* Quand tu auras les images, décommente et adapte:
-                <img 
-                  src={project.image} 
-                  alt={projectData.title}
-                  className="project-image"
-                  loading="lazy"
-                />
-                */}
+                 <img 
+                   src={project.image} 
+                   alt={projectData.title || `Projet ${project.id}`}
+                   className="project-image"
+                   loading="lazy"
+                 />
               </div>
 
               {/* Card Content */}

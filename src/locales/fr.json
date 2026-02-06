@@ -8,11 +8,11 @@
     "contact": "Contact"
   },
   "hero": {
-    "status": "Recherche Alternance • Master 2 IA • Sept. 2026",
+    "status": "Recherche alternance • Master 2 IA • Sept. 2026",
     "name": "Romaric",
     "title1": "Data Scientist",
     "title2": "& MLOps Engineer",
-    "description": "Passionné par l'Intelligence Artificielle et le Machine Learning. Je transforme les données en solutions intelligentes, du preprocessing au déploiement en production.",
+    "description": "Passionné par l’Intelligence Artificielle et le Machine Learning, je transforme les données en solutions intelligentes, du preprocessing au déploiement en production.",
     "cta1": "Voir mes projets",
     "cta2": "Me contacter",
     "location": "France",
@@ -23,14 +23,14 @@
   "about": {
     "sectionNumber": "01",
     "title": "À propos",
-    "paragraph1": "Passionné par la Data Science et l'Intelligence Artificielle, je suis actuellement en Master Expert IA à EPSI Paris. Mon parcours m'a permis de développer une solide expertise en Machine Learning et MLOps.",
-    "paragraph2": "Je maîtrise les pipelines de données, le preprocessing avancé, les tests statistiques et le déploiement de modèles en production. Ma stack inclut Python, SQL avancé, Scikit-learn, XGBoost, et les services cloud.",
-    "paragraph3": "Je recherche une alternance pour mon Master 2 à partir de septembre 2026, où je pourrai mettre en pratique mes compétences et contribuer à des projets data innovants.",
+    "paragraph1": "Passionné par la Data Science et l’Intelligence Artificielle, je suis actuellement en Master Expert IA à EPSI Paris. Mon parcours m’a permis de développer des compétences en Machine Learning et en MLOps.",
+    "paragraph2": "Je suis capable de concevoir des pipelines de données, le preprocessing, des tests statistiques et le déploiement de modèles en production. Ma stack inclut Python, SQL, Scikit-learn, Streamlit, GCP et bien d’autres.",
+    "paragraph3": "Je recherche une alternance pour mon Master 2 à partir de septembre 2026, afin de mettre en pratique mes compétences, contribuer à des projets data innovants et continuer à monter en compétences.",
     "traitsTitle": "Soft Skills",
-    "traits": ["Rigoureux", "Curieux", "Autonome", "Team Player", "Problem Solver"],
-    "objectiveTitle": "Mon Objectif",
-    "objectiveText": "Devenir un expert en Data Science capable de concevoir, développer et déployer des solutions ML end-to-end qui créent de la valeur business.",
-    "hobbiesTitle": "Centres d'intérêt",
+    "traits": ["Rigoureux", "Curieux", "Autonome", "Esprit d’équipe", "Problem Solver"],
+    "objectiveTitle": "Mon objectif",
+    "objectiveText": "Devenir un expert en Data Science capable de concevoir, développer et déployer des solutions de Machine Learning créant de la valeur business.",
+    "hobbiesTitle": "Centres d’intérêt",
     "fitness": "Fitness",
     "reading": "Lecture"
   },
@@ -47,8 +47,7 @@
           { "name": "NumPy" },
           { "name": "Polars" },
           { "name": "Scikit-learn" },
-          { "name": "XGBoost" },
-          { "name": "SQL Avancé" },
+          { "name": "SQL" },
           { "name": "Plotly" },
           { "name": "Matplotlib" }
         ]
@@ -61,17 +60,18 @@
           { "name": "GCP" },
           { "name": "Streamlit" },
           { "name": "MLflow" },
+          { "name": "DVC" },
           { "name": "CI/CD" },
           { "name": "Git" }
         ]
       },
       "mathematics": {
-        "title": "Mathématiques IA",
+        "title": "Mathématiques pour l’IA",
         "icon": "calculator",
         "skills": [
-          { "name": "Statistiques et Probabilités" },
+          { "name": "Statistiques et probabilités" },
           { "name": "Algèbre linéaire" },
-          { "name": "Analyse et Calcul Mathématique" }
+          { "name": "Analyse et nombres complexes" }
         ]
       },
       "mlAlgorithms": {
@@ -82,34 +82,34 @@
           { "name": "Arbres de décision" },
           { "name": "K-Nearest Neighbors" },
           { "name": "Support Vector Machines" },
-          { "name": "Méthodes Ensemblistes" },
+          { "name": "Méthodes ensemblistes" },
           { "name": "Clustering" },
-          { "name": "Réduction dimensionnelle" }
+          { "name": "Réduction de dimension" }
         ]
       }
     }
   },
   "projects": {
     "sectionNumber": "03",
-    "title": "Mes Projets",
-    "subtitle": "Applications Data Science déployées sur Streamlit Cloud",
-    "backButton": "Retour à l'accueil",
+    "title": "Mes projets",
+    "subtitle": "Applications de Data Science déployées sur Streamlit Cloud",
+    "backButton": "Retour à l’accueil",
     "viewLive": "Voir le projet",
     "comingSoon": "Lien à venir",
     "imagePlaceholder": "Image à venir",
-    "ctaText": "D'autres projets arrivent bientôt !",
+    "ctaText": "D’autres projets arrivent bientôt !",
     "list": [
       {
         "title": "ChurnGuard",
-        "description": "Application de prédiction du churn client avec Machine Learning. Dashboard interactif avec analyse des features, visualisation des résultats et recommandations personnalisées pour la rétention."
+        "description": "Application de prédiction du churn client basée sur le Machine Learning. Dashboard interactif avec analyse des features, visualisation des résultats et recommandations personnalisées pour la rétention."
       },
       {
         "title": "TalentMatch",
-        "description": "Système intelligent de matching candidats-offres d'emploi utilisant le NLP et le Machine Learning. Analyse sémantique des CV et des descriptions de postes pour des recommandations précises."
+        "description": "Système intelligent de matching candidats–offres d’emploi utilisant le NLP et le Machine Learning. Analyse sémantique des CV et des descriptions de postes pour des recommandations précises."
       },
       {
         "title": "PricePrediction",
-        "description": "Modèle de prédiction de prix immobiliers avec régression avancée. Interface intuitive permettant d'estimer la valeur d'un bien selon ses caractéristiques et sa localisation."
+        "description": "Modèle de prédiction de prix immobiliers basé sur des techniques de régression avancées. Interface intuitive permettant d’estimer la valeur d’un bien selon ses caractéristiques et sa localisation."
       }
     ]
   },
@@ -122,11 +122,11 @@
     "formation": "Formation",
     "experiences": [
       {
-        "period": "2024 - Présent",
+        "period": "Mai-2025- Présent",
         "title": "Développeur Full Stack & IA",
         "company": "AALIA.TECH",
-        "description": "Développement de solutions de traduction médicale avec IA. Création d'interfaces React et intégration d'APIs.",
-        "skills": ["React", "Python", "APIs", "IA"]
+        "description": "Dév Full stack",
+        "skills": ["React", "Python", "API", "IA","Flutter"]
       }
     ],
     "formations": [
@@ -141,8 +141,8 @@
         "period": "2024 - 2025",
         "title": "Bachelor Data Science & IA",
         "company": "EPSI",
-        "description": "Fondamentaux de la Data Science, Python, SQL, Visualisation.",
-        "skills": ["Python", "SQL", "ETL", "Data Viz"]
+        "description": "Fondamentaux de la Data Science, Python, SQL, visualisation de données.",
+        "skills": ["Python", "SQL", "ETL", "Data Visualization"]
       },
       {
         "period": "2022 - 2023",
@@ -160,16 +160,16 @@
     "email": {
       "label": "Email",
       "action": "Cliquer pour envoyer",
-      "value": "votre.email@example.com"
+      "value": "hippolytetchoffo3@gmail.com"
     },
     "phone": {
       "label": "Téléphone",
       "action": "Appeler directement",
-      "value": "+33 6 XX XX XX XX"
+      "value": "+33 753728781"
     },
     "cv": {
       "label": "CV",
-      "action": "Télécharger PDF"
+      "action": "Télécharger le PDF"
     }
   },
   "footer": {

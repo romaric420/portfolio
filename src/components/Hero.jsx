@@ -3,13 +3,13 @@ import { useTranslation } from '../hooks/useTranslation';
 import { MapPin, GraduationCap } from 'lucide-react';
 import '../styles/Hero.css';
 
-// Configuration - MODIFIER ICI
+
 const CONFIG = {
   profileImage: '/images/profile.jpg',
   name: 'Romaric',
 };
 
-// Icônes SVG modernes pour l'orbite externe
+
 const PythonIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="url(#pythonGrad)" strokeWidth="1.5">
     <defs>

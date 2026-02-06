@@ -4,32 +4,32 @@
     "about": "About",
     "skills": "Skills",
     "projects": "Projects",
-    "experience": "Experience",
+    "experience": "Background",
     "contact": "Contact"
   },
   "hero": {
-    "status": "Looking for Apprenticeship • Master 2 AI • Sept. 2026",
+    "status": "Looking for an apprenticeship • MSc AI • Sept. 2026",
     "name": "Romaric",
     "title1": "Data Scientist",
     "title2": "& MLOps Engineer",
-    "description": "Passionate about Artificial Intelligence and Machine Learning. I transform data into intelligent solutions, from preprocessing to production deployment.",
+    "description": "Passionate about Artificial Intelligence and Machine Learning, I turn data into intelligent solutions, from preprocessing to production deployment.",
     "cta1": "View my projects",
     "cta2": "Contact me",
     "location": "France",
-    "mobile": "Flexible location",
+    "mobile": "Available nationwide",
     "school": "EPSI Paris",
-    "degree": "Master AI Expert"
+    "degree": "MSc AI Expert"
   },
   "about": {
     "sectionNumber": "01",
-    "title": "About Me",
-    "paragraph1": "Passionate about Data Science and Artificial Intelligence, I am currently pursuing a Master's in AI at EPSI Paris. My journey has allowed me to develop strong expertise in Machine Learning and MLOps.",
-    "paragraph2": "I master data pipelines, advanced preprocessing, statistical testing, and model deployment in production. My stack includes Python, advanced SQL, Scikit-learn, XGBoost, and cloud services.",
-    "paragraph3": "I am looking for an apprenticeship for my Master 2 starting September 2026, where I can apply my skills and contribute to innovative data projects.",
+    "title": "About me",
+    "paragraph1": "Passionate about Data Science and Artificial Intelligence, I am currently pursuing a Master’s degree in AI at EPSI Paris. My academic background has allowed me to develop strong skills in Machine Learning and MLOps.",
+    "paragraph2": "I am able to design data pipelines, perform preprocessing, run statistical tests, and deploy models into production. My tech stack includes Python, SQL, Scikit-learn, Streamlit, GCP, and more.",
+    "paragraph3": "I am looking for an apprenticeship for my Master 2 starting in September 2026, where I can apply my skills, contribute to innovative data projects, and continue to grow professionally.",
     "traitsTitle": "Soft Skills",
-    "traits": ["Rigorous", "Curious", "Autonomous", "Team Player", "Problem Solver"],
+    "traits": ["Detail-oriented", "Curious", "Autonomous", "Team Player", "Problem Solver"],
     "objectiveTitle": "My Goal",
-    "objectiveText": "Become a Data Science expert capable of designing, developing, and deploying end-to-end ML solutions that create business value.",
+    "objectiveText": "To become a Data Science expert capable of designing, developing, and deploying Machine Learning solutions that create business value.",
     "hobbiesTitle": "Interests",
     "fitness": "Fitness",
     "reading": "Reading"
@@ -47,8 +47,7 @@
           { "name": "NumPy" },
           { "name": "Polars" },
           { "name": "Scikit-learn" },
-          { "name": "XGBoost" },
-          { "name": "Advanced SQL" },
+          { "name": "SQL" },
           { "name": "Plotly" },
           { "name": "Matplotlib" }
         ]
@@ -61,6 +60,7 @@
           { "name": "GCP" },
           { "name": "Streamlit" },
           { "name": "MLflow" },
+          { "name": "DVC" },
           { "name": "CI/CD" },
           { "name": "Git" }
         ]
@@ -69,9 +69,9 @@
         "title": "AI Mathematics",
         "icon": "calculator",
         "skills": [
-          { "name": "Statistics & Probability" },
+          { "name": "Statistics and Probability" },
           { "name": "Linear Algebra" },
-          { "name": "Analysis & Calculus" }
+          { "name": "Calculus and Complex Numbers" }
         ]
       },
       "mlAlgorithms": {
@@ -96,57 +96,57 @@
     "backButton": "Back to home",
     "viewLive": "View project",
     "comingSoon": "Coming soon",
-    "imagePlaceholder": "Image coming",
+    "imagePlaceholder": "Image coming soon",
     "ctaText": "More projects coming soon!",
     "list": [
       {
         "title": "ChurnGuard",
-        "description": "Customer churn prediction application with Machine Learning. Interactive dashboard with feature analysis, results visualization, and personalized retention recommendations."
+        "description": "Customer churn prediction application using Machine Learning. Interactive dashboard with feature analysis, result visualization, and personalized retention recommendations."
       },
       {
         "title": "TalentMatch",
-        "description": "Intelligent candidate-job matching system using NLP and Machine Learning. Semantic analysis of CVs and job descriptions for precise recommendations."
+        "description": "Intelligent job–candidate matching system using NLP and Machine Learning. Semantic analysis of resumes and job descriptions for accurate recommendations."
       },
       {
         "title": "PricePrediction",
-        "description": "Real estate price prediction model with advanced regression. Intuitive interface to estimate property value based on characteristics and location."
+        "description": "Real estate price prediction model using advanced regression techniques. Intuitive interface to estimate property value based on features and location."
       }
     ]
   },
   "experience": {
     "sectionNumber": "04",
-    "title": "Experience",
-    "experienceTitle": "Work Experience",
+    "title": "Background",
+    "experienceTitle": "Experience",
     "formationTitle": "Education",
     "experienceLabel": "Experience",
     "formation": "Education",
     "experiences": [
       {
-        "period": "2024 - Present",
+        "period": "Mai-2025 - Present",
         "title": "Full Stack & AI Developer",
         "company": "AALIA.TECH",
-        "description": "Development of AI-powered medical translation solutions. Creating React interfaces and API integrations.",
-        "skills": ["React", "Python", "APIs", "AI"]
+        "description": "Dev Full-stack",
+        "skills": ["React", "Python", "API", "AI","Flutter"]
       }
     ],
     "formations": [
       {
         "period": "2025 - 2026 (ongoing)",
-        "title": "Master 1 AI Expert",
+        "title": "MSc 1 AI Expert",
         "company": "EPSI Paris",
         "description": "Machine Learning, Deep Learning, MLOps, Cloud Computing, Data Engineering.",
         "skills": ["ML", "Deep Learning", "Statistics", "MLOps", "Cloud"]
       },
       {
         "period": "2024 - 2025",
-        "title": "Bachelor Data Science & AI",
+        "title": "Bachelor in Data Science & AI",
         "company": "EPSI",
-        "description": "Data Science fundamentals, Python, SQL, Visualization.",
-        "skills": ["Python", "SQL", "ETL", "Data Viz"]
+        "description": "Fundamentals of Data Science, Python, SQL, data visualization.",
+        "skills": ["Python", "SQL", "ETL", "Data Visualization"]
       },
       {
         "period": "2022 - 2023",
-        "title": "Software Engineering Degree",
+        "title": "Bachelor’s Degree in Software Engineering",
         "company": "ISSAM Cameroon",
         "description": "Software development, data structures, algorithms, databases.",
         "skills": ["Java", "SQL", "Algorithms", "React", "Laravel"]
@@ -155,17 +155,17 @@
   },
   "contact": {
     "sectionNumber": "05",
-    "title": "Let's Work Together",
-    "subtitle": "I'm looking for an apprenticeship for my Master 2 starting September 2026. Flexible location in France!",
+    "title": "Let’s work together",
+    "subtitle": "I am looking for an apprenticeship for my Master 2 starting in September 2026. Available throughout France!",
     "email": {
       "label": "Email",
       "action": "Click to send",
-      "value": "your.email@example.com"
+      "value": "hippolytetchoffo3@gmail.com"
     },
     "phone": {
       "label": "Phone",
       "action": "Call directly",
-      "value": "+33 6 XX XX XX XX"
+      "value": "+33 753728781"
     },
     "cv": {
       "label": "Resume",

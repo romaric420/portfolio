@@ -9,6 +9,7 @@ const Experience = () => {
   const t = translations.experience || {};
   const experiences = t.experiences || [];
   const formations = t.formations || [];
+   console.log('experiences:', experiences);
 
   return (
     <section id="experience" className="section experience-section">
