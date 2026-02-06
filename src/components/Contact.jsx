@@ -32,7 +32,7 @@ const Contact = ({ onProjectsClick }) => {
       icon: <FileDown size={20} />,
       label: t.cv?.label,
       action: t.cv?.action,
-      href: '/cv/cv_romaric.pdf',
+      href: '/cv/CV_2026-02-06_Romaric_TCHOFFO.pdf',
       isDownload: true
     }
   ];
