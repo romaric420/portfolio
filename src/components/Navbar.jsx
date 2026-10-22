@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { Download, ArrowUpRight } from 'lucide-react';
+import { goToSection } from '../utils/sectionTransition';
 import '../styles/Navbar.css';
 
 const MOBILE_BREAKPOINT = 1024;
@@ -94,7 +95,7 @@ const Navbar = ({ onProjectsClick }) => {
       if (sectionId === 'projects') {
         onProjectsClick();
       } else {
-        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+        goToSection(sectionId);
       }
     };
 
@@ -191,7 +192,6 @@ const Navbar = ({ onProjectsClick }) => {
                   onClick={() => scrollToSection(item.id)}
                   tabIndex={mobileOpen ? 0 : -1}
                 >
-                  <span className="mobile-link-index">{String(i + 1).padStart(2, '0')}</span>
                   <span className="mobile-link-label">{item.label}</span>
                   <ArrowUpRight className="mobile-link-arrow" size={18} />
                 </button>

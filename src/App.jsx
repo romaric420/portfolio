@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LanguageProvider } from './hooks/useTranslation.jsx';
 import useReveal from './hooks/useReveal';
+import { pageTransition } from './utils/sectionTransition';
 
 // Components
 import AIBackground from './components/AIBackground';
@@ -25,13 +26,11 @@ function Pages() {
   useReveal([currentPage]);
 
   const handleProjectsClick = () => {
-    setCurrentPage('projects');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    pageTransition(() => setCurrentPage('projects'), 'to-projects');
   };
 
   const handleBackToHome = () => {
-    setCurrentPage('home');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    pageTransition(() => setCurrentPage('home'), 'to-home');
   };
 
   return (

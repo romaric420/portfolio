@@ -3,6 +3,7 @@ import { useTranslation } from '../hooks/useTranslation';
 import { MapPin, GraduationCap, Award, ArrowRight } from 'lucide-react';
 import useCarousel, { CAROUSEL_QUERY, useMediaQuery } from '../hooks/useCarousel';
 import CarouselDots from './CarouselDots';
+import { goToSection } from '../utils/sectionTransition';
 import '../styles/Hero.css';
 
 
@@ -165,7 +166,7 @@ const Hero = ({ onProjectsClick }) => {
   const { active, previous, backwards } = carousel;
 
   const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    goToSection('contact');
   };
 
   return (

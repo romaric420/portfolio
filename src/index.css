@@ -317,6 +317,154 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(37, 99, 235, 0.45), rgba(124, 58, 237, 0.45)); border-radius: 10px; border: 2px solid var(--bg-secondary); }
 
 /* ============================================================
+   TRANSITIONS DE NAVIGATION
+   ============================================================ */
+
+/* Barre de trajet en haut de l'écran, couleur propre à chaque section */
+.nav-travel-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  height: 3px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  box-shadow: 0 0 12px rgba(79, 70, 229, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+
+.nav-travel-bar.active {
+  opacity: 1;
+  transition: opacity 0.15s var(--ease);
+}
+
+/* Entrées à l'arrivée sur chaque section */
+.arrive-home > * { animation: arrive-home 1.1s var(--ease) both; }
+.arrive-about > * { animation: arrive-about 1s var(--ease) both; }
+.arrive-skills > * { animation: arrive-skills 1.1s var(--ease) both; }
+.arrive-experience > * { animation: arrive-experience 1.1s var(--ease) both; }
+.arrive-contact > * { animation: arrive-contact 1.2s var(--ease) both; }
+
+/* Accueil : léger dézoom qui se met au point */
+@keyframes arrive-home {
+  from { opacity: 0.35; transform: scale(1.06); filter: blur(10px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+/* À propos : glisse depuis la gauche en se redressant */
+@keyframes arrive-about {
+  from { opacity: 0.2; transform: translateX(-70px) skewX(4deg); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Compétences : surgit du flou en grossissant */
+@keyframes arrive-skills {
+  from { opacity: 0; transform: scale(0.9); filter: blur(14px) saturate(1.6); }
+  60% { filter: blur(0) saturate(1.2); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+/* Parcours : se déroule de haut en bas */
+@keyframes arrive-experience {
+  from { clip-path: inset(0 0 100% 0); transform: translateY(40px); }
+  to { clip-path: inset(0 0 -10% 0); transform: none; }
+}
+
+/* Contact : s'ouvre en cercle depuis le centre */
+@keyframes arrive-contact {
+  from { clip-path: circle(0% at 50% 45%); transform: scale(0.96); }
+  to { clip-path: circle(150% at 50% 45%); transform: none; }
+}
+
+/* Rideau plein écran pour les changements de page */
+.page-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: grid;
+  place-items: center;
+  pointer-events: all;
+}
+
+.page-curtain::after {
+  content: 'R';
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  animation: curtain-logo 0.9s var(--ease) both;
+}
+
+/* Vers les projets : balayage sombre de droite à gauche */
+.page-curtain.to-projects {
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(14, 165, 233, 0.45), transparent 45%),
+    radial-gradient(ellipse at 85% 75%, rgba(124, 58, 237, 0.55), transparent 45%),
+    linear-gradient(135deg, #0c1424 0%, #101b32 54%, #14243a 100%);
+  animation: curtain-in-right 0.6s cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+.page-curtain.to-projects.leave {
+  animation: curtain-out-left 0.7s cubic-bezier(0.76, 0, 0.24, 1) 0.15s both;
+}
+
+/* Retour à l'accueil : vague en dégradé qui monte du bas */
+.page-curtain.to-home {
+  background:
+    radial-gradient(ellipse at 80% 15%, rgba(236, 72, 153, 0.35), transparent 45%),
+    linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #7c3aed 100%);
+  animation: curtain-in-up 0.65s cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+.page-curtain.to-home.leave {
+  animation: curtain-out-up 0.7s cubic-bezier(0.76, 0, 0.24, 1) 0.15s both;
+}
+
+.page-curtain.leave::after {
+  animation: curtain-logo-out 0.4s var(--ease) both;
+}
+
+@keyframes curtain-in-right {
+  from { clip-path: inset(0 0 0 100%); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes curtain-out-left {
+  from { clip-path: inset(0 0 0 0); }
+  to { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes curtain-in-up {
+  from { clip-path: circle(0% at 50% 110%); }
+  to { clip-path: circle(150% at 50% 110%); }
+}
+
+@keyframes curtain-out-up {
+  from { clip-path: inset(0 0 0 0); }
+  to { clip-path: inset(0 0 100% 0); }
+}
+
+@keyframes curtain-logo {
+  from { opacity: 0; transform: scale(0.6) rotate(-12deg); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes curtain-logo-out {
+  to { opacity: 0; transform: scale(1.2); }
+}
+
+/* ============================================================
    ACCESSIBILITÉ : MOINS D'ANIMATIONS
    ============================================================ */
 
