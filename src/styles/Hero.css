@@ -1,552 +1,416 @@
-/* ============================================
-   HERO SECTION - Modern Light Design
-   ============================================ */
+/* ============================================================
+   HERO
+   ============================================================ */
 
 .hero {
+  position: relative;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
-  position: relative;
-  padding: 120px 0 80px;
+  padding: 130px 0 90px;
   overflow: hidden;
 }
 
-/* Decorative Background Elements */
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: float 20s ease-in-out infinite;
-  pointer-events: none;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -30%;
-  left: -10%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: float 25s ease-in-out infinite reverse;
-  pointer-events: none;
-}
-
 .hero-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 32px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
   position: relative;
   z-index: 2;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
 }
 
-/* ============================================
-   LEFT CONTENT
-   ============================================ */
+/* ---------- Colonne gauche ---------- */
 
-.hero-content {
-  animation: fadeInLeft 0.8s ease both;
-}
+.hero-content { min-width: 0; }
 
-/* Status Badge */
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: white;
-  padding: 10px 20px;
+  padding: 9px 18px 9px 14px;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-card);
-  border: 1px solid var(--color-border);
-  margin-bottom: 32px;
-  animation: fadeInDown 0.6s ease both;
-  animation-delay: 0.2s;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  box-shadow: 0 6px 22px rgba(16, 185, 129, 0.12);
+  margin-bottom: 30px;
+  animation: fadeInDown 0.7s var(--ease) both 0.1s;
 }
 
-.badge-dot-container {
-  position: relative;
-  width: 12px;
-  height: 12px;
-}
+.badge-dot-container { position: relative; width: 10px; height: 10px; flex-shrink: 0; }
+.badge-dot, .badge-ring { position: absolute; inset: 0; border-radius: 50%; }
+.badge-dot { background: linear-gradient(135deg, #10b981, #06b6d4); }
+.badge-ring { border: 2px solid #10b981; animation: pulse-ring 2s ease-out infinite; }
 
-.badge-dot {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: linear-gradient(135deg, #10b981, #06b6d4);
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
+.badge-text { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
 
-.badge-ring {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border: 2px solid #10b981;
-  border-radius: 50%;
-  animation: pulse-ring 2s ease-in-out infinite;
-}
-
-.badge-text {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--color-text);
-  letter-spacing: -0.02em;
-}
-
-/* Title */
-.hero-title {
-  margin-bottom: 28px;
-}
+.hero-title { margin-bottom: 26px; }
 
 .hero-name {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-size: clamp(3.1rem, 7vw, 5.2rem);
   font-weight: 700;
-  color: var(--color-text);
-  line-height: 1.1;
-  margin-bottom: 8px;
-  animation: fadeInUp 0.7s ease both;
-  animation-delay: 0.3s;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+  animation: fadeInUp 0.8s var(--ease) both 0.2s;
 }
 
 .hero-role {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
   font-weight: 700;
-  background: var(--gradient-primary);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  background: linear-gradient(110deg, #2563eb, #4f46e5, #7c3aed, #2563eb);
+  background-size: 250% 100%;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
-  line-height: 1.2;
-  animation: fadeInUp 0.7s ease both;
-  animation-delay: 0.4s;
+  -webkit-text-fill-color: transparent;
+  animation: fadeInUp 0.8s var(--ease) both 0.3s, gradientShift 8s ease-in-out infinite;
 }
 
 .hero-subtitle {
   display: block;
+  margin-top: 6px;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
   font-weight: 600;
-  color: var(--color-text-secondary);
-  line-height: 1.3;
-  animation: fadeInUp 0.7s ease both;
-  animation-delay: 0.5s;
+  letter-spacing: -0.03em;
+  color: #334155;
+  animation: fadeInUp 0.8s var(--ease) both 0.4s;
 }
 
-/* Description */
 .hero-description {
-  font-size: 1.15rem;
-  color: var(--color-text-secondary);
-  line-height: 1.8;
+  max-width: 560px;
+  font-size: clamp(1.02rem, 1.4vw, 1.14rem);
+  color: var(--text-secondary);
   margin-bottom: 36px;
-  max-width: 520px;
-  animation: fadeInUp 0.7s ease both;
-  animation-delay: 0.6s;
+  animation: fadeInUp 0.8s var(--ease) both 0.5s;
 }
 
-/* CTA Buttons */
 .hero-cta {
   display: flex;
-  gap: 16px;
-  margin-bottom: 48px;
-  animation: fadeInUp 0.7s ease both;
-  animation-delay: 0.7s;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 44px;
+  animation: fadeInUp 0.8s var(--ease) both 0.6s;
 }
 
-/* Info Items */
 .hero-info {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
-  animation: fadeInUp 0.7s ease both;
-  animation-delay: 0.8s;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 640px;
 }
 
 .info-item {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 16px 20px;
-  background: white;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px 14px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--color-border);
-  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+  animation: fadeInUp 0.8s var(--ease) both;
+  animation-delay: calc(0.7s + var(--i, 0) * 0.1s);
 }
 
-.info-item:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-border-hover);
-}
+.info-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-card-hover); border-color: var(--color-border-hover); }
 
-.info-icon {
-  color: var(--color-primary);
+.info-icon-wrap {
   flex-shrink: 0;
-  margin-top: 2px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  color: var(--accent-blue);
+  background: var(--gradient-soft);
+  border: 1px solid rgba(37, 99, 235, 0.12);
 }
 
-.info-text {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 2px;
-}
+.info-texts { min-width: 0; }
+.info-text { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); line-height: 1.3; }
+.info-sub { font-size: 0.78rem; color: var(--text-muted); line-height: 1.35; margin-top: 2px; }
 
-.info-sub {
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-}
-
-/* ============================================
-   RIGHT VISUAL - Profile with Orbits
-   ============================================ */
+/* ---------- Colonne droite : photo et orbites ---------- */
 
 .hero-visual {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeInRight 0.8s ease both;
-  animation-delay: 0.4s;
+  animation: fadeIn 1.2s var(--ease) both 0.3s;
 }
 
 .profile-wrapper {
+  --size: min(480px, 40vw);
   position: relative;
-  width: 480px;
-  height: 480px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: var(--size);
+  aspect-ratio: 1 / 1;
 }
 
-/* Orbit Rings */
 .orbit-ring {
   position: absolute;
   border-radius: 50%;
-  border: 1px dashed rgba(37, 99, 235, 0.2);
-  pointer-events: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.orbit-ring-1 {
-  width: 100%;
-  height: 100%;
-  animation: rotate 60s linear infinite;
-}
-
-.orbit-ring-2 {
-  width: 75%;
-  height: 75%;
-  animation: rotate 45s linear infinite reverse;
-  border-color: rgba(124, 58, 237, 0.15);
-}
-
+.orbit-ring-1 { width: 100%; height: 100%; border: 1px dashed rgba(79, 70, 229, 0.22); }
+.orbit-ring-2 { width: 70%; height: 70%; border: 1px solid rgba(37, 99, 235, 0.14); }
 .orbit-ring-3 {
-  width: 50%;
-  height: 50%;
-  animation: rotate 30s linear infinite;
-  border-color: rgba(6, 182, 212, 0.2);
+  width: 46%;
+  height: 46%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.1), transparent 70%);
 }
 
-/* Orbiting Icons Container */
-.orbit-icons {
+/* Couronnes d'icônes qui tournent */
+.orbit-icons, .orbit-icons-reverse { position: absolute; inset: 0; }
+.orbit-icons { animation: spin 70s linear infinite; --r: 50%; }
+.orbit-icons-reverse { animation: spin-reverse 55s linear infinite; --r: 35%; }
+
+.orbit-slot {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  animation: rotate 40s linear infinite;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--a)) translateX(calc(var(--size) * 0.5));
 }
 
-.orbit-icons-reverse {
-  position: absolute;
-  width: 70%;
-  height: 70%;
-  animation: rotate 30s linear infinite reverse;
-}
+.orbit-icons-reverse .orbit-slot { transform: rotate(var(--a)) translateX(calc(var(--size) * 0.35)); }
 
-/* Orbit Icon Positions */
 .orbit-icon {
   position: absolute;
-  width: 52px;
-  height: 52px;
-  background: white;
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--color-border);
-  transition: all var(--transition-normal);
-  animation: rotate 40s linear infinite reverse;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  margin: -25px 0 0 -25px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border-light);
+  border-radius: 15px;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+  /* garde l'icône droite pendant la rotation */
+  transform: rotate(calc(-1 * var(--a)));
+  animation: spin-reverse 70s linear infinite;
 }
 
 .orbit-icons-reverse .orbit-icon {
-  width: 44px;
-  height: 44px;
-  animation: rotate 30s linear infinite;
+  width: 42px;
+  height: 42px;
+  margin: -21px 0 0 -21px;
+  border-radius: 12px;
+  animation: spin 55s linear infinite;
 }
 
-.orbit-icon:hover {
-  transform: scale(1.15);
-  box-shadow: var(--shadow-lg);
-  z-index: 10;
-}
+.orbit-icon svg { width: 24px; height: 24px; }
+.orbit-icons-reverse .orbit-icon svg { width: 20px; height: 20px; }
 
-.orbit-icon svg {
-  width: 26px;
-  height: 26px;
-}
+/* Compense l'angle initial : on anime une rotation additionnelle autour de -a */
+.orbit-icons .orbit-icon { animation-name: orbit-upright; }
+.orbit-icons-reverse .orbit-icon { animation-name: orbit-upright-rev; }
 
-.orbit-icons-reverse .orbit-icon svg {
-  width: 22px;
-  height: 22px;
-}
+@keyframes orbit-upright { from { transform: rotate(calc(-1 * var(--a))); } to { transform: rotate(calc(-1 * var(--a) - 360deg)); } }
+@keyframes orbit-upright-rev { from { transform: rotate(calc(-1 * var(--a))); } to { transform: rotate(calc(-1 * var(--a) + 360deg)); } }
 
-/* Outer orbit positions (8 icons) */
-.pos-1 { top: 0; left: 50%; transform: translate(-50%, -50%); }
-.pos-2 { top: 15%; right: 0; transform: translate(50%, -50%); }
-.pos-3 { top: 50%; right: 0; transform: translate(50%, -50%); }
-.pos-4 { bottom: 15%; right: 0; transform: translate(50%, 50%); }
-.pos-5 { bottom: 0; left: 50%; transform: translate(-50%, 50%); }
-.pos-6 { bottom: 15%; left: 0; transform: translate(-50%, 50%); }
-.pos-7 { top: 50%; left: 0; transform: translate(-50%, -50%); }
-.pos-8 { top: 15%; left: 0; transform: translate(-50%, -50%); }
-
-/* Inner orbit positions (4 icons) */
-.inner-1 { top: 5%; left: 50%; transform: translate(-50%, -50%); }
-.inner-2 { top: 50%; right: 5%; transform: translate(50%, -50%); }
-.inner-3 { bottom: 5%; left: 50%; transform: translate(-50%, 50%); }
-.inner-4 { top: 50%; left: 5%; transform: translate(-50%, -50%); }
-
-/* Profile Circle */
-.profile-circle {
-  position: relative;
-  width: 200px;
-  height: 200px;
+/* Photo */
+.profile-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 52%;
+  height: 52%;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: var(--gradient-primary);
-  padding: 4px;
-  box-shadow: 
-    0 0 0 4px white,
-    var(--shadow-lg),
-    0 0 60px rgba(37, 99, 235, 0.25);
-  animation: glow 3s ease-in-out infinite;
-  z-index: 5;
+  background: conic-gradient(from 0deg, #2563eb, #06b6d4, #7c3aed, #2563eb);
+  filter: blur(26px);
+  opacity: 0.35;
+  animation: spin 12s linear infinite;
+}
+
+.profile-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  padding: 5px;
+  background: conic-gradient(from 210deg, #2563eb, #7c3aed, #06b6d4, #2563eb);
+  box-shadow: 0 24px 60px rgba(79, 70, 229, 0.28);
+  z-index: 2;
 }
 
 .profile-circle-inner {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: white;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #fff;
+  border: 4px solid #fff;
+  display: grid;
+  place-items: center;
 }
 
-.profile-circle-inner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.profile-circle-inner img { width: 100%; height: 100%; object-fit: cover; }
+.profile-emoji { font-size: 4rem; }
 
-.profile-emoji {
-  font-size: 80px;
-  line-height: 1;
-}
-
-/* Floating Tech Badges */
+/* Badges flottants */
 .tech-badge {
   position: absolute;
-  background: white;
-  padding: 12px 18px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  border: 1px solid var(--color-border);
-  z-index: 6;
-  animation: float 5s ease-in-out infinite;
-}
-
-.tech-badge.top-left {
-  top: 60px;
-  left: 0;
-  animation-delay: -1s;
-}
-
-.tech-badge.bottom-right {
-  bottom: 60px;
-  right: 0;
-  animation-delay: -3s;
-}
-
-.tech-badge-text {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-text);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  animation: floatY 6s ease-in-out infinite;
   white-space: nowrap;
 }
 
-/* ============================================
-   SCROLL INDICATOR
-   ============================================ */
+.tech-badge.top-left { top: 14%; left: -4%; }
+.tech-badge.bottom-right { bottom: 14%; right: -4%; animation-delay: -3s; }
 
+.tech-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gradient-primary); box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12); }
+.tech-badge-text { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; color: var(--text-primary); }
+
+/* Indicateur de scroll */
 .scroll-indicator {
   position: absolute;
-  bottom: 40px;
+  bottom: 28px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  animation: fadeIn 1s ease both;
-  animation-delay: 1.5s;
+  gap: 10px;
+  z-index: 2;
+  animation: fadeIn 1s var(--ease) both 1.2s;
 }
 
-.scroll-text {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.scroll-text { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); }
+.scroll-mouse { width: 24px; height: 38px; border: 2px solid rgba(100, 116, 139, 0.45); border-radius: 14px; display: flex; justify-content: center; padding-top: 7px; }
+.scroll-wheel { width: 3px; height: 8px; border-radius: 3px; background: var(--gradient-primary); animation: floatY 1.6s ease-in-out infinite; }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1100px) {
+  .hero-info { grid-template-columns: 1fr 1fr; }
+  .hero-info .info-item:last-child { grid-column: span 2; }
 }
 
-.scroll-mouse {
-  width: 26px;
-  height: 42px;
-  border: 2px solid var(--color-border);
-  border-radius: 13px;
-  display: flex;
-  justify-content: center;
-  padding-top: 8px;
-  background: white;
+@media (max-width: 960px) {
+  .hero { padding: 120px 0 90px; min-height: auto; }
+  .hero-container { grid-template-columns: 1fr; text-align: center; gap: 56px; }
+  .hero-content { display: flex; flex-direction: column; align-items: center; }
+  .hero-description { margin-left: auto; margin-right: auto; }
+  .hero-cta { justify-content: center; }
+  .hero-info { grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; text-align: left; }
+  .hero-info .info-item:last-child { grid-column: auto; }
+  .hero-visual { order: -1; }
+  .profile-wrapper { --size: min(380px, 82vw); }
+  .scroll-indicator { display: none; }
 }
 
-.scroll-wheel {
-  width: 4px;
-  height: 10px;
-  background: var(--gradient-primary);
-  border-radius: 2px;
-  animation: bounce 1.5s ease-in-out infinite;
+@media (max-width: 680px) {
+  .hero-info { grid-template-columns: 1fr; max-width: 420px; }
+  .tech-badge.top-left { left: -2%; top: 6%; }
+  .tech-badge.bottom-right { right: -2%; bottom: 6%; }
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-
-@media (max-width: 1024px) {
-  .hero-container {
-    grid-template-columns: 1fr;
-    gap: 60px;
-    text-align: center;
-  }
-  
-  .hero-content {
-    order: 2;
-  }
-  
-  .hero-visual {
-    order: 1;
-  }
-  
-  .hero-description {
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .hero-cta {
-    justify-content: center;
-  }
-  
-  .hero-info {
-    justify-content: center;
-  }
-  
-  .profile-wrapper {
-    width: 380px;
-    height: 380px;
-  }
-  
-  .profile-circle {
-    width: 160px;
-    height: 160px;
-  }
-  
-  .tech-badge {
-    display: none;
-  }
+@media (max-width: 480px) {
+  .hero { padding: 96px 0 64px; }
+  .hero-container { gap: 36px; }
+  .profile-wrapper { --size: min(270px, 74vw); }
+  .hero-badge { margin-bottom: 22px; }
+  .orbit-icon { width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 12px; }
+  .orbit-icon svg { width: 20px; height: 20px; }
+  .orbit-icons-reverse .orbit-icon { width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 10px; }
+  .orbit-icons-reverse .orbit-icon svg { width: 16px; height: 16px; }
+  .tech-badge { padding: 7px 12px; }
+  .tech-badge-text { font-size: 0.68rem; }
+  .hero-cta { width: 100%; flex-direction: column; }
+  .hero-cta .btn { width: 100%; }
 }
 
-@media (max-width: 640px) {
-  .hero {
-    padding: 100px 0 60px;
-  }
-  
-  .hero-container {
-    padding: 0 20px;
-    gap: 40px;
-  }
-  
-  .hero-badge {
-    padding: 8px 16px;
-  }
-  
-  .badge-text {
-    font-size: 0.8rem;
-  }
-  
-  .hero-cta {
-    flex-direction: column;
-  }
-  
-  .hero-info {
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .info-item {
-    width: 100%;
-  }
-  
-  .profile-wrapper {
-    width: 300px;
-    height: 300px;
-  }
-  
-  .profile-circle {
-    width: 130px;
-    height: 130px;
-  }
-  
-  .orbit-icon {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .orbit-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-  
-  .orbit-icons-reverse .orbit-icon {
-    width: 36px;
-    height: 36px;
-  }
-  
-  .scroll-indicator {
-    display: none;
-  }
+/* ============================================================
+   CARROUSEL MOBILE DES INFOS : panneau d'affichage qui bascule
+   ============================================================ */
+
+.hero-info.is-carousel {
+  grid-template-columns: minmax(0, 1fr);
+  perspective: 700px;
+  touch-action: pan-y;
+}
+
+.hero-info.is-carousel .info-item {
+  grid-area: 1 / 1;
+  animation: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform-origin: center top;
+  transform: rotateX(-95deg);
+  backface-visibility: hidden;
+  transition: opacity 0.4s var(--ease), transform 0.65s var(--ease), visibility 0s linear 0.65s;
+  transition-delay: 0s, 0s, 0.65s;
+}
+
+.hero-info.is-carousel .info-item.is-leaving { transform-origin: center bottom; transform: rotateX(95deg); }
+
+.hero-info.is-carousel.is-backwards .info-item:not(.is-active):not(.is-leaving) { transform-origin: center bottom; transform: rotateX(95deg); }
+.hero-info.is-carousel.is-backwards .info-item.is-leaving { transform-origin: center top; transform: rotateX(-95deg); }
+
+.hero-info.is-carousel .info-item.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition:
+    opacity 0.4s var(--ease) 0.15s,
+    transform 0.75s cubic-bezier(0.34, 1.35, 0.64, 1) 0.1s,
+    visibility 0s linear 0s;
+}
+
+.hero-info.is-carousel .info-item.is-active:hover { transform: none; }
+
+.hero-info.is-carousel .info-item.is-active .info-icon-wrap { animation: info-icon-bounce 0.7s cubic-bezier(0.34, 1.7, 0.64, 1) 0.3s both; }
+.hero-info.is-carousel .info-item.is-active .info-text { animation: info-text-in 0.5s var(--ease) 0.4s both; }
+.hero-info.is-carousel .info-item.is-active .info-sub { animation: info-text-in 0.5s var(--ease) 0.5s both; }
+
+.hero-content .carousel-dots { margin-top: 14px; }
+
+@keyframes info-icon-bounce {
+  0% { opacity: 0; transform: translateY(-14px) scale(0.6); }
+  60% { opacity: 1; transform: translateY(3px) scale(1.05); }
+  100% { opacity: 1; transform: none; }
+}
+
+@keyframes info-text-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
 }

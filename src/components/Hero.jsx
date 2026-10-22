@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslation } from '../hooks/useTranslation';
-import { MapPin, GraduationCap } from 'lucide-react';
+import { MapPin, GraduationCap, Award, ArrowRight } from 'lucide-react';
+import useCarousel, { CAROUSEL_QUERY, useMediaQuery } from '../hooks/useCarousel';
+import CarouselDots from './CarouselDots';
 import '../styles/Hero.css';
 
 
@@ -152,9 +154,15 @@ const INNER_ORBIT_ICONS = [
   { Icon: CloudIcon, label: 'Cloud' },
 ];
 
+const CARD_ICONS = { map: MapPin, school: GraduationCap, award: Award };
+
 const Hero = ({ onProjectsClick }) => {
   const { translations } = useTranslation();
   const t = translations.hero || {};
+  const cards = t.cards || [];
+  const isCarousel = useMediaQuery(CAROUSEL_QUERY);
+  const carousel = useCarousel(cards.length, { enabled: isCarousel, duration: 3500 });
+  const { active, previous, backwards } = carousel;
 
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -163,7 +171,7 @@ const Hero = ({ onProjectsClick }) => {
   return (
     <section id="home" className="hero">
       <div className="hero-container">
-        {/* Left Content */}
+        {/* Colonne gauche */}
         <div className="hero-content">
           <div className="hero-badge">
             <div className="badge-dot-container">
@@ -183,63 +191,83 @@ const Hero = ({ onProjectsClick }) => {
 
           <div className="hero-cta">
             <button onClick={onProjectsClick} className="btn btn-primary">
-              {t.cta1}
+              <span>{t.cta1}</span>
+              <ArrowRight size={18} />
             </button>
             <button onClick={scrollToContact} className="btn btn-secondary">
               {t.cta2}
             </button>
           </div>
 
-          <div className="hero-info">
-            <div className="info-item">
-              <MapPin size={22} className="info-icon" />
-              <div>
-                <div className="info-text">{t.location}</div>
-                <div className="info-sub">{t.mobile}</div>
-              </div>
-            </div>
-            <div className="info-item">
-              <GraduationCap size={22} className="info-icon" />
-              <div>
-                <div className="info-text">{t.school}</div>
-                <div className="info-sub">{t.degree}</div>
-              </div>
-            </div>
+          <div
+            ref={carousel.rootRef}
+            className={`hero-info ${isCarousel ? 'is-carousel' : ''} ${backwards ? 'is-backwards' : ''}`}
+            aria-roledescription={isCarousel ? 'carousel' : undefined}
+            {...carousel.swipeHandlers}
+          >
+            {cards.map((card, i) => {
+              const Icon = CARD_ICONS[card.icon] || MapPin;
+              const isActive = !isCarousel || i === active;
+              return (
+                <div
+                  key={i}
+                  className={`info-item ${isCarousel && isActive ? 'is-active' : ''} ${isCarousel && i === previous ? 'is-leaving' : ''}`}
+                  aria-hidden={!isActive}
+                  style={{ '--i': i }}
+                >
+                  <span className="info-icon-wrap">
+                    <Icon size={20} className="info-icon" />
+                  </span>
+                  <div className="info-texts">
+                    <div className="info-text">{card.title}</div>
+                    <div className="info-sub">{card.sub}</div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
+
+          {isCarousel ? (
+            <CarouselDots
+              carousel={carousel}
+              items={cards.map((card, i) => ({ label: card.title, tint: ['#2563eb', '#4f46e5', '#7c3aed'][i % 3] }))}
+            />
+          ) : null}
         </div>
 
-        {/* Right - Profile with Orbiting Icons */}
+        {/* Colonne droite : photo et orbites */}
         <div className="hero-visual">
           <div className="profile-wrapper">
-            {/* Orbit Rings */}
             <div className="orbit-ring orbit-ring-1" />
             <div className="orbit-ring orbit-ring-2" />
             <div className="orbit-ring orbit-ring-3" />
 
-            {/* Outer Orbit Icons */}
             <div className="orbit-icons">
               {OUTER_ORBIT_ICONS.map((item, i) => (
-                <div key={i} className={`orbit-icon pos-${i + 1}`} title={item.label}>
-                  <item.Icon />
+                <div key={i} className="orbit-slot" style={{ '--a': `${i * 45}deg` }}>
+                  <div className="orbit-icon" title={item.label}>
+                    <item.Icon />
+                  </div>
                 </div>
               ))}
             </div>
 
-            {/* Inner Orbit Icons */}
             <div className="orbit-icons-reverse">
               {INNER_ORBIT_ICONS.map((item, i) => (
-                <div key={i} className={`orbit-icon inner-${i + 1}`} title={item.label}>
-                  <item.Icon />
+                <div key={i} className="orbit-slot" style={{ '--a': `${i * 90 + 45}deg` }}>
+                  <div className="orbit-icon" title={item.label}>
+                    <item.Icon />
+                  </div>
                 </div>
               ))}
             </div>
 
-            {/* Profile Circle */}
+            <div className="profile-glow" />
             <div className="profile-circle">
               <div className="profile-circle-inner">
                 <img
                   src={CONFIG.profileImage}
-                  alt={CONFIG.name}
+                  alt="Romaric TCHOFFO"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.nextSibling.style.display = 'block';
@@ -249,20 +277,20 @@ const Hero = ({ onProjectsClick }) => {
               </div>
             </div>
 
-            {/* Floating Tech Badges */}
             <div className="tech-badge top-left">
-              <span className="tech-badge-text">🚀 Python • SQL • ML</span>
+              <span className="tech-badge-dot" />
+              <span className="tech-badge-text">{t.badgeTop}</span>
             </div>
             <div className="tech-badge bottom-right">
-              <span className="tech-badge-text">☁️ MLOps • Docker • Cloud</span>
+              <span className="tech-badge-dot" />
+              <span className="tech-badge-text">{t.badgeBottom}</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="scroll-indicator">
-        <span className="scroll-text">Scroll</span>
+      <div className="scroll-indicator" aria-hidden="true">
+        <span className="scroll-text">{t.scroll}</span>
         <div className="scroll-mouse">
           <div className="scroll-wheel" />
         </div>

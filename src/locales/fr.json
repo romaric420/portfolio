@@ -8,155 +8,345 @@
     "contact": "Contact"
   },
   "hero": {
-    "status": "Recherche alternance • Master 2 IA • Sept. 2026",
+    "status": "Ouvert aux opportunités CDI",
     "name": "Romaric",
     "title1": "Data Scientist",
-    "title2": "& MLOps Engineer",
-    "description": "Passionné par l’Intelligence Artificielle et le Machine Learning, je transforme les données en solutions intelligentes, du preprocessing au déploiement en production.",
+    "title2": "& ML Engineer",
+    "description": "Je conçois des solutions de machine learning de bout en bout : de la question métier au modèle en production, avec un code propre, testé et reproductible.",
     "cta1": "Voir mes projets",
     "cta2": "Me contacter",
-    "location": "France",
-    "mobile": "Mobile partout",
-    "school": "EPSI Paris",
-    "degree": "Master Expert IA"
+    "cards": [
+      {
+        "icon": "map",
+        "title": "France",
+        "sub": "Mobile partout en France"
+      },
+      {
+        "icon": "school",
+        "title": "EPSI Paris",
+        "sub": "Mastère Expert IA · RNCP niv. 7"
+      },
+      {
+        "icon": "award",
+        "title": "MLPRO",
+        "sub": "ML Engineering · G. Saint-Cirgue"
+      }
+    ],
+    "badgeTop": "Python • SQL • ML",
+    "badgeBottom": "MLOps • Docker • Cloud",
+    "scroll": "Défiler"
   },
   "about": {
     "sectionNumber": "01",
     "title": "À propos",
-    "paragraph1": "Passionné par la Data Science et l’Intelligence Artificielle, je suis actuellement en Master Expert IA à EPSI Paris. Mon parcours m’a permis de développer des compétences en Machine Learning et en MLOps.",
-    "paragraph2": "Je suis capable de concevoir des pipelines de données, le preprocessing, des tests statistiques et le déploiement de modèles en production. Ma stack inclut Python, SQL, Scikit-learn, Streamlit, GCP et bien d’autres.",
-    "paragraph3": "Je recherche une alternance pour mon Master 2 à partir de septembre 2026, afin de mettre en pratique mes compétences, contribuer à des projets data innovants et continuer à monter en compétences.",
-    "traitsTitle": "Soft Skills",
-    "traits": ["Rigoureux", "Curieux", "Autonome", "Esprit d’équipe", "Problem Solver"],
+    "kicker": "Profil",
+    "paragraph1": "Data Scientist et ML Engineer, titulaire d’un Mastère Expert en Intelligence Artificielle de l’EPSI Paris (titre RNCP de niveau 7, Bac+5) et formé au Machine Learning Engineering avec le programme MLPRO de Guillaume Saint-Cirgue. Consultant IA & Transformation numérique chez Amiltone, j’accompagne les entreprises dans l’intégration concrète de l’IA.",
+    "paragraph2": "Je pars toujours de la question métier : je définis la cible, la métrique et le gain attendu, je fiabilise les données (qualité, fuites, biais), puis je construis des modèles systématiquement comparés à une baseline et validés sans fuite. Côté industrialisation, j’expose les modèles via FastAPI et Docker, je suis les expériences avec MLflow, j’automatise avec GitHub Actions et je surveille la dérive en production.",
+    "paragraph3": "Je recherche aujourd’hui un CDI en Data Science, ML Engineering ou MLOps.",
+    "highlights": [
+      {
+        "value": "Bac+5",
+        "label": "Titre RNCP niveau 7"
+      },
+      {
+        "value": "3",
+        "label": "métiers : DS · MLE · MLOps"
+      },
+      {
+        "value": "E2E",
+        "label": "de la donnée à la production"
+      }
+    ],
+    "traitsTitle": "Soft skills",
+    "traits": [
+      "Rigoureux",
+      "Orienté valeur métier",
+      "Autonome",
+      "Pédagogue",
+      "Esprit d’équipe",
+      "Sens du livrable"
+    ],
     "objectiveTitle": "Mon objectif",
-    "objectiveText": "Devenir un expert en Data Science capable de concevoir, développer et déployer des solutions de Machine Learning créant de la valeur business.",
+    "objectiveText": "Concevoir, déployer et maintenir des solutions de machine learning fiables, qui créent une valeur mesurable pour l’entreprise.",
     "hobbiesTitle": "Centres d’intérêt",
-    "fitness": "Fitness",
-    "reading": "Lecture"
+    "hobbies": [
+      "Fitness",
+      "Lecture",
+      "Veille IA"
+    ]
   },
   "skills": {
     "sectionNumber": "02",
     "title": "Compétences",
-    "categories": {
-      "dataScience": {
-        "title": "Data Science",
+    "subtitle": "Une stack complète, de l’analyse des données à la mise en production.",
+    "methodTitle": "Ma méthode",
+    "method": [
+      {
+        "icon": "target",
+        "title": "Cadrage",
+        "text": "Question métier, cible, métrique, gain attendu"
+      },
+      {
+        "icon": "search",
+        "title": "Données",
+        "text": "Qualité, fuites, EDA, tests statistiques"
+      },
+      {
+        "icon": "brain",
+        "title": "Modélisation",
+        "text": "Baseline, validation, tuning, interprétabilité"
+      },
+      {
+        "icon": "rocket",
+        "title": "Production",
+        "text": "API, Docker, CI/CD, cloud"
+      },
+      {
+        "icon": "activity",
+        "title": "Monitoring",
+        "text": "Dérive, alertes, réentraînement"
+      }
+    ],
+    "categories": [
+      {
+        "title": "Data Science & Analyse",
         "icon": "database",
         "skills": [
-          { "name": "Python" },
-          { "name": "Pandas" },
-          { "name": "NumPy" },
-          { "name": "Polars" },
-          { "name": "Scikit-learn" },
-          { "name": "SQL" },
-          { "name": "Plotly" },
-          { "name": "Matplotlib" }
+          "Python",
+          "SQL",
+          "Pandas",
+          "NumPy",
+          "Tests statistiques",
+          "A/B testing",
+          "Matplotlib",
+          "Dataviz & storytelling"
         ]
       },
-      "mlops": {
-        "title": "MLOps & Cloud",
+      {
+        "title": "Machine Learning",
+        "icon": "trending",
+        "skills": [
+          "Scikit-learn",
+          "Modèles linéaires",
+          "Arbres de décision",
+          "k-NN",
+          "SVM",
+          "Random Forest",
+          "XGBoost",
+          "Clustering",
+          "Réduction de dimension"
+        ]
+      },
+      {
+        "title": "Deep Learning & IA générative",
+        "icon": "cpu",
+        "skills": [
+          "Réseaux de neurones",
+          "CNN",
+          "RNN",
+          "Transformers",
+          "Auto-encodeurs",
+          "PyTorch",
+          "TensorFlow",
+          "LLM",
+          "LangChain",
+          "RAG",
+          "IA agentique"
+        ]
+      },
+      {
+        "title": "MLOps & Industrialisation",
+        "icon": "workflow",
+        "skills": [
+          "MLflow",
+          "FastAPI",
+          "Docker",
+          "Evidently AI",
+          "DVC",
+          "GitHub Actions",
+          "CI/CD",
+          "Pytest",
+          "Git",
+          "uv"
+        ]
+      },
+      {
+        "title": "Data Engineering & Cloud",
         "icon": "cloud",
         "skills": [
-          { "name": "Docker" },
-          { "name": "GCP" },
-          { "name": "Streamlit" },
-          { "name": "MLflow" },
-          { "name": "DVC" },
-          { "name": "CI/CD" },
-          { "name": "Git" }
+          "PostgreSQL",
+          "dbt",
+          "Airflow",
+          "DuckDB",
+          "ETL / ELT",
+          "AWS",
+          "Streamlit"
         ]
       },
-      "mathematics": {
+      {
         "title": "Mathématiques pour l’IA",
-        "icon": "calculator",
+        "icon": "sigma",
         "skills": [
-          { "name": "Statistiques et probabilités" },
-          { "name": "Algèbre linéaire" },
-          { "name": "Analyse et nombres complexes" }
-        ]
-      },
-      "mlAlgorithms": {
-        "title": "Algorithmes de Machine Learning",
-        "icon": "brain",
-        "skills": [
-          { "name": "Modèles linéaires" },
-          { "name": "Arbres de décision" },
-          { "name": "K-Nearest Neighbors" },
-          { "name": "Support Vector Machines" },
-          { "name": "Méthodes ensemblistes" },
-          { "name": "Clustering" },
-          { "name": "Réduction de dimension" }
+          "Algèbre linéaire",
+          "Analyse & calcul différentiel",
+          "Statistiques & probabilités",
+          "Optimisation (descente de gradient)"
         ]
       }
-    }
+    ]
   },
   "projects": {
     "sectionNumber": "03",
     "title": "Mes projets",
-    "subtitle": "Applications de Data Science déployées sur Streamlit Cloud",
+    "subtitle": "De nouveaux projets de bout en bout arrivent très bientôt.",
     "backButton": "Retour à l’accueil",
-    "viewLive": "Voir le projet",
-    "comingSoon": "Lien à venir",
-    "imagePlaceholder": "Image à venir",
-    "ctaText": "D’autres projets arrivent bientôt !",
-    "list": [
-      {
-        "title": "ChurnGuard",
-        "description": "Application de prédiction du churn client basée sur le Machine Learning. Dashboard interactif avec analyse des features, visualisation des résultats et recommandations personnalisées pour la rétention."
-      },
-      {
-        "title": "TalentMatch",
-        "description": "Système intelligent de matching candidats–offres d’emploi utilisant le NLP et le Machine Learning. Analyse sémantique des CV et des descriptions de postes pour des recommandations précises."
-      },
-      {
-        "title": "PricePrediction",
-        "description": "Modèle de prédiction de prix immobiliers basé sur des techniques de régression avancées. Interface intuitive permettant d’estimer la valeur d’un bien selon ses caractéristiques et sa localisation."
-      }
-    ]
+    "projectLabel": "Projet",
+    "comingSoon": "À venir",
+    "comingText": "En cours de réalisation",
+    "ctaText": "Revenez bientôt : les projets seront publiés ici et sur GitHub."
   },
   "experience": {
     "sectionNumber": "04",
     "title": "Parcours",
     "experienceTitle": "Expériences",
-    "formationTitle": "Formations",
-    "experienceLabel": "Expérience",
-    "formation": "Formation",
+    "academicTitle": "Académique",
+    "trainingTitle": "Formation continue",
     "experiences": [
       {
-        "period": "Mai-2025- Présent",
+        "period": "Sept. 2026 – Sept. 2027",
+        "title": "Consultant IA & Transformation numérique",
+        "company": "Amiltone",
+        "meta": "Alternance",
+        "description": "Accompagnement de clients dans l’intégration de l’IA et la transformation numérique de leurs processus : cadrage des besoins, conception de solutions data et IA, et accompagnement au changement.",
+        "skills": [
+          "IA",
+          "Data",
+          "Conseil",
+          "Transformation numérique",
+          "Python"
+        ]
+      },
+      {
+        "period": "Mai 2025 – Août 2026",
         "title": "Développeur Full Stack & IA",
         "company": "AALIA.TECH",
-        "description": "Dév Full stack",
-        "skills": ["React", "Python", "API", "IA","Flutter"]
+        "meta": "Alternance",
+        "description": "Collecte et préparation de données médicales, puis fine-tuning de modèles d’IA pour la traduction médicale contextualisée.",
+        "skills": [
+          "React",
+          "Python",
+          "Collecte de données",
+          "Fine-tuning",
+          "NLP médical"
+        ]
+      },
+      {
+        "period": "Mai 2021 – Sept. 2021",
+        "title": "Développeur Web Full Stack",
+        "company": "Honowa Technologies",
+        "meta": "Stage · Douala, Cameroun",
+        "description": "Développement d’applications web full stack avec ReactJS côté front-end et Laravel côté back-end.",
+        "skills": [
+          "React",
+          "Laravel",
+          "JavaScript",
+          "PHP",
+          "SQL"
+        ]
       }
     ],
-    "formations": [
+    "academic": [
       {
-        "period": "2025 - 2026 (en cours)",
-        "title": "Master 1 Expert IA",
+        "period": "2025 – 2027",
+        "title": "Mastère Expert en Intelligence Artificielle",
         "company": "EPSI Paris",
-        "description": "Machine Learning, Deep Learning, MLOps, Cloud Computing, Data Engineering.",
-        "skills": ["ML", "Deep Learning", "Statistiques", "MLOps", "Cloud"]
+        "meta": "Titre RNCP niveau 7 (Bac+5)",
+        "description": "Machine Learning, Deep Learning, NLP, MLOps, Cloud Computing, Data Engineering, éthique et gouvernance de l’IA.",
+        "skills": [
+          "ML",
+          "Deep Learning",
+          "NLP",
+          "MLOps",
+          "Cloud"
+        ]
       },
       {
-        "period": "2024 - 2025",
+        "period": "2024 – 2025",
         "title": "Bachelor Data Science & IA",
         "company": "EPSI",
-        "description": "Fondamentaux de la Data Science, Python, SQL, visualisation de données.",
-        "skills": ["Python", "SQL", "ETL", "Data Visualization"]
+        "meta": "",
+        "description": "Fondamentaux de la Data Science, Python, SQL, ETL et visualisation de données.",
+        "skills": [
+          "Python",
+          "SQL",
+          "ETL",
+          "Data Visualization"
+        ]
       },
       {
-        "period": "2022 - 2023",
+        "period": "2022 – 2023",
         "title": "Licence Génie Logiciel",
-        "company": "ISSAM Cameroun",
-        "description": "Développement logiciel, structures de données, algorithmes, bases de données.",
-        "skills": ["Java", "SQL", "Algorithms", "React", "Laravel"]
+        "company": "ISSAM, Cameroun",
+        "meta": "",
+        "description": "Développement logiciel, structures de données, algorithmes et bases de données.",
+        "skills": [
+          "Java",
+          "SQL",
+          "Algorithmes",
+          "React",
+          "Laravel"
+        ]
       }
-    ]
+    ],
+    "training": {
+      "title": "MLPRO — Machine Learning Engineer",
+      "company": "Machine Learnia · Guillaume Saint-Cirgue",
+      "description": "Programme intensif couvrant tout le cycle de vie d’un projet d’IA, des fondamentaux mathématiques jusqu’au déploiement cloud et à l’IA générative.",
+      "modules": [
+        {
+          "title": "Les 6 piliers de l’IA",
+          "content": "Méthodologie de projet IA, Python, SQL, Git, frameworks Data Science"
+        },
+        {
+          "title": "Mathématiques",
+          "content": "Algèbre linéaire, analyse, statistiques et probabilités"
+        },
+        {
+          "title": "Machine Learning",
+          "content": "Modèles linéaires, arbres, k-NN, SVM, méthodes ensemblistes, clustering"
+        },
+        {
+          "title": "Deep Learning",
+          "content": "ANN, CNN, RNN, Transformers, auto-encodeurs"
+        },
+        {
+          "title": "MLOps",
+          "content": "MLflow, FastAPI, Docker, Evidently AI, projet de bout en bout"
+        },
+        {
+          "title": "Data Engineering",
+          "content": "PostgreSQL, dbt, Airflow, dataviz et dashboarding"
+        },
+        {
+          "title": "Cloud",
+          "content": "Fondations du cloud, AWS, projet data sur AWS"
+        },
+        {
+          "title": "Apprentissage par renforcement",
+          "content": "Agents, récompenses et politiques de décision"
+        },
+        {
+          "title": "IA générative",
+          "content": "LLM, chatbots avec LangChain, IA agentique"
+        }
+      ]
+    },
+    "kicker": "Expériences & formations"
   },
   "contact": {
     "sectionNumber": "05",
     "title": "Travaillons ensemble",
-    "subtitle": "Je recherche une alternance pour mon Master 2 à partir de septembre 2026. Mobile sur toute la France !",
+    "subtitle": "Je recherche un CDI en Data Science, ML Engineering ou MLOps. Mobile partout en France.",
     "email": {
       "label": "Email",
       "action": "Cliquer pour envoyer",
@@ -170,10 +360,219 @@
     "cv": {
       "label": "CV",
       "action": "Télécharger le PDF"
-    }
+    },
+    "viewProjects": "Voir mes projets",
+    "kicker": "Contact"
   },
   "footer": {
-    "copyright": "© 2025 Romaric. Tous droits réservés.",
-    "location": "Paris, France"
+    "copyright": "Romaric TCHOFFO. Tous droits réservés.",
+    "location": "Paris, France",
+    "backToTop": "Retour en haut"
+  },
+  "quotes": {
+    "label": "Inspiration",
+    "close": "Fermer les citations",
+    "items": [
+      {
+        "text": "Données erronées en entrée, résultats erronés en sortie.",
+        "author": "George Fuechsel",
+        "role": "Programmeur et formateur chez IBM"
+      },
+      {
+        "text": "Tous les modèles sont faux, mais certains sont utiles.",
+        "author": "George E. P. Box",
+        "role": "Statisticien"
+      },
+      {
+        "text": "L’IA est la nouvelle électricité.",
+        "author": "Andrew Ng",
+        "role": "Cofondateur de Coursera et de Google Brain"
+      },
+      {
+        "text": "Faites à la fois des calculs et des graphiques. Les deux types de résultats doivent être étudiés ; chacun contribuera à la compréhension.",
+        "author": "Francis Anscombe",
+        "role": "Statisticien, auteur du quartet d’Anscombe"
+      },
+      {
+        "text": "Les données sont le nouveau pétrole.",
+        "author": "Clive Humby",
+        "role": "Mathématicien et data scientist"
+      },
+      {
+        "text": "Consulter le statisticien une fois l’expérience terminée revient souvent à lui demander une autopsie. Il pourra peut-être dire de quoi l’expérience est morte.",
+        "author": "Ronald A. Fisher",
+        "role": "Statisticien et généticien"
+      },
+      {
+        "text": "Le métier sexy des dix prochaines années sera celui de statisticien.",
+        "author": "Hal Varian",
+        "role": "Économiste en chef de Google"
+      },
+      {
+        "text": "Je propose d’examiner la question : « Les machines peuvent-elles penser ? »",
+        "author": "Alan Turing",
+        "role": "Computing Machinery and Intelligence, 1950"
+      },
+      {
+        "text": "Règle n° 1 : n’ayez pas peur de lancer un produit sans machine learning.",
+        "author": "Martin Zinkevich",
+        "role": "Google (Rules of Machine Learning)"
+      },
+      {
+        "text": "C’est une erreur capitale de bâtir des théories avant d’avoir des données.",
+        "author": "Arthur Conan Doyle",
+        "role": "Sherlock Holmes, Un scandale en Bohême"
+      },
+      {
+        "text": "La plus grande valeur d’une image, c’est lorsqu’elle nous force à remarquer ce que nous ne nous attendions jamais à voir.",
+        "author": "John W. Tukey",
+        "role": "Statisticien"
+      },
+      {
+        "text": "Si vous faites une percée en intelligence artificielle, pour que les machines puissent apprendre, cela vaut 10 Microsoft.",
+        "author": "Bill Gates",
+        "role": "Cofondateur de Microsoft"
+      },
+      {
+        "text": "Si vous torturez les données assez longtemps, elles finiront par avouer.",
+        "author": "Ronald Coase",
+        "role": "Lauréat du prix Nobel d’économie"
+      },
+      {
+        "text": "Le but du calcul, c’est la compréhension, pas les nombres.",
+        "author": "Richard Hamming",
+        "role": "Mathématicien, lauréat du prix Turing"
+      },
+      {
+        "text": "L’information est le pétrole du XXIe siècle, et l’analytique en est le moteur à combustion.",
+        "author": "Peter Sondergaard",
+        "role": "Gartner"
+      },
+      {
+        "text": "Nous ne voyons qu’à une courte distance devant nous, mais nous y voyons beaucoup de choses qui restent à faire.",
+        "author": "Alan Turing",
+        "role": "Mathématicien"
+      },
+      {
+        "text": "Tout ce qui peut être compté ne compte pas, et tout ce qui compte ne peut pas être compté.",
+        "author": "William Bruce Cameron",
+        "role": "Sociologue"
+      },
+      {
+        "text": "L’IA n’a rien d’artificiel. Elle est inspirée par les humains, créée par les humains et, surtout, elle a un impact sur les humains.",
+        "author": "Fei-Fei Li",
+        "role": "Professeure à Stanford"
+      },
+      {
+        "text": "Mieux vaut une réponse approximative à la bonne question, souvent vague, qu’une réponse exacte à la mauvaise question, qui peut toujours être rendue précise.",
+        "author": "John W. Tukey",
+        "role": "Statisticien"
+      },
+      {
+        "text": "La machine analytique n’a aucune prétention à créer quoi que ce soit. Elle peut faire tout ce que nous savons lui ordonner d’exécuter.",
+        "author": "Ada Lovelace",
+        "role": "Mathématicienne, première programmeuse"
+      },
+      {
+        "text": "On craint que les ordinateurs deviennent trop intelligents et prennent le contrôle du monde, mais le vrai problème, c’est qu’ils sont trop bêtes et qu’ils l’ont déjà pris.",
+        "author": "Pedro Domingos",
+        "role": "Auteur de The Master Algorithm"
+      },
+      {
+        "text": "Avant toute chose, montrez les données.",
+        "author": "Edward Tufte",
+        "role": "Pionnier de la visualisation de données"
+      },
+      {
+        "text": "Les machines me surprennent très souvent.",
+        "author": "Alan Turing",
+        "role": "Mathématicien"
+      },
+      {
+        "text": "Les modèles sont des opinions intégrées dans les mathématiques.",
+        "author": "Cathy O’Neil",
+        "role": "Autrice de Weapons of Math Destruction"
+      },
+      {
+        "text": "Le but est de transformer les données en information, et l’information en compréhension.",
+        "author": "Carly Fiorina",
+        "role": "Ancienne PDG de Hewlett-Packard"
+      },
+      {
+        "text": "Le premier principe est de ne pas vous tromper vous-même, et vous êtes la personne la plus facile à tromper.",
+        "author": "Richard Feynman",
+        "role": "Lauréat du prix Nobel de physique"
+      },
+      {
+        "text": "L’intelligence artificielle est la science qui consiste à faire faire aux machines des choses qui demanderaient de l’intelligence si elles étaient faites par des humains.",
+        "author": "Marvin Minsky",
+        "role": "Cofondateur du laboratoire d’IA du MIT"
+      },
+      {
+        "text": "Le signal, c’est la vérité. Le bruit, c’est ce qui nous en détourne.",
+        "author": "Nate Silver",
+        "role": "Auteur de The Signal and the Noise"
+      },
+      {
+        "text": "Les erreurs commises avec des données insuffisantes sont bien moindres que celles commises sans aucune donnée.",
+        "author": "Charles Babbage",
+        "role": "Mathématicien, pionnier de l’informatique"
+      },
+      {
+        "text": "L’optimisation prématurée est la source de tous les maux.",
+        "author": "Donald Knuth",
+        "role": "Informaticien, lauréat du prix Turing"
+      },
+      {
+        "text": "On ne peut pas comprendre le monde sans les chiffres. Mais on ne peut pas non plus le comprendre avec les seuls chiffres.",
+        "author": "Hans Rosling",
+        "role": "Médecin et statisticien, auteur de Factfulness"
+      },
+      {
+        "text": "On peut avoir des données sans information, mais on ne peut pas avoir d’information sans données.",
+        "author": "Daniel Keys Moran",
+        "role": "Programmeur et écrivain de science-fiction"
+      },
+      {
+        "text": "Résoudre l’intelligence, puis s’en servir pour résoudre tout le reste.",
+        "author": "Demis Hassabis",
+        "role": "Cofondateur de DeepMind"
+      },
+      {
+        "text": "Le meilleur côté du métier de statisticien, c’est qu’on peut jouer dans le jardin de tout le monde.",
+        "author": "John W. Tukey",
+        "role": "Statisticien"
+      },
+      {
+        "text": "Si nous avons des données, regardons les données. Si nous n’avons que des opinions, prenons la mienne.",
+        "author": "Jim Barksdale",
+        "role": "Ancien PDG de Netscape"
+      },
+      {
+        "text": "La question de savoir si un ordinateur peut penser n’est pas plus intéressante que celle de savoir si un sous-marin peut nager.",
+        "author": "Edsger W. Dijkstra",
+        "role": "Informaticien, lauréat du prix Turing"
+      },
+      {
+        "text": "Les chiffres ont une histoire importante à raconter. Ils comptent sur vous pour leur donner une voix claire et convaincante.",
+        "author": "Stephen Few",
+        "role": "Expert en visualisation de données"
+      },
+      {
+        "text": "J’imagine une époque où nous serons aux robots ce que les chiens sont aux humains, et je suis du côté des machines.",
+        "author": "Claude Shannon",
+        "role": "Père de la théorie de l’information"
+      },
+      {
+        "text": "Une année passée dans l’intelligence artificielle suffit à faire croire en Dieu.",
+        "author": "Alan Perlis",
+        "role": "Informaticien, premier lauréat du prix Turing"
+      },
+      {
+        "text": "Réussir à créer l’IA serait le plus grand événement de l’histoire humaine. Malheureusement, ce pourrait aussi être le dernier, à moins d’apprendre à en éviter les risques.",
+        "author": "Stephen Hawking",
+        "role": "Physicien théoricien"
+      }
+    ]
   }
 }

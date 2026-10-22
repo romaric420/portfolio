@@ -1,163 +1,95 @@
 import React from 'react';
 import { useTranslation } from '../hooks/useTranslation';
-import { ArrowLeft, ExternalLink, Github, Layers, Shield, Users, TrendingUp, Sparkles } from 'lucide-react';
+import { ArrowLeft, Layers, Sparkles, Brain, TrendingUp, Database, Cpu, Clock } from 'lucide-react';
+import useCarousel, { CAROUSEL_QUERY, useMediaQuery } from '../hooks/useCarousel';
+import CarouselDots from './CarouselDots';
 import '../styles/Projects.css';
 
-const PROJECTS_CONFIG = [
-  {
-    id: 1,
-    icon: Shield,
-    color: '#2563eb',
-    gradient: 'linear-gradient(135deg, #2563eb 0%, #3b82f6 100%)',
-    image: '/images/churn.png', // Image intégrée
-    tags: ['Python', 'Streamlit', 'Scikit-learn', 'XGBoost', 'Pandas'],
-    liveUrl: 'https://churnguard-app-version-1-0-0.streamlit.app/',
-    githubUrl: 'https://github.com/romaric420/churnguard_app', 
-  },
-  {
-    id: 2,
-    icon: Users,
-    color: '#7c3aed',
-    gradient: 'linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)',
-    image: '/images/talen.png', // Image intégrée
-    tags: ['Python', 'Streamlit', 'NLP', 'Machine Learning', 'Matching'],
-    liveUrl: 'https://talentmatch-app-version-1.streamlit.app/', 
-    githubUrl: 'https://github.com/romaric420/churnguard_app', 
-  },
-  {
-    id: 3,
-    icon: TrendingUp,
-    color: '#10b981',
-    gradient: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)',
-    image: '/images/price.png', // Image intégrée
-    tags: ['Python', 'Streamlit', 'Régression', 'Data Analysis', 'Plotly'],
-    liveUrl: 'https://immobilierprice-version-1.streamlit.app/', 
-    githubUrl: 'https://github.com/romaric420/churnguard_app', 
-  },
+// Quatre emplacements de projets, affichés « À venir » en attendant la publication.
+const SLOTS = [
+  { id: 1, icon: Brain, from: '#2563eb', to: '#06b6d4' },
+  { id: 2, icon: TrendingUp, from: '#4f46e5', to: '#7c3aed' },
+  { id: 3, icon: Database, from: '#0891b2', to: '#10b981' },
+  { id: 4, icon: Cpu, from: '#7c3aed', to: '#db2777' },
 ];
 
 const Projects = ({ onBack }) => {
   const { translations } = useTranslation();
   const t = translations.projects || {};
-  const projectsList = t.list || [];
+  const isCarousel = useMediaQuery(CAROUSEL_QUERY);
+  const carousel = useCarousel(SLOTS.length, { enabled: isCarousel, duration: 4000 });
+  const { active, previous, backwards } = carousel;
 
   return (
     <div className="projects-page">
-      {/* Decorative Background */}
-      <div className="projects-bg">
-        <div className="projects-bg-blob blob-1" />
-        <div className="projects-bg-blob blob-2" />
-        <div className="projects-bg-blob blob-3" />
-      </div>
-
-      {/* Back Button */}
       <button onClick={onBack} className="projects-back-btn">
-        <ArrowLeft size={20} />
+        <ArrowLeft size={18} />
         <span>{t.backButton}</span>
       </button>
 
-      {/* Header */}
-      <div className="projects-header">
-        <div className="projects-header-badge">
-          <Sparkles size={16} />
-          <span>{t.sectionNumber}</span>
-        </div>
+      <header className="projects-header">
+        <span className="section-eyebrow">
+          <span className="section-number">{t.sectionNumber}</span>
+          <Sparkles size={14} /> Portfolio
+        </span>
         <h1 className="projects-title">{t.title}</h1>
         <p className="projects-subtitle">{t.subtitle}</p>
-      </div>
+      </header>
 
-      {/* Projects Grid */}
-      <div className="projects-grid">
-        {PROJECTS_CONFIG.map((project, index) => {
-          // Récupération des textes depuis le JSON de traduction
-          const projectData = projectsList[index] || {};
-          const IconComponent = project.icon;
-          
+      <div
+        ref={carousel.rootRef}
+        className={`projects-grid ${isCarousel ? 'is-carousel' : ''} ${backwards ? 'is-backwards' : ''}`}
+        aria-roledescription={isCarousel ? 'carousel' : undefined}
+        {...carousel.swipeHandlers}
+      >
+        {SLOTS.map((slot, index) => {
+          const Icon = slot.icon;
+          const isActive = !isCarousel || index === active;
           return (
-            <article key={project.id} className="project-card" style={{ '--card-delay': `${index * 0.15}s` }}>
-              {/* Card Header with Icon */}
-              <div className="project-card-header" style={{ background: project.gradient }}>
-                <div className="project-icon-wrapper">
-                  <IconComponent size={32} strokeWidth={1.5} />
-                </div>
-                <div className="project-card-pattern" />
-              </div>
-
-              {/* Image Container - Images intégrées ici */}
-              <div className="project-image-container">
-                 <img 
-                   src={project.image} 
-                   alt={projectData.title || `Projet ${project.id}`}
-                   className="project-image"
-                   loading="lazy"
-                 />
-              </div>
-
-              {/* Card Content */}
-              <div className="project-card-content">
-                <h3 className="project-title">{projectData.title || `Projet ${project.id}`}</h3>
-                <p className="project-description">{projectData.description || 'Description du projet'}</p>
-                
-                {/* Tags */}
-                <div className="project-tags">
-                  {project.tags.map((tag, i) => (
-                    <span key={i} className="project-tag" style={{ '--tag-color': project.color }}>
-                      {tag}
-                    </span>
-                  ))}
+            <article
+              key={slot.id}
+              className={`soon-card ${isCarousel && isActive ? 'is-active' : ''} ${isCarousel && index === previous ? 'is-leaving' : ''}`}
+              aria-hidden={!isActive}
+              style={{ '--from': slot.from, '--to': slot.to, '--i': index }}
+            >
+              <div className="soon-inner">
+                <div className="soon-visual">
+                  <span className="soon-ring soon-ring-1" />
+                  <span className="soon-ring soon-ring-2" />
+                  <span className="soon-icon"><Icon size={30} strokeWidth={1.6} /></span>
+                  <span className="soon-particle p1" />
+                  <span className="soon-particle p2" />
+                  <span className="soon-particle p3" />
                 </div>
 
-                {/* Links */}
-                <div className="project-links">
-                  {project.liveUrl ? (
-                    <a 
-                      href={project.liveUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="project-link project-link-primary"
-                      style={{ background: project.gradient }}
-                    >
-                      <ExternalLink size={18} />
-                      <span>{t.viewLive || 'Voir le projet'}</span>
-                    </a>
-                  ) : (
-                    <span className="project-link project-link-disabled">
-                      <ExternalLink size={18} />
-                      <span>{t.comingSoon || 'Lien à venir'}</span>
-                    </span>
-                  )}
-                  
-                  {project.githubUrl ? (
-                    <a 
-                      href={project.githubUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="project-link project-link-secondary"
-                    >
-                      <Github size={18} />
-                      <span>Code</span>
-                    </a>
-                  ) : (
-                    <span className="project-link project-link-secondary project-link-disabled">
-                      <Github size={18} />
-                      <span>Code</span>
-                    </span>
-                  )}
+                <div className="soon-body">
+                  <span className="soon-label">{t.projectLabel} {String(slot.id).padStart(2, '0')}</span>
+                  <span className="soon-badge"><Clock size={14} /> {t.comingSoon}</span>
+                  <div className="soon-skeleton" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <span className="soon-text">{t.comingText}</span>
                 </div>
               </div>
-
-              {/* Hover Glow Effect */}
-              <div className="project-card-glow" style={{ background: project.gradient }} />
             </article>
           );
         })}
       </div>
 
-      {/* Bottom CTA */}
+      {isCarousel ? (
+        <CarouselDots
+          carousel={carousel}
+          tone="dark"
+          items={SLOTS.map((slot) => ({ label: `${t.projectLabel} ${String(slot.id).padStart(2, '0')}`, tint: slot.from }))}
+        />
+      ) : null}
+
       <div className="projects-cta">
-        <p className="projects-cta-text">{t.ctaText || "D'autres projets arrivent bientôt !"}</p>
+        <p className="projects-cta-text">{t.ctaText}</p>
         <button onClick={onBack} className="btn btn-secondary">
-          <Layers size={20} />
+          <Layers size={18} />
           {t.backButton}
         </button>
       </div>

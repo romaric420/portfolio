@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { LanguageProvider } from './hooks/useTranslation.jsx';
+import useReveal from './hooks/useReveal';
 
 // Components
 import AIBackground from './components/AIBackground';
@@ -11,12 +12,17 @@ import Experience from './components/Experience';
 import Contact from './components/Contact';
 import Projects from './components/Projects';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
+import QuoteToast from './components/QuoteToast';
 
 // Styles
 import './index.css';
 
-function App() {
+function Pages() {
   const [currentPage, setCurrentPage] = useState('home');
+
+  // Animation d'apparition au scroll, relancée à chaque changement de page
+  useReveal([currentPage]);
 
   const handleProjectsClick = () => {
     setCurrentPage('projects');
@@ -29,27 +35,38 @@ function App() {
   };
 
   return (
-    <LanguageProvider>
-      <div className="app">
-        <AIBackground />
+    <div className="app">
+      <AIBackground />
+      <ScrollToTop />
+      {/* Hors du switch de pages : le cycle des citations continue sans interruption */}
+      <QuoteToast />
 
-        {currentPage === 'home' ? (
-          <>
-            <Navbar onProjectsClick={handleProjectsClick} currentPage={currentPage} />
+      {currentPage === 'home' ? (
+        <>
+          <Navbar onProjectsClick={handleProjectsClick} currentPage={currentPage} />
+          <main>
             <Hero onProjectsClick={handleProjectsClick} />
             <About />
             <Skills />
             <Experience />
             <Contact onProjectsClick={handleProjectsClick} />
-            <Footer />
-          </>
-        ) : (
-          <>
-            <Projects onBack={handleBackToHome} />
-            <Footer />
-          </>
-        )}
-      </div>
+          </main>
+          <Footer />
+        </>
+      ) : (
+        <>
+          <Projects onBack={handleBackToHome} />
+          <Footer />
+        </>
+      )}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <LanguageProvider>
+      <Pages />
     </LanguageProvider>
   );
 }

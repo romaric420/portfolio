@@ -64,13 +64,14 @@ const Navbar = ({ onProjectsClick }) => {
         {/* Desktop Navigation */}
         <div className="navbar-links">
           {navItems.map(item => (
-            <span
+            <button
+              type="button"
               key={item.id}
               className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
               onClick={() => scrollToSection(item.id)}
             >
               {item.label}
-            </span>
+            </button>
           ))}
         </div>
 
@@ -93,7 +94,7 @@ const Navbar = ({ onProjectsClick }) => {
           </div>
 
           {/* CV Download */}
-          <a href="/cv/CV_2026-02-06_Romaric_TCHOFFO.pdf" download className="navbar-cta">
+          <a href="/cv/CV_2026-03-11_Romaric_TCHOFFO.pdf" download className="navbar-cta">
             <Download size={16} />
             <span>CV</span>
           </a>
@@ -113,13 +114,14 @@ const Navbar = ({ onProjectsClick }) => {
         {/* Mobile Menu */}
         <div className={`mobile-menu ${mobileOpen ? 'open' : ''}`}>
           {navItems.map(item => (
-            <span
+            <button
+              type="button"
               key={item.id}
               className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
               onClick={() => scrollToSection(item.id)}
             >
               {item.label}
-            </span>
+            </button>
           ))}
           <div className="mobile-menu-actions">
             <div className="lang-toggle">
@@ -136,7 +138,7 @@ const Navbar = ({ onProjectsClick }) => {
                 EN
               </button>
             </div>
-            <a href="/cv/CV_2026-02-06_Romaric_TCHOFFO.pdf" download className="navbar-cta">
+            <a href="/cv/CV_2026-03-11_Romaric_TCHOFFO.pdf" download className="navbar-cta">
               <Download size={16} />
               <span>CV</span>
             </a>

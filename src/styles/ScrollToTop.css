@@ -1,0 +1,225 @@
+/* ============================================================
+   BOUTON RETOUR EN HAUT
+   ============================================================ */
+
+.scroll-top {
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: fixed;
+  right: clamp(16px, 3vw, 32px);
+  bottom: calc(clamp(16px, 3vw, 32px) + env(safe-area-inset-bottom, 0px));
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(40px) scale(0.5) rotate(-120deg);
+  transition:
+    opacity 0.35s var(--ease),
+    transform 0.6s var(--spring),
+    visibility 0.35s var(--ease),
+    box-shadow var(--transition-normal);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scroll-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1) rotate(0deg);
+  /* Flottement continu (propriété `translate` indépendante du transform) */
+  animation: scroll-top-float 3.2s ease-in-out 0.6s infinite;
+}
+
+/* Halos qui pulsent autour du bouton */
+.scroll-top-halo {
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-full);
+  border: 2px solid rgba(79, 70, 229, 0.45);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scroll-top.is-visible .scroll-top-halo { animation: scroll-top-ping 2.8s var(--ease) infinite; }
+.scroll-top.is-visible .scroll-top-halo--delay { animation-delay: 1.4s; border-color: rgba(37, 99, 235, 0.4); }
+
+/* Anneau de progression */
+.scroll-top-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  pointer-events: none;
+  filter: drop-shadow(0 0 3px rgba(79, 70, 229, 0.35));
+}
+
+.scroll-top-track {
+  fill: none;
+  stroke: rgba(148, 163, 184, 0.25);
+  stroke-width: 2.5;
+}
+
+.scroll-top-progress {
+  fill: none;
+  stroke: url(#scroll-top-gradient);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.12s linear;
+}
+
+/* Pastille centrale */
+.scroll-top-core {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #2563eb 100%);
+  background-size: 200% 200%;
+  box-shadow: 0 8px 18px rgba(79, 70, 229, 0.32);
+  overflow: hidden;
+  animation: scroll-top-gradient 5s ease-in-out infinite;
+  transition: transform 0.45s var(--spring), box-shadow var(--transition-normal);
+}
+
+/* Reflet lumineux qui traverse la pastille */
+.scroll-top-core::after {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.45) 50%, transparent 60%);
+  transform: translateX(-100%);
+  animation: scroll-top-shine 3.6s var(--ease) 1s infinite;
+  pointer-events: none;
+}
+
+/* Flèches : l'une sort par le haut, l'autre arrive par le bas */
+.scroll-top-arrows {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+}
+
+.scroll-top-icon { grid-area: 1 / 1; }
+
+.scroll-top.is-visible .scroll-top-icon { animation: scroll-top-arrow-out 2.6s var(--ease) 1s infinite; }
+.scroll-top-icon--next { transform: translateY(150%); opacity: 0; }
+.scroll-top.is-visible .scroll-top-icon--next { animation: scroll-top-arrow-in 2.6s var(--ease) 1s infinite; }
+
+@media (hover: hover) {
+  .scroll-top:hover { box-shadow: var(--shadow-glow); }
+  .scroll-top:hover .scroll-top-core {
+    transform: scale(1.1);
+    box-shadow: 0 12px 28px rgba(79, 70, 229, 0.5);
+  }
+  .scroll-top.is-visible:hover .scroll-top-icon,
+  .scroll-top.is-visible:hover .scroll-top-icon--next { animation-duration: 1s; animation-delay: 0s; }
+  .scroll-top.is-visible:hover .scroll-top-halo { animation-duration: 1.4s; }
+}
+
+.scroll-top:active .scroll-top-core { transform: scale(0.9); }
+
+.scroll-top:focus-visible { outline-offset: 4px; border-radius: var(--radius-full); }
+
+/* Décollage au clic */
+.scroll-top.is-launching .scroll-top-core { animation: scroll-top-launch 0.7s var(--spring); }
+.scroll-top.is-launching .scroll-top-icon { animation: scroll-top-fly 0.7s var(--ease) forwards; }
+.scroll-top.is-launching .scroll-top-icon--next { animation: scroll-top-land 0.7s var(--ease) forwards; }
+.scroll-top.is-launching .scroll-top-halo { animation: scroll-top-ping 0.7s var(--ease); }
+
+/* ---------- Keyframes ---------- */
+
+@keyframes scroll-top-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
+}
+
+@keyframes scroll-top-ping {
+  0% { transform: scale(1); opacity: 0.7; }
+  80%, 100% { transform: scale(1.65); opacity: 0; }
+}
+
+@keyframes scroll-top-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes scroll-top-shine {
+  0% { transform: translateX(-100%); }
+  35%, 100% { transform: translateX(100%); }
+}
+
+@keyframes scroll-top-arrow-out {
+  0%, 55% { transform: translateY(0); opacity: 1; }
+  75% { transform: translateY(-150%); opacity: 0; }
+  76%, 100% { transform: translateY(150%); opacity: 0; }
+}
+
+@keyframes scroll-top-arrow-in {
+  0%, 55% { transform: translateY(150%); opacity: 0; }
+  75%, 99.9% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+@keyframes scroll-top-land {
+  0%, 30% { transform: translateY(150%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scroll-top-launch {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.82); }
+  65% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+@keyframes scroll-top-fly {
+  0% { transform: translateY(0); opacity: 1; }
+  25% { transform: translateY(15%); }
+  100% { transform: translateY(-220%); opacity: 0; }
+}
+
+/* ---------- Responsive ---------- */
+
+/* Tablette */
+@media (max-width: 768px) {
+  .scroll-top { width: 52px; height: 52px; }
+  .scroll-top-core { width: 38px; height: 38px; }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .scroll-top {
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    width: 48px;
+    height: 48px;
+  }
+  .scroll-top-core { width: 34px; height: 34px; }
+  .scroll-top-arrows,
+  .scroll-top-icon { width: 18px; height: 18px; }
+  .scroll-top.is-visible { animation-duration: 3.8s; }
+}
+
+/* ---------- Accessibilité ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-top,
+  .scroll-top.is-visible { transform: none; animation: none; transition: opacity 0.2s linear, visibility 0.2s linear; }
+  .scroll-top *,
+  .scroll-top *::after,
+  .scroll-top.is-visible * { animation: none !important; }
+  .scroll-top-icon--next { display: none; }
+}

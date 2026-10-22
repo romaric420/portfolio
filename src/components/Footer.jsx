@@ -3,38 +3,41 @@ import { useTranslation } from '../hooks/useTranslation.jsx';
 import { MapPin, Github, Linkedin, Mail } from 'lucide-react';
 import '../styles/Footer.css';
 
+const LINKS = [
+  { href: 'https://github.com/romaric420', label: 'GitHub', icon: Github, external: true },
+  { href: 'https://www.linkedin.com/in/romaric-tchoffo-b23921250', label: 'LinkedIn', icon: Linkedin, external: true },
+  { href: 'mailto:hippolytetchoffo3@gmail.com', label: 'Email', icon: Mail, external: false },
+];
+
 const Footer = () => {
   const { translations } = useTranslation();
   const t = translations.footer || {};
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="footer-content">
-          {/* Logo */}
-          <div className="footer-brand" onClick={scrollToTop}>
-            <span className="footer-logo">R</span>
-          </div>
+        <button className="footer-brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Haut de page">
+          <span className="footer-logo">R</span>
+          <span className="footer-name">Romaric TCHOFFO</span>
+        </button>
 
-          {/* Copyright */}
-          <p className="footer-copyright">{t.copyright}</p>
+        <p className="footer-copyright">
+          © {new Date().getFullYear()} {t.copyright}
+          <span className="footer-location"><MapPin size={14} /> {t.location}</span>
+        </p>
 
-          {/* Social Links */}
-          <div className="footer-links">
-            <a href="https://github.com/romaric420" target="_blank" rel="noopener noreferrer" className="footer-link">
-              <Github size={18} />
+        <div className="footer-links">
+          {LINKS.map(({ href, label, icon: Icon, external }) => (
+            <a
+              key={label}
+              href={href}
+              className="footer-link"
+              aria-label={label}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              <Icon size={18} />
             </a>
-            <a href="https://www.linkedin.com/in/romaric-tchoffo-b23921250 " target="_blank" rel="noopener noreferrer" className="footer-link">
-              <Linkedin size={18} />
-            </a>
-            <a href="hippolytetchoffo3@gmail.com" className="footer-link">
-              <Mail size={18} />
-            </a>
-          </div>
+          ))}
         </div>
       </div>
     </footer>

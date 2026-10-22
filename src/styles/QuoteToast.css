@@ -1,0 +1,458 @@
+/* ============================================================
+   BULLE DE CITATIONS
+   ============================================================ */
+
+@property --qt-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.quote-toast {
+  --qt-offset: clamp(16px, 3vw, 32px);
+  position: fixed;
+  left: var(--qt-offset);
+  bottom: calc(var(--qt-offset) + env(safe-area-inset-bottom, 0px));
+  z-index: 998;
+  width: 340px;
+  max-width: calc(100vw - 2 * var(--qt-offset));
+  padding: 14px 16px 18px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  isolation: isolate;
+  opacity: 0;
+  visibility: hidden;
+  transform-origin: left bottom;
+  /* Sortie : accélère vers la gauche en rétrécissant légèrement */
+  transform: translateX(calc(-100% - var(--qt-offset) - 16px)) scale(0.92) rotate(-2deg);
+  transition:
+    opacity 0.4s ease-in,
+    transform 0.45s cubic-bezier(0.55, 0, 0.75, 0.2),
+    box-shadow 0.45s var(--ease),
+    visibility 0s linear 0.45s;
+}
+
+.quote-toast.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) scale(1) rotate(0deg);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(79, 70, 229, 0.06);
+  /* Entrée : glisse avec un léger rebond */
+  transition:
+    opacity 0.35s var(--ease),
+    transform 0.7s cubic-bezier(0.34, 1.45, 0.64, 1),
+    box-shadow 0.6s var(--ease),
+    visibility 0s linear 0s;
+}
+
+.quote-toast:hover { box-shadow: var(--shadow-glow); }
+
+/* Le contenu passe au-dessus du décor */
+.quote-toast-header,
+.quote-toast-body { position: relative; z-index: 2; }
+
+/* Reflet lumineux qui balaie la carte à l'arrivée */
+.quote-toast::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.7) 50%, transparent 65%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.quote-toast.is-shown::before { animation: quote-toast-sweep 1.1s var(--ease) 0.35s both; }
+
+/* ---------- Bordure lumineuse qui tourne ---------- */
+
+.quote-toast-border {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--qt-angle),
+    transparent 0deg 220deg,
+    rgba(37, 99, 235, 0.9) 270deg,
+    rgba(124, 58, 237, 0.9) 315deg,
+    rgba(6, 182, 212, 0.8) 345deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease);
+}
+
+.quote-toast.is-shown .quote-toast-border {
+  opacity: 1;
+  animation: quote-toast-spin 4.5s linear infinite;
+}
+
+/* ---------- Décor de fond ---------- */
+
+.quote-toast-deco {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.quote-toast-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(79, 70, 229, 0.22) 1px, transparent 1.2px);
+  background-size: 14px 14px;
+  -webkit-mask-image: radial-gradient(120% 90% at 100% 0%, #000 0%, transparent 60%);
+  mask-image: radial-gradient(120% 90% at 100% 0%, #000 0%, transparent 60%);
+  animation: quote-toast-grid 14s linear infinite;
+}
+
+.quote-toast-orb {
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  opacity: 0.55;
+}
+
+.quote-toast-orb--a {
+  top: -80px;
+  left: -60px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.28), transparent 65%);
+  animation: quote-toast-drift-a 9s ease-in-out infinite;
+}
+
+.quote-toast-orb--b {
+  right: -70px;
+  bottom: -90px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.26), transparent 65%);
+  animation: quote-toast-drift-b 11s ease-in-out infinite;
+}
+
+.quote-toast-network {
+  position: absolute;
+  top: 6px;
+  right: 42px;
+  width: 112px;
+  height: 72px;
+  opacity: 0.32;
+}
+
+.quote-toast-network line {
+  stroke: #4f46e5;
+  stroke-width: 0.8;
+  stroke-dasharray: 3 3;
+  animation: quote-toast-dash 2.4s linear infinite;
+}
+
+.quote-toast-network circle {
+  fill: #7c3aed;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: quote-toast-node 2.8s ease-in-out infinite;
+  animation-delay: calc(var(--n) * 0.35s);
+}
+
+.quote-toast-watermark {
+  position: absolute;
+  right: 8px;
+  bottom: -62px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 9rem;
+  font-weight: 700;
+  line-height: 1;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.09;
+  animation: quote-toast-bob 6s ease-in-out infinite;
+}
+
+/* ---------- En-tête : pastille, libellé, fermeture ---------- */
+
+.quote-toast-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.quote-toast-mark {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding-top: 12px;
+  border-radius: 10px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #2563eb 100%);
+  background-size: 200% 200%;
+  box-shadow: 0 6px 14px rgba(79, 70, 229, 0.3);
+}
+
+.quote-toast-label {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-indigo);
+}
+
+.quote-toast-close {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin: -4px -6px -4px 0;
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  transition: color var(--transition-fast), background var(--transition-fast), transform var(--transition-normal);
+}
+
+.quote-toast-close:hover { color: var(--text-primary); background: rgba(148, 163, 184, 0.18); transform: rotate(90deg); }
+.quote-toast-close:focus-visible { border-radius: var(--radius-full); outline-offset: 1px; }
+
+/* ---------- Citation ---------- */
+
+.quote-toast-body { margin: 0; }
+.quote-toast-text { margin: 0; }
+
+.quote-toast-text p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  overflow: hidden;
+  font-size: 0.92rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.quote-toast-author {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.quote-toast-author strong {
+  position: relative;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Soulignement en dégradé qui se dessine sous l'auteur */
+.quote-toast-author strong::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.quote-toast-role { color: var(--text-muted); min-width: 0; overflow-wrap: anywhere; }
+
+/* ---------- Barre de temps restant ---------- */
+
+.quote-toast-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 3px;
+  background: linear-gradient(90deg, #2563eb, #7c3aed, #06b6d4, #2563eb);
+  background-size: 300% 100%;
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.45);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+/* ---------- Animations à l'affichage ---------- */
+
+.quote-toast.is-shown .quote-toast-mark {
+  animation:
+    quote-toast-pop 0.6s cubic-bezier(0.34, 1.7, 0.64, 1) 0.15s both,
+    quote-toast-glow 2.6s ease-in-out 0.9s infinite,
+    quote-toast-gradient 4s ease-in-out infinite;
+}
+.quote-toast.is-shown .quote-toast-label { animation: quote-toast-slide 0.5s var(--ease) 0.25s both; }
+.quote-toast.is-shown .quote-toast-close { animation: quote-toast-fade 0.5s var(--ease) 0.35s both; }
+
+/* Les mots se révèlent un par un */
+.quote-toast.is-shown .quote-toast-word {
+  animation: quote-toast-word 0.5s var(--ease) both;
+  animation-delay: calc(0.3s + min(var(--w) * 45ms, 1.6s));
+}
+
+.quote-toast.is-shown .quote-toast-author { animation: quote-toast-rise 0.6s var(--ease) 0.6s both; }
+.quote-toast.is-shown .quote-toast-author strong::after { animation: quote-toast-underline 0.7s var(--ease) 0.9s both; }
+
+.quote-toast.is-shown .quote-toast-progress {
+  animation:
+    quote-toast-countdown 9s linear forwards,
+    quote-toast-flow 2.4s linear infinite;
+}
+
+.quote-toast.is-paused .quote-toast-progress { animation-play-state: paused; }
+
+/* ---------- Keyframes ---------- */
+
+@keyframes quote-toast-spin { to { --qt-angle: 360deg; } }
+
+@keyframes quote-toast-countdown {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+@keyframes quote-toast-flow {
+  from { background-position: 0% 0; }
+  to { background-position: 150% 0; }
+}
+
+@keyframes quote-toast-sweep {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+
+@keyframes quote-toast-pop {
+  0% { transform: scale(0) rotate(-35deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes quote-toast-glow {
+  0%, 100% { box-shadow: 0 6px 14px rgba(79, 70, 229, 0.3); }
+  50% { box-shadow: 0 6px 22px rgba(79, 70, 229, 0.55), 0 0 0 4px rgba(79, 70, 229, 0.1); }
+}
+
+@keyframes quote-toast-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes quote-toast-slide {
+  from { transform: translateX(-10px); opacity: 0; letter-spacing: 0.3em; }
+  to { transform: none; opacity: 1; letter-spacing: 0.12em; }
+}
+
+@keyframes quote-toast-fade {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes quote-toast-word {
+  from { opacity: 0; filter: blur(5px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+@keyframes quote-toast-rise {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@keyframes quote-toast-underline {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes quote-toast-grid {
+  from { background-position: 0 0; }
+  to { background-position: 28px 14px; }
+}
+
+@keyframes quote-toast-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 30px) scale(1.15); }
+}
+
+@keyframes quote-toast-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-70px, -25px) scale(1.2); }
+}
+
+@keyframes quote-toast-dash { to { stroke-dashoffset: -12; } }
+
+@keyframes quote-toast-node {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.6); opacity: 1; }
+}
+
+@keyframes quote-toast-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(-6deg); }
+}
+
+/* ---------- Mobile : pleine largeur, au-dessus du bouton retour en haut ---------- */
+
+@media (max-width: 639px) {
+  .quote-toast {
+    --qt-offset: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    width: auto;
+    max-width: none;
+    padding: 12px 14px 16px;
+  }
+  .quote-toast-mark { width: 28px; height: 28px; font-size: 1.75rem; padding-top: 10px; }
+  .quote-toast-text p { font-size: 0.85rem; }
+  .quote-toast-author { font-size: 0.75rem; }
+  .quote-toast-network { right: 36px; width: 96px; height: 62px; }
+  .quote-toast-watermark { font-size: 7.5rem; bottom: -50px; }
+}
+
+/* Téléphone en paysage : pas assez de hauteur pour une bulle flottante */
+@media (max-height: 500px) {
+  .quote-toast { display: none; }
+}
+
+/* ---------- Moins d'animations : simple fondu, décor figé ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .quote-toast,
+  .quote-toast.is-shown { transform: none; }
+  .quote-toast { transition: opacity 0.4s linear, visibility 0s linear 0.4s !important; }
+  .quote-toast.is-shown { transition: opacity 0.4s linear, visibility 0s linear 0s !important; }
+  .quote-toast *,
+  .quote-toast *::after,
+  .quote-toast::before,
+  .quote-toast.is-shown * { animation: none !important; }
+  .quote-toast::before { display: none; }
+  .quote-toast-author strong::after { transform: scaleX(1); }
+  /* La barre indique un temps, pas un mouvement : on la garde */
+  .quote-toast.is-shown .quote-toast-progress {
+    animation: quote-toast-countdown 9s linear forwards !important;
+  }
+  .quote-toast.is-paused .quote-toast-progress { animation-play-state: paused !important; }
+}

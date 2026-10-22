@@ -1,193 +1,160 @@
-/* ============================================
-   ABOUT SECTION - Modern Light Design
-   ============================================ */
+/* ============================================================
+   À PROPOS
+   ============================================================ */
 
-/* Content Grid */
 .about-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 48px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: stretch;
 }
 
-/* Text Content */
 .about-text {
+  padding: clamp(26px, 4vw, 44px);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
-.about-text p {
-  font-size: 1.05rem;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  margin: 0;
-}
+.about-text:hover { transform: none; }
 
-.about-text p:first-child {
-  font-size: 1.125rem;
-  color: var(--text-primary);
+.about-text p { color: var(--text-secondary); font-size: 1rem; }
+
+.about-lead {
+  font-size: clamp(1.05rem, 1.6vw, 1.18rem) !important;
+  color: var(--text-primary) !important;
   font-weight: 500;
+  line-height: 1.7;
 }
 
-/* Traits Card */
-.traits-card {
-  margin-top: 24px;
-  padding: 24px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-}
-
-.traits-title {
-  font-family: var(--font-display);
-  font-size: 1rem;
+.about-goal {
+  position: relative;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  background: var(--gradient-soft);
+  border-left: 3px solid var(--accent-indigo);
+  color: var(--text-primary) !important;
   font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 16px 0;
 }
 
-.traits-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+.about-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 10px;
 }
 
-.trait-tag {
-  padding: 8px 16px;
-  background: rgba(37, 99, 235, 0.08);
-  color: var(--accent-blue);
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border: 1px solid rgba(37, 99, 235, 0.12);
-  transition: all 0.3s ease;
-}
-
-.trait-tag:hover {
-  background: rgba(37, 99, 235, 0.15);
-  transform: translateY(-2px);
-}
-
-/* About Cards */
-.about-cards {
+.highlight {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 4px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--border-light);
 }
 
-.about-card {
-  padding: 24px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  transition: all 0.3s ease;
-}
+.highlight-value { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; }
+.highlight-label { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
 
-.about-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-  border-color: rgba(37, 99, 235, 0.2);
-}
+.about-cards-wrap { display: flex; flex-direction: column; min-width: 0; }
+.about-cards { flex: 1; display: flex; flex-direction: column; gap: 18px; }
+.about-cards > .about-card { flex: 1 1 auto; }
 
-.about-card-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 16px;
-}
+.about-card { padding: 24px 26px; }
+
+.about-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
 
 .about-card-icon {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12) 0%, rgba(124, 58, 237, 0.08) 100%);
-  border-radius: 12px;
-  color: var(--accent-blue);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  color: #fff;
+  background: var(--gradient-primary);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+  flex-shrink: 0;
 }
 
-.about-card-title {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0;
+.about-card-title { font-size: 1.08rem; font-weight: 700; color: var(--text-primary); }
+.about-card-text { font-size: 0.95rem; color: var(--text-secondary); }
+
+.tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.chip-accent { color: var(--accent-indigo); background: rgba(79, 70, 229, 0.06); border-color: rgba(79, 70, 229, 0.16); }
+
+@media (max-width: 960px) {
+  .about-grid { grid-template-columns: 1fr; }
 }
 
-.about-card-text {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin: 0;
+@media (max-width: 520px) {
+  .about-highlights { grid-template-columns: 1fr; }
+  .highlight { flex-direction: row; align-items: baseline; gap: 12px; }
+  .about-card { padding: 22px 20px; }
 }
 
-/* Hobbies List - Simple text */
-.hobbies-list {
-  display: flex;
-  gap: 16px;
+/* ============================================================
+   CARROUSEL MOBILE : cartes distribuées comme un jeu
+   La nouvelle arrive d'en haut à droite en se redressant, l'ancienne glisse en bas à gauche.
+   ============================================================ */
+
+.about-cards.is-carousel { display: grid; touch-action: pan-y; }
+
+/* `[data-reveal]` en plus pour passer devant les règles d'apparition au scroll (index.css) */
+.about-cards.is-carousel .about-card[data-reveal] {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(36px, -28px) rotate(7deg) scale(0.94);
+  transition: opacity 0.5s var(--ease), transform 0.75s var(--ease), visibility 0s linear 0.75s;
+  transition-delay: 0s, 0s, 0.75s;
 }
 
-.hobby-item {
-  padding: 10px 20px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-light);
-  border-radius: 10px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  transition: all 0.3s ease;
+.about-cards.is-carousel .about-card.is-leaving[data-reveal] { transform: translate(-36px, 28px) rotate(-7deg) scale(0.9); }
+
+.about-cards.is-carousel.is-backwards .about-card:not(.is-active):not(.is-leaving)[data-reveal] { transform: translate(-36px, 28px) rotate(-7deg) scale(0.9); }
+.about-cards.is-carousel.is-backwards .about-card.is-leaving[data-reveal] { transform: translate(36px, -28px) rotate(7deg) scale(0.94); }
+
+.about-cards.is-carousel .about-card.is-active[data-reveal] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition:
+    opacity 0.5s var(--ease) 0.1s,
+    transform 0.8s cubic-bezier(0.34, 1.4, 0.64, 1) 0.05s,
+    visibility 0s linear 0s;
 }
 
-.hobby-item:hover {
-  background: white;
-  color: var(--accent-violet);
-  border-color: rgba(124, 58, 237, 0.2);
+.about-cards.is-carousel .about-card.is-active:hover { transform: none; }
+
+.about-cards.is-carousel .about-card.is-active .about-card-icon { animation: about-icon-in 0.7s cubic-bezier(0.34, 1.6, 0.64, 1) 0.2s both; }
+.about-cards.is-carousel .about-card.is-active .about-card-title { animation: about-title-in 0.55s var(--ease) 0.3s both; }
+.about-cards.is-carousel .about-card.is-active .about-card-text { animation: about-text-in 0.6s var(--ease) 0.42s both; }
+.about-cards.is-carousel .about-card.is-active .chip {
+  animation: about-chip-in 0.5s cubic-bezier(0.34, 1.6, 0.64, 1) both;
+  animation-delay: calc(0.4s + var(--t) * 70ms);
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-
-@media (max-width: 900px) {
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
+@keyframes about-icon-in {
+  from { opacity: 0; transform: scale(0.3) rotate(-90deg); }
+  to { opacity: 1; transform: none; }
 }
 
-@media (max-width: 600px) {
-  .about-text p {
-    font-size: 1rem;
-  }
-  
-  .about-text p:first-child {
-    font-size: 1.05rem;
-  }
-  
-  .traits-card {
-    padding: 20px;
-  }
-  
-  .about-card {
-    padding: 20px;
-  }
-  
-  .about-card-icon {
-    width: 44px;
-    height: 44px;
-  }
-  
-  .hobbies-list {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  .hobby-item {
-    padding: 8px 16px;
-    font-size: 0.875rem;
-  }
+@keyframes about-title-in {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes about-text-in {
+  from { opacity: 0; clip-path: inset(0 100% 0 0); }
+  to { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+@keyframes about-chip-in {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: none; }
 }

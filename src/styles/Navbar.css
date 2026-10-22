@@ -81,8 +81,10 @@
 }
 
 .nav-link {
+  --nl-pad: 18px;
   position: relative;
-  padding: 10px 18px;
+  padding: 10px var(--nl-pad);
+  white-space: nowrap;
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--color-text-secondary);
@@ -110,7 +112,7 @@
 }
 
 .nav-link:hover::before {
-  width: calc(100% - 36px);
+  width: calc(100% - 2 * var(--nl-pad));
 }
 
 .nav-link.active {
@@ -120,7 +122,7 @@
 }
 
 .nav-link.active::before {
-  width: calc(100% - 36px);
+  width: calc(100% - 2 * var(--nl-pad));
 }
 
 /* Right Actions */
@@ -252,6 +254,8 @@
 
 .mobile-menu .nav-link {
   display: block;
+  width: 100%;
+  text-align: left;
   padding: 14px 16px;
   font-size: 1rem;
   border-radius: var(--radius-md);
@@ -283,6 +287,15 @@
    RESPONSIVE
    ============================================ */
 
+/* Juste au-dessus du burger : on resserre pour que tout tienne sur une ligne */
+@media (min-width: 1025px) and (max-width: 1199px) {
+  .navbar { padding-left: 20px; padding-right: 20px; }
+  .navbar-container { padding: 12px 18px; }
+  .navbar-links { gap: 2px; }
+  .nav-link { --nl-pad: 12px; }
+  .navbar-actions { gap: 8px; }
+}
+
 @media (max-width: 1024px) {
   .navbar-links {
     display: none;
@@ -298,6 +311,11 @@
   
   .mobile-menu {
     display: block;
+  }
+
+  /* Le CV reste accessible dans le menu mobile */
+  .mobile-menu .navbar-cta {
+    display: flex;
   }
 }
 
