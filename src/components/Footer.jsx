@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from '../hooks/useTranslation.jsx';
 import { MapPin, Github, Linkedin, Mail } from 'lucide-react';
+import DocLinks from './DocLinks';
 import '../styles/Footer.css';
 
 const LINKS = [
@@ -27,6 +28,8 @@ const Footer = () => {
         </p>
 
         <div className="footer-links">
+          <DocLinks />
+          <span className="footer-links-sep" aria-hidden="true" />
           {LINKS.map(({ href, label, icon: Icon, external }) => (
             <a
               key={label}

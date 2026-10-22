@@ -110,7 +110,20 @@ body {
 
 ::selection { background: rgba(37, 99, 235, 0.16); color: var(--text-primary); }
 
-.app { position: relative; min-height: 100vh; overflow-x: hidden; }
+.app {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Téléphone en paysage : le contenu ne passe pas sous l'encoche */
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* Menu mobile ouvert : page figée, la largeur de la barre de défilement est compensée pour éviter tout saut */
+html.nav-locked { overflow: hidden; }
+html.nav-locked body { padding-right: var(--scrollbar-comp, 0px); }
+html.nav-locked .navbar { right: var(--scrollbar-comp, 0px); }
+html.nav-locked .scroll-top { margin-right: var(--scrollbar-comp, 0px); }
 main, .app > section, .app > footer { position: relative; z-index: 1; }
 
 h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; }
@@ -462,6 +475,27 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 
 @keyframes curtain-logo-out {
   to { opacity: 0; transform: scale(1.2); }
+}
+
+/* ============================================================
+   ÉCRANS TACTILES
+   ============================================================ */
+
+@media (hover: none) {
+  /* Fond fixe : repeint à chaque frame sur mobile, source de saccades au défilement */
+  body { background-attachment: scroll; }
+
+  /* Pas d'élément qui reste « soulevé » après un tap */
+  .card:hover,
+  .chip:hover,
+  .btn:hover,
+  .info-item:hover,
+  .contact-item:hover,
+  .module:hover,
+  .soon-card:hover,
+  .skill-tag:hover,
+  .footer-link:hover { transform: none; }
+  .btn:hover svg { transform: none; }
 }
 
 /* ============================================================

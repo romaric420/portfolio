@@ -1,0 +1,63 @@
+/* ============================================================
+   CV | LM : pastille de téléchargement partagée (navbar, menu mobile, footer)
+   ============================================================ */
+
+/* Téléchargements : une pastille, deux liens (CV | LM) séparés par un filet */
+.doc-links {
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.doc-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 14px;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--transition-fast);
+}
+
+.doc-link + .doc-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 25%;
+  bottom: 25%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.doc-link:active {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.doc-link:focus-visible {
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.85);
+  border-radius: inherit;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .doc-links:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+  }
+
+  .doc-link:hover {
+    background: rgba(255, 255, 255, 0.14);
+  }
+}

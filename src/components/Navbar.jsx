@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
-import { Download, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { goToSection } from '../utils/sectionTransition';
+import DocLinks from './DocLinks';
 import '../styles/Navbar.css';
 
-const MOBILE_BREAKPOINT = 1024;
+// Doit rester aligné sur le breakpoint du burger dans Navbar.css
+const DESKTOP_QUERY = '(min-width: 1025px)';
+const SECTION_IDS = ['home', 'about', 'skills', 'experience', 'contact'];
+const ACTIVE_OFFSET = 150;
+// Filet de sécurité si le défilement animé n'aboutit jamais (interrompu, page trop courte…)
+const SCROLL_LOCK_MS = 2500;
 
 // Interrupteur de langue : un seul bouton, la pastille glisse de FR à EN comme un switch on/off
 const LangSwitch = ({ lang, onToggle, tabIndex }) => (
@@ -28,65 +34,116 @@ const Navbar = ({ onProjectsClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileOpen, setMobileOpen] = useState(false);
-  const navRef = useRef(null);
+  const containerRef = useRef(null);
   const toggleRef = useRef(null);
   const pendingScroll = useRef(null);
+  // Section visée par un clic : la surbrillance ne bascule pas sur les sections traversées en chemin
+  const scrollTarget = useRef(null);
+  const scrollTargetTimer = useRef(null);
 
+  // État « scrollé » et section active, recalculés au plus une fois par frame
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    let frame = null;
 
-      // Update active section based on scroll position here
-      const sections = ['home', 'about', 'skills', 'experience', 'contact'];
-      for (const section of sections.reverse()) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 150) {
-            setActiveSection(section);
-            break;
-          }
-        }
+    const update = () => {
+      frame = null;
+      const y = window.scrollY;
+      setIsScrolled(y > 50);
+
+      // En bas de page, la dernière section peut être trop courte pour atteindre le seuil
+      const atBottom = window.innerHeight + y >= document.documentElement.scrollHeight - 2;
+      let current = SECTION_IDS[0];
+      for (const id of SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= ACTIVE_OFFSET) current = id;
       }
+      if (atBottom) current = SECTION_IDS[SECTION_IDS.length - 1];
+
+      if (scrollTarget.current) {
+        if (current !== scrollTarget.current) return;
+        scrollTarget.current = null;
+      }
+      setActiveSection(current);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // L'utilisateur reprend la main : on revient au suivi normal du défilement
+    const releaseTarget = () => {
+      scrollTarget.current = null;
+    };
+
+    const schedule = () => {
+      if (frame === null) frame = requestAnimationFrame(update);
+    };
+
+    const interruptions = ['wheel', 'touchstart'];
+
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    interruptions.forEach((evt) => window.addEventListener(evt, releaseTarget, { passive: true }));
+    return () => {
+      if (frame !== null) cancelAnimationFrame(frame);
+      window.clearTimeout(scrollTargetTimer.current);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      interruptions.forEach((evt) => window.removeEventListener(evt, releaseTarget));
+    };
   }, []);
 
-  // Menu mobile : verrouillage du scroll, fermeture avec Échap, clic extérieur ou passage en desktop
+  // Menu mobile : verrouillage du scroll, Échap, focus piégé, clic extérieur, passage en desktop
   useEffect(() => {
     if (!mobileOpen) return undefined;
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    // Verrou sur <html> (fiable sur iOS) en compensant la barre de défilement pour éviter le saut
+    const root = document.documentElement;
+    root.style.setProperty('--scrollbar-comp', `${window.innerWidth - root.clientWidth}px`);
+    root.classList.add('nav-locked');
+
+    const close = () => setMobileOpen(false);
 
     const handleKey = (e) => {
       if (e.key === 'Escape') {
-        setMobileOpen(false);
+        close();
         toggleRef.current?.focus();
+        return;
+      }
+      if (e.key !== 'Tab' || !containerRef.current) return;
+
+      // Le focus tourne entre le burger et les éléments du menu
+      const focusables = [...containerRef.current.querySelectorAll('a[href], button')].filter(
+        (el) => el.tabIndex >= 0 && el.offsetParent !== null
+      );
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
     };
     const handlePointer = (e) => {
-      if (navRef.current && !navRef.current.querySelector('.navbar-container').contains(e.target)) {
-        setMobileOpen(false);
-      }
+      if (containerRef.current && !containerRef.current.contains(e.target)) close();
     };
-    const handleResize = () => {
-      if (window.innerWidth > MOBILE_BREAKPOINT) setMobileOpen(false);
+    const desktop = window.matchMedia(DESKTOP_QUERY);
+    const handleBreakpoint = () => {
+      if (desktop.matches) close();
     };
 
     document.addEventListener('keydown', handleKey);
     document.addEventListener('pointerdown', handlePointer);
-    window.addEventListener('resize', handleResize);
+    desktop.addEventListener('change', handleBreakpoint);
     return () => {
-      document.body.style.overflow = previousOverflow;
+      root.classList.remove('nav-locked');
+      root.style.removeProperty('--scrollbar-comp');
       // Le scroll vers la section demandée ne part qu'une fois la page déverrouillée
       pendingScroll.current?.();
       pendingScroll.current = null;
       document.removeEventListener('keydown', handleKey);
       document.removeEventListener('pointerdown', handlePointer);
-      window.removeEventListener('resize', handleResize);
+      desktop.removeEventListener('change', handleBreakpoint);
     };
   }, [mobileOpen]);
 
@@ -99,7 +156,14 @@ const Navbar = ({ onProjectsClick }) => {
       }
     };
 
-    if (sectionId !== 'projects') setActiveSection(sectionId);
+    if (sectionId !== 'projects') {
+      setActiveSection(sectionId);
+      scrollTarget.current = sectionId;
+      window.clearTimeout(scrollTargetTimer.current);
+      scrollTargetTimer.current = window.setTimeout(() => {
+        scrollTarget.current = null;
+      }, SCROLL_LOCK_MS);
+    }
 
     if (mobileOpen) {
       pendingScroll.current = go;
@@ -110,6 +174,7 @@ const Navbar = ({ onProjectsClick }) => {
   };
 
   const nav = translations.nav || {};
+  const menuTabIndex = mobileOpen ? 0 : -1;
 
   const navItems = [
     { id: 'home', label: nav.home },
@@ -120,15 +185,19 @@ const Navbar = ({ onProjectsClick }) => {
     { id: 'contact', label: nav.contact }
   ];
 
+  const toggleLabel = lang === 'fr'
+    ? (mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu')
+    : (mobileOpen ? 'Close menu' : 'Open menu');
+
   return (
     <nav
-      ref={navRef}
       className={`navbar ${isScrolled ? 'scrolled' : ''} ${mobileOpen ? 'menu-open' : ''}`}
+      aria-label={lang === 'fr' ? 'Navigation principale' : 'Main navigation'}
     >
       {/* Mobile backdrop */}
       <div className="nav-backdrop" aria-hidden="true" />
 
-      <div className="navbar-container">
+      <div className="navbar-container" ref={containerRef}>
         {/* Logo */}
         <a href="#home" className="navbar-logo" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
           <div className="logo-icon">R</div>
@@ -143,6 +212,7 @@ const Navbar = ({ onProjectsClick }) => {
               key={item.id}
               className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
               onClick={() => scrollToSection(item.id)}
+              aria-current={activeSection === item.id ? 'true' : undefined}
             >
               {item.label}
             </button>
@@ -154,11 +224,8 @@ const Navbar = ({ onProjectsClick }) => {
           {/* Language Toggle */}
           <LangSwitch lang={lang} onToggle={toggleLang} />
 
-          {/* CV Download */}
-          <a href="/cv/CV_2026-03-11_Romaric_TCHOFFO.pdf" download className="navbar-cta">
-            <Download size={16} />
-            <span>CV</span>
-          </a>
+          {/* CV + lettre de motivation */}
+          <DocLinks />
 
           {/* Mobile Menu Toggle */}
           <button
@@ -166,7 +233,7 @@ const Navbar = ({ onProjectsClick }) => {
             type="button"
             className={`mobile-toggle ${mobileOpen ? 'active' : ''}`}
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Menu"
+            aria-label={toggleLabel}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
           >
@@ -182,6 +249,9 @@ const Navbar = ({ onProjectsClick }) => {
           className={`mobile-menu ${mobileOpen ? 'open' : ''}`}
           style={{ '--count': navItems.length }}
         >
+          {/* Décor dans son propre calque : il ne doit pas agrandir la zone défilable */}
+          <span className="mobile-menu-decor" aria-hidden="true" />
+
           <p className="mobile-menu-label">Menu</p>
           <ul className="mobile-menu-list">
             {navItems.map((item, i) => (
@@ -190,7 +260,8 @@ const Navbar = ({ onProjectsClick }) => {
                   type="button"
                   className={`mobile-link ${activeSection === item.id ? 'active' : ''}`}
                   onClick={() => scrollToSection(item.id)}
-                  tabIndex={mobileOpen ? 0 : -1}
+                  tabIndex={menuTabIndex}
+                  aria-current={activeSection === item.id ? 'true' : undefined}
                 >
                   <span className="mobile-link-label">{item.label}</span>
                   <ArrowUpRight className="mobile-link-arrow" size={18} />
@@ -199,16 +270,8 @@ const Navbar = ({ onProjectsClick }) => {
             ))}
           </ul>
           <div className="mobile-menu-actions" style={{ '--i': navItems.length }}>
-            <LangSwitch lang={lang} onToggle={toggleLang} tabIndex={mobileOpen ? 0 : -1} />
-            <a
-              href="/cv/CV_2026-03-11_Romaric_TCHOFFO.pdf"
-              download
-              className="navbar-cta"
-              tabIndex={mobileOpen ? 0 : -1}
-            >
-              <Download size={16} />
-              <span>CV</span>
-            </a>
+            <LangSwitch lang={lang} onToggle={toggleLang} tabIndex={menuTabIndex} />
+            <DocLinks tabIndex={menuTabIndex} />
           </div>
         </div>
       </div>

@@ -5,7 +5,11 @@
     "skills": "Compétences",
     "projects": "Projets",
     "experience": "Parcours",
-    "contact": "Contact"
+    "contact": "Contact",
+    "cv": "CV",
+    "cvFull": "Télécharger le CV",
+    "letter": "LM",
+    "letterFull": "Télécharger la lettre de motivation"
   },
   "hero": {
     "status": "Ouvert aux opportunités CDI",
@@ -359,6 +363,10 @@
     },
     "cv": {
       "label": "CV",
+      "action": "Télécharger le PDF"
+    },
+    "letter": {
+      "label": "Lettre de motivation",
       "action": "Télécharger le PDF"
     },
     "viewProjects": "Voir mes projets",

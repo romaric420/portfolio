@@ -47,8 +47,8 @@
 
 .projects-back-btn {
   position: fixed;
-  top: 22px;
-  left: 22px;
+  top: calc(22px + env(safe-area-inset-top, 0px));
+  left: max(22px, env(safe-area-inset-left, 0px));
   z-index: 20;
   display: inline-flex;
   align-items: center;
@@ -270,7 +270,7 @@
 
 @media (max-width: 640px) {
   .projects-page { padding-top: 96px; }
-  .projects-back-btn { top: 14px; left: 14px; padding: 9px 14px; }
+  .projects-back-btn { top: calc(14px + env(safe-area-inset-top, 0px)); left: max(14px, env(safe-area-inset-left, 0px)); padding: 9px 14px; }
   .projects-grid { grid-template-columns: 1fr; gap: 18px; max-width: 420px; margin: 0 auto; }
   .soon-visual { height: 170px; }
 }

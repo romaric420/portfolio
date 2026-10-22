@@ -5,7 +5,11 @@
     "skills": "Skills",
     "projects": "Projects",
     "experience": "Background",
-    "contact": "Contact"
+    "contact": "Contact",
+    "cv": "CV",
+    "cvFull": "Download my resume",
+    "letter": "Letter",
+    "letterFull": "Download my cover letter"
   },
   "hero": {
     "status": "Open to full-time opportunities",
@@ -359,6 +363,10 @@
     },
     "cv": {
       "label": "Resume",
+      "action": "Download PDF"
+    },
+    "letter": {
+      "label": "Cover letter",
       "action": "Download PDF"
     },
     "viewProjects": "View my projects",

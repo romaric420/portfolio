@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTranslation } from '../hooks/useTranslation.jsx';
-import { Mail, Phone, FileDown, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { Mail, Phone, FileDown, FileText, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { CV_URL, LETTER_URL } from '../utils/documents';
 import '../styles/Contact.css';
 
 const CONFIG = {
   email: 'hippolytetchoffo3@gmail.com',
   phone: '+33753728781',
-  cv: '/cv/CV_2026-03-11_Romaric_TCHOFFO.pdf',
 };
 
 const Contact = ({ onProjectsClick }) => {
@@ -17,7 +17,8 @@ const Contact = ({ onProjectsClick }) => {
   const contactItems = [
     { icon: Mail, label: t.email?.label, action: t.email?.action, href: `mailto:${CONFIG.email}` },
     { icon: Phone, label: t.phone?.label, action: t.phone?.action, href: `tel:${CONFIG.phone}` },
-    { icon: FileDown, label: t.cv?.label, action: t.cv?.action, href: CONFIG.cv, download: true },
+    { icon: FileDown, label: t.cv?.label, action: t.cv?.action, href: CV_URL, download: true },
+    { icon: FileText, label: t.letter?.label, action: t.letter?.action, href: LETTER_URL, download: true },
   ];
 
   return (
