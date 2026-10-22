@@ -5,8 +5,25 @@ import '../styles/Navbar.css';
 
 const MOBILE_BREAKPOINT = 1024;
 
+// Interrupteur de langue : un seul bouton, la pastille glisse de FR à EN comme un switch on/off
+const LangSwitch = ({ lang, onToggle, tabIndex }) => (
+  <button
+    type="button"
+    role="switch"
+    aria-checked={lang === 'en'}
+    aria-label={lang === 'fr' ? 'Switch to English' : 'Passer en français'}
+    className={`lang-toggle ${lang === 'en' ? 'is-en' : ''}`}
+    onClick={onToggle}
+    tabIndex={tabIndex}
+  >
+    <span className="lang-thumb" aria-hidden="true" />
+    <span className={`lang-btn ${lang === 'fr' ? 'active' : ''}`}>FR</span>
+    <span className={`lang-btn ${lang === 'en' ? 'active' : ''}`}>EN</span>
+  </button>
+);
+
 const Navbar = ({ onProjectsClick }) => {
-  const { translations, lang, setLanguage } = useTranslation();
+  const { translations, lang, toggleLang } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -134,20 +151,7 @@ const Navbar = ({ onProjectsClick }) => {
         {/* Actions */}
         <div className="navbar-actions">
           {/* Language Toggle */}
-          <div className="lang-toggle">
-            <button
-              className={`lang-btn ${lang === 'fr' ? 'active' : ''}`}
-              onClick={() => setLanguage('fr')}
-            >
-              FR
-            </button>
-            <button
-              className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
-              onClick={() => setLanguage('en')}
-            >
-              EN
-            </button>
-          </div>
+          <LangSwitch lang={lang} onToggle={toggleLang} />
 
           {/* CV Download */}
           <a href="/cv/CV_2026-03-11_Romaric_TCHOFFO.pdf" download className="navbar-cta">
@@ -195,22 +199,7 @@ const Navbar = ({ onProjectsClick }) => {
             ))}
           </ul>
           <div className="mobile-menu-actions" style={{ '--i': navItems.length }}>
-            <div className="lang-toggle">
-              <button
-                className={`lang-btn ${lang === 'fr' ? 'active' : ''}`}
-                onClick={() => setLanguage('fr')}
-                tabIndex={mobileOpen ? 0 : -1}
-              >
-                FR
-              </button>
-              <button
-                className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
-                onClick={() => setLanguage('en')}
-                tabIndex={mobileOpen ? 0 : -1}
-              >
-                EN
-              </button>
-            </div>
+            <LangSwitch lang={lang} onToggle={toggleLang} tabIndex={mobileOpen ? 0 : -1} />
             <a
               href="/cv/CV_2026-03-11_Romaric_TCHOFFO.pdf"
               download
