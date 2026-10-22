@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
-import { Download } from 'lucide-react';
+import { Download, ArrowUpRight } from 'lucide-react';
 import '../styles/Navbar.css';
+
+const MOBILE_BREAKPOINT = 1024;
 
 const Navbar = ({ onProjectsClick }) => {
   const { translations, lang, setLanguage } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navRef = useRef(null);
+  const toggleRef = useRef(null);
+  const pendingScroll = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
+
       // Update active section based on scroll position here
       const sections = ['home', 'about', 'skills', 'experience', 'contact'];
       for (const section of sections.reverse()) {
@@ -26,18 +31,63 @@ const Navbar = ({ onProjectsClick }) => {
         }
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Menu mobile : verrouillage du scroll, fermeture avec Échap, clic extérieur ou passage en desktop
+  useEffect(() => {
+    if (!mobileOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKey = (e) => {
+      if (e.key === 'Escape') {
+        setMobileOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    const handlePointer = (e) => {
+      if (navRef.current && !navRef.current.querySelector('.navbar-container').contains(e.target)) {
+        setMobileOpen(false);
+      }
+    };
+    const handleResize = () => {
+      if (window.innerWidth > MOBILE_BREAKPOINT) setMobileOpen(false);
+    };
+
+    document.addEventListener('keydown', handleKey);
+    document.addEventListener('pointerdown', handlePointer);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      // Le scroll vers la section demandée ne part qu'une fois la page déverrouillée
+      pendingScroll.current?.();
+      pendingScroll.current = null;
+      document.removeEventListener('keydown', handleKey);
+      document.removeEventListener('pointerdown', handlePointer);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [mobileOpen]);
+
   const scrollToSection = (sectionId) => {
-    setMobileOpen(false);
-    if (sectionId === 'projects') {
-      onProjectsClick();
+    const go = () => {
+      if (sectionId === 'projects') {
+        onProjectsClick();
+      } else {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    if (sectionId !== 'projects') setActiveSection(sectionId);
+
+    if (mobileOpen) {
+      pendingScroll.current = go;
+      setMobileOpen(false);
     } else {
-      setActiveSection(sectionId);
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      go();
     }
   };
 
@@ -53,7 +103,13 @@ const Navbar = ({ onProjectsClick }) => {
   ];
 
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+    <nav
+      ref={navRef}
+      className={`navbar ${isScrolled ? 'scrolled' : ''} ${mobileOpen ? 'menu-open' : ''}`}
+    >
+      {/* Mobile backdrop */}
+      <div className="nav-backdrop" aria-hidden="true" />
+
       <div className="navbar-container">
         {/* Logo */}
         <a href="#home" className="navbar-logo" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
@@ -79,13 +135,13 @@ const Navbar = ({ onProjectsClick }) => {
         <div className="navbar-actions">
           {/* Language Toggle */}
           <div className="lang-toggle">
-            <button 
+            <button
               className={`lang-btn ${lang === 'fr' ? 'active' : ''}`}
               onClick={() => setLanguage('fr')}
             >
               FR
             </button>
-            <button 
+            <button
               className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
               onClick={() => setLanguage('en')}
             >
@@ -100,10 +156,14 @@ const Navbar = ({ onProjectsClick }) => {
           </a>
 
           {/* Mobile Menu Toggle */}
-          <button 
+          <button
+            ref={toggleRef}
+            type="button"
             className={`mobile-toggle ${mobileOpen ? 'active' : ''}`}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
             <span />
             <span />
@@ -112,33 +172,51 @@ const Navbar = ({ onProjectsClick }) => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`mobile-menu ${mobileOpen ? 'open' : ''}`}>
-          {navItems.map(item => (
-            <button
-              type="button"
-              key={item.id}
-              className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
-              onClick={() => scrollToSection(item.id)}
-            >
-              {item.label}
-            </button>
-          ))}
-          <div className="mobile-menu-actions">
+        <div
+          id="mobile-menu"
+          className={`mobile-menu ${mobileOpen ? 'open' : ''}`}
+          style={{ '--count': navItems.length }}
+        >
+          <p className="mobile-menu-label">Menu</p>
+          <ul className="mobile-menu-list">
+            {navItems.map((item, i) => (
+              <li key={item.id} className="mobile-menu-item" style={{ '--i': i }}>
+                <button
+                  type="button"
+                  className={`mobile-link ${activeSection === item.id ? 'active' : ''}`}
+                  onClick={() => scrollToSection(item.id)}
+                  tabIndex={mobileOpen ? 0 : -1}
+                >
+                  <span className="mobile-link-index">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="mobile-link-label">{item.label}</span>
+                  <ArrowUpRight className="mobile-link-arrow" size={18} />
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="mobile-menu-actions" style={{ '--i': navItems.length }}>
             <div className="lang-toggle">
-              <button 
+              <button
                 className={`lang-btn ${lang === 'fr' ? 'active' : ''}`}
                 onClick={() => setLanguage('fr')}
+                tabIndex={mobileOpen ? 0 : -1}
               >
                 FR
               </button>
-              <button 
+              <button
                 className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
                 onClick={() => setLanguage('en')}
+                tabIndex={mobileOpen ? 0 : -1}
               >
                 EN
               </button>
             </div>
-            <a href="/cv/CV_2026-03-11_Romaric_TCHOFFO.pdf" download className="navbar-cta">
+            <a
+              href="/cv/CV_2026-03-11_Romaric_TCHOFFO.pdf"
+              download
+              className="navbar-cta"
+              tabIndex={mobileOpen ? 0 : -1}
+            >
               <Download size={16} />
               <span>CV</span>
             </a>

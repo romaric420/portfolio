@@ -40,7 +40,7 @@
     "sectionNumber": "01",
     "title": "About me",
     "kicker": "Profile",
-    "paragraph1": "Data Scientist and ML Engineer, I hold an MSc-level degree in Artificial Intelligence from EPSI Paris (RNCP level 7 certification, 5-year degree) and trained in Machine Learning Engineering with Guillaume Saint-Cirgue’s MLPRO program. As an AI & Digital Transformation Consultant at Amiltone, I help companies put AI to work in practice.",
+    "paragraph1": "Data Scientist and ML Engineer, I hold an MSc-level degree in Artificial Intelligence from EPSI Paris (RNCP level 7 certification, 5-year degree) and trained in Machine Learning Engineering with Guillaume Saint-Cirgue’s MLPRO program.",
     "paragraph2": "I always start from the business question: I define the target, the metric and the expected value, I make the data reliable (quality, leakage, bias), then I build models that are always compared to a baseline and validated without leakage. On the engineering side, I serve models with FastAPI and Docker, track experiments with MLflow, automate with GitHub Actions and monitor drift in production.",
     "paragraph3": "I am now looking for a full-time position in Data Science, ML Engineering or MLOps.",
     "highlights": [

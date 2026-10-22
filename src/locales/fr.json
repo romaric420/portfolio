@@ -40,7 +40,7 @@
     "sectionNumber": "01",
     "title": "À propos",
     "kicker": "Profil",
-    "paragraph1": "Data Scientist et ML Engineer, titulaire d’un Mastère Expert en Intelligence Artificielle de l’EPSI Paris (titre RNCP de niveau 7, Bac+5) et formé au Machine Learning Engineering avec le programme MLPRO de Guillaume Saint-Cirgue. Consultant IA & Transformation numérique chez Amiltone, j’accompagne les entreprises dans l’intégration concrète de l’IA.",
+    "paragraph1": "Data Scientist et ML Engineer, titulaire d’un Mastère Expert en Intelligence Artificielle de l’EPSI Paris (titre RNCP de niveau 7, Bac+5) et formé au Machine Learning Engineering avec le programme MLPRO de Guillaume Saint-Cirgue.",
     "paragraph2": "Je pars toujours de la question métier : je définis la cible, la métrique et le gain attendu, je fiabilise les données (qualité, fuites, biais), puis je construis des modèles systématiquement comparés à une baseline et validés sans fuite. Côté industrialisation, j’expose les modèles via FastAPI et Docker, je suis les expériences avec MLflow, j’automatise avec GitHub Actions et je surveille la dérive en production.",
     "paragraph3": "Je recherche aujourd’hui un CDI en Data Science, ML Engineering ou MLOps.",
     "highlights": [
