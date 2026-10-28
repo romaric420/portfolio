@@ -456,3 +456,12 @@
   }
   .quote-toast.is-paused .quote-toast-progress { animation-play-state: paused !important; }
 }
+
+/* ============================================
+   THÈME SOMBRE
+   ============================================ */
+
+:root[data-theme="dark"] .quote-toast { background: rgba(17, 25, 43, 0.82); }
+:root[data-theme="dark"] .quote-toast::before {
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.08) 50%, transparent 65%);
+}

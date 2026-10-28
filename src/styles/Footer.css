@@ -83,3 +83,10 @@
 @media (max-width: 640px) {
   .footer { padding-bottom: calc(28px + 64px + env(safe-area-inset-bottom, 0px)); }
 }
+
+/* ============================================
+   THÈME SOMBRE
+   ============================================ */
+
+:root[data-theme="dark"] .footer { background: rgba(11, 17, 32, 0.7); }
+:root[data-theme="dark"] .footer-link { background: rgba(255, 255, 255, 0.05); }

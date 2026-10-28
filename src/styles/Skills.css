@@ -283,3 +283,11 @@
   0%, 100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.4); opacity: 0.7; }
 }
+
+/* ============================================
+   THÈME SOMBRE
+   ============================================ */
+
+:root[data-theme="dark"] .method-icon { background: var(--surface-strong); }
+:root[data-theme="dark"] .skill-tag { background: rgba(255, 255, 255, 0.04); }
+:root[data-theme="dark"] .skill-tag:hover { background: rgba(255, 255, 255, 0.08); }

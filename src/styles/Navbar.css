@@ -220,6 +220,40 @@
   }
 }
 
+/* Bouton thème clair / sombre */
+.theme-toggle {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+}
+
+.theme-icon {
+  grid-area: 1 / 1;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s var(--ease);
+}
+
+.theme-icon-sun { color: var(--accent-amber); }
+.theme-icon-moon { opacity: 0; transform: rotate(-90deg) scale(0.4); color: #a5b4fc; }
+.theme-toggle.is-dark .theme-icon-sun { opacity: 0; transform: rotate(90deg) scale(0.4); }
+.theme-toggle.is-dark .theme-icon-moon { opacity: 1; transform: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle:hover {
+    border-color: rgba(37, 99, 235, 0.4);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+}
+
 /* ============================================
    MOBILE MENU
    ============================================ */
@@ -599,6 +633,13 @@
   .mobile-menu {
     display: block;
   }
+
+  /* Aligné sur le burger qu'il côtoie */
+  .theme-toggle {
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius-md);
+  }
 }
 
 /* Tablette : panneau compact aligné sous le burger plutôt qu'une bande pleine largeur */
@@ -751,4 +792,23 @@
     transition-duration: 0.01ms !important;
     transition-delay: 0s !important;
   }
+}
+
+/* ============================================
+   THÈME SOMBRE
+   ============================================ */
+
+:root[data-theme="dark"] .navbar-container {
+  background: rgba(13, 20, 36, 0.78);
+  border-color: rgba(148, 163, 184, 0.12);
+}
+
+:root[data-theme="dark"] .navbar.scrolled .navbar-container { background: rgba(13, 20, 36, 0.92); }
+:root[data-theme="dark"] .navbar.menu-open .navbar-container { background: rgba(13, 20, 36, 0.97); }
+
+:root[data-theme="dark"] .mobile-menu {
+  background:
+    radial-gradient(120% 60% at 100% 0%, rgba(124, 58, 237, 0.14), transparent 60%),
+    radial-gradient(90% 50% at 0% 100%, rgba(37, 99, 235, 0.14), transparent 60%),
+    #0f172a;
 }

@@ -9,7 +9,9 @@
     "cv": "CV",
     "cvFull": "Télécharger le CV",
     "letter": "LM",
-    "letterFull": "Télécharger la lettre de motivation"
+    "letterFull": "Télécharger la lettre de motivation",
+    "themeDark": "Activer le mode sombre",
+    "themeLight": "Activer le mode clair"
   },
   "hero": {
     "status": "Ouvert aux opportunités CDI",

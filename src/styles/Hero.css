@@ -414,3 +414,15 @@
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
 }
+
+/* ============================================
+   THÈME SOMBRE
+   ============================================ */
+
+:root[data-theme="dark"] .hero-badge { background: rgba(255, 255, 255, 0.05); }
+:root[data-theme="dark"] .hero-subtitle { color: var(--text-secondary); }
+:root[data-theme="dark"] .hero-role { background-image: linear-gradient(110deg, #60a5fa, #818cf8, #a78bfa, #60a5fa); }
+:root[data-theme="dark"] .info-item { background: rgba(255, 255, 255, 0.04); }
+:root[data-theme="dark"] .orbit-icon,
+:root[data-theme="dark"] .tech-badge { background: rgba(20, 29, 49, 0.95); }
+:root[data-theme="dark"] .profile-circle-inner { background: var(--surface-strong); border-color: var(--surface-strong); }

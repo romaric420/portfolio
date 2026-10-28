@@ -9,7 +9,9 @@
     "cv": "CV",
     "cvFull": "Download my resume",
     "letter": "Letter",
-    "letterFull": "Download my cover letter"
+    "letterFull": "Download my cover letter",
+    "themeDark": "Switch to dark mode",
+    "themeLight": "Switch to light mode"
   },
   "hero": {
     "status": "Open to full-time opportunities",

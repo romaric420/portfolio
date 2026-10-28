@@ -416,3 +416,12 @@
   from { opacity: 0; transform: translateX(12px); }
   to { opacity: 1; transform: none; }
 }
+
+/* ============================================
+   THÈME SOMBRE
+   ============================================ */
+
+:root[data-theme="dark"] .timeline-dot { background: var(--bg-primary); }
+:root[data-theme="dark"] .module { background: rgba(255, 255, 255, 0.04); }
+:root[data-theme="dark"] .training-company,
+:root[data-theme="dark"] .module-index { color: #2dd4bf; }

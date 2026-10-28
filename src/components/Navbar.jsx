@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Moon, Sun } from 'lucide-react';
 import { goToSection } from '../utils/sectionTransition';
+import useTheme from '../hooks/useTheme';
 import DocLinks from './DocLinks';
 import '../styles/Navbar.css';
 
@@ -29,8 +30,23 @@ const LangSwitch = ({ lang, onToggle, tabIndex }) => (
   </button>
 );
 
+// Bouton clair / sombre : le soleil et la lune pivotent l'un à la place de l'autre
+const ThemeToggle = ({ theme, onToggle, labels }) => (
+  <button
+    type="button"
+    className={`theme-toggle ${theme === 'dark' ? 'is-dark' : ''}`}
+    onClick={onToggle}
+    aria-label={theme === 'dark' ? labels.themeLight : labels.themeDark}
+    title={theme === 'dark' ? labels.themeLight : labels.themeDark}
+  >
+    <Sun className="theme-icon theme-icon-sun" size={18} aria-hidden="true" />
+    <Moon className="theme-icon theme-icon-moon" size={18} aria-hidden="true" />
+  </button>
+);
+
 const Navbar = ({ onProjectsClick }) => {
   const { translations, lang, toggleLang } = useTranslation();
+  const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -221,6 +237,9 @@ const Navbar = ({ onProjectsClick }) => {
 
         {/* Actions */}
         <div className="navbar-actions">
+          {/* Thème clair / sombre */}
+          <ThemeToggle theme={theme} onToggle={toggleTheme} labels={nav} />
+
           {/* Language Toggle */}
           <LangSwitch lang={lang} onToggle={toggleLang} />
 

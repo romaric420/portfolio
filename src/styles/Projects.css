@@ -349,3 +349,14 @@
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
 }
+
+/* ============================================
+   THÈME SOMBRE
+   ============================================ */
+
+:root[data-theme="dark"] .projects-back-btn { background: rgba(20, 29, 49, 0.92); }
+:root[data-theme="dark"] .soon-inner { background: rgba(17, 25, 43, 0.96); }
+:root[data-theme="dark"] .soon-skeleton span {
+  background: linear-gradient(90deg, #1a2338 0%, #243049 40%, #1d2740 60%, #1a2338 100%);
+  background-size: 200% 100%;
+}
