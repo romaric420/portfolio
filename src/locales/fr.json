@@ -204,12 +204,104 @@
   "projects": {
     "sectionNumber": "03",
     "title": "Mes projets",
-    "subtitle": "De nouveaux projets de bout en bout arrivent très bientôt.",
+    "subtitle": "Deux facettes de mon métier, quatre projets chacune : ce que je sais faire, de la donnée brute au modèle en production.",
     "backButton": "Retour à l’accueil",
-    "projectLabel": "Projet",
     "comingSoon": "À venir",
-    "comingText": "En cours de réalisation",
-    "ctaText": "Revenez bientôt : les projets seront publiés ici et sur GitHub."
+    "ctaText": "Revenez bientôt : les projets seront publiés ici et sur GitHub.",
+    "titlePrefix": "Projets",
+    "switchLabel": "Choisir une piste",
+    "codeSoon": "Code bientôt sur GitHub",
+    "viewCode": "Voir le code",
+    "tracks": [
+      {
+        "id": "ds",
+        "label": "Piste 01",
+        "role": "Data Scientist",
+        "intro": "Comprendre les données, en tirer des modèles fiables et les expliquer au métier.",
+        "items": [
+          {
+            "title": "Analyse exploratoire & dataviz",
+            "text": "Nettoyer un jeu de données réel, tester des hypothèses et raconter ce qu'il révèle en quelques graphiques clés.",
+            "tags": [
+              "Pandas",
+              "Tests statistiques",
+              "Matplotlib"
+            ]
+          },
+          {
+            "title": "Modèle de prévision",
+            "text": "Prévoir une valeur continue (prix, ventes) avec une baseline, une validation rigoureuse et un tuning maîtrisé.",
+            "tags": [
+              "Scikit-learn",
+              "XGBoost",
+              "Validation croisée"
+            ]
+          },
+          {
+            "title": "Classification & churn",
+            "text": "Anticiper le départ de clients et expliquer les facteurs qui pèsent sur chaque prédiction.",
+            "tags": [
+              "Random Forest",
+              "SHAP",
+              "A/B testing"
+            ]
+          },
+          {
+            "title": "NLP & IA générative",
+            "text": "Analyser des textes et interroger des documents en langage naturel grâce à un assistant RAG.",
+            "tags": [
+              "Transformers",
+              "LangChain",
+              "RAG"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mle",
+        "label": "Piste 02",
+        "role": "ML Engineer",
+        "intro": "Industrialiser les modèles : du notebook à un service fiable, testé et surveillé.",
+        "items": [
+          {
+            "title": "API de prédiction",
+            "text": "Servir un modèle via une API documentée et validée, empaquetée dans une image Docker légère.",
+            "tags": [
+              "FastAPI",
+              "Pydantic",
+              "Docker"
+            ]
+          },
+          {
+            "title": "Pipeline CI/CD ML",
+            "text": "Tester, entraîner et livrer automatiquement à chaque push, avec données et modèles versionnés.",
+            "tags": [
+              "GitHub Actions",
+              "Pytest",
+              "DVC"
+            ]
+          },
+          {
+            "title": "Suivi d'expériences",
+            "text": "Tracer chaque entraînement, comparer les runs et promouvoir le meilleur modèle via un registre.",
+            "tags": [
+              "MLflow",
+              "Model Registry",
+              "uv"
+            ]
+          },
+          {
+            "title": "Monitoring & dérive",
+            "text": "Détecter la dérive des données en production, alerter et déclencher le réentraînement.",
+            "tags": [
+              "Evidently AI",
+              "Airflow",
+              "AWS"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "experience": {
     "sectionNumber": "04",

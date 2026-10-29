@@ -465,3 +465,23 @@
 :root[data-theme="dark"] .quote-toast::before {
   background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.08) 50%, transparent 65%);
 }
+
+/* Écrans tactiles : sans flou d'arrière-plan, la carte devient plus opaque pour rester lisible.
+   Les animations décoratives en boucle (repeintes à chaque image) sont figées : seules restent
+   les entrées et le compte à rebours, pour un défilement fluide pendant l'affichage. */
+@media (hover: none) {
+  .quote-toast { background: rgba(255, 255, 255, 0.95); }
+  :root[data-theme="dark"] .quote-toast { background: rgba(17, 25, 43, 0.95); }
+
+  .quote-toast.is-shown .quote-toast-border,
+  .quote-toast-grid,
+  .quote-toast-orb--a,
+  .quote-toast-orb--b,
+  .quote-toast-network line,
+  .quote-toast-network circle,
+  .quote-toast-watermark { animation: none; }
+
+  .quote-toast.is-shown .quote-toast-mark { animation: quote-toast-pop 0.6s cubic-bezier(0.34, 1.7, 0.64, 1) 0.15s both; }
+  .quote-toast.is-shown .quote-toast-progress { animation: quote-toast-countdown 9s linear forwards; }
+  .quote-toast.is-shown .quote-toast-word { animation-name: quote-toast-rise; }
+}

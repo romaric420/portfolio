@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   margin-top: 20px;
 }
 
@@ -17,14 +17,14 @@
   padding: 0;
   border-radius: var(--radius-full);
   background: rgba(100, 116, 139, 0.28);
-  overflow: hidden;
   transition: width 0.45s var(--ease), background var(--transition-fast);
 }
 
 .carousel-dots--dark .carousel-dot { background: rgba(255, 255, 255, 0.22); }
 
-/* Zone de toucher confortable sans grossir le point */
-.carousel-dot::before { content: ''; position: absolute; inset: -12px -4px; }
+/* Zone de toucher confortable (44px de haut) sans grossir le point.
+   Pas d'overflow: hidden sur le point : il rognerait aussi cette zone. */
+.carousel-dot::before { content: ''; position: absolute; inset: -18px -6px; }
 
 .carousel-dot.is-active { width: 34px; background: color-mix(in srgb, var(--tint) 20%, transparent); }
 .carousel-dots--dark .carousel-dot.is-active { background: color-mix(in srgb, var(--tint) 30%, rgba(255, 255, 255, 0.12)); }

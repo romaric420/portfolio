@@ -289,5 +289,7 @@
    ============================================ */
 
 :root[data-theme="dark"] .method-icon { background: var(--surface-strong); }
+:root[data-theme="dark"] .method-step:hover .method-icon { background: var(--gradient-primary); }
+:root[data-theme="dark"] .method-index { background: var(--gradient-primary); }
 :root[data-theme="dark"] .skill-tag { background: rgba(255, 255, 255, 0.04); }
 :root[data-theme="dark"] .skill-tag:hover { background: rgba(255, 255, 255, 0.08); }

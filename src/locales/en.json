@@ -204,12 +204,104 @@
   "projects": {
     "sectionNumber": "03",
     "title": "My Projects",
-    "subtitle": "New end-to-end projects are coming very soon.",
+    "subtitle": "Two sides of my job, four projects each: what I can do, from raw data to a model in production.",
     "backButton": "Back to home",
-    "projectLabel": "Project",
     "comingSoon": "Coming soon",
-    "comingText": "Work in progress",
-    "ctaText": "Check back soon: projects will be published here and on GitHub."
+    "ctaText": "Check back soon: projects will be published here and on GitHub.",
+    "titlePrefix": "Projects",
+    "switchLabel": "Choose a track",
+    "codeSoon": "Code soon on GitHub",
+    "viewCode": "View code",
+    "tracks": [
+      {
+        "id": "ds",
+        "label": "Track 01",
+        "role": "Data Scientist",
+        "intro": "Understand the data, build reliable models and explain them to the business.",
+        "items": [
+          {
+            "title": "Exploratory analysis & dataviz",
+            "text": "Clean a real-world dataset, test hypotheses and tell what it reveals in a few key charts.",
+            "tags": [
+              "Pandas",
+              "Statistical tests",
+              "Matplotlib"
+            ]
+          },
+          {
+            "title": "Forecasting model",
+            "text": "Predict a continuous value (prices, sales) with a baseline, rigorous validation and controlled tuning.",
+            "tags": [
+              "Scikit-learn",
+              "XGBoost",
+              "Cross-validation"
+            ]
+          },
+          {
+            "title": "Classification & churn",
+            "text": "Anticipate customer churn and explain the factors behind each prediction.",
+            "tags": [
+              "Random Forest",
+              "SHAP",
+              "A/B testing"
+            ]
+          },
+          {
+            "title": "NLP & generative AI",
+            "text": "Analyse text and query documents in natural language with a RAG assistant.",
+            "tags": [
+              "Transformers",
+              "LangChain",
+              "RAG"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mle",
+        "label": "Track 02",
+        "role": "ML Engineer",
+        "intro": "Industrialise models: from notebook to a reliable, tested and monitored service.",
+        "items": [
+          {
+            "title": "Prediction API",
+            "text": "Serve a model through a documented, validated API, packaged in a lightweight Docker image.",
+            "tags": [
+              "FastAPI",
+              "Pydantic",
+              "Docker"
+            ]
+          },
+          {
+            "title": "ML CI/CD pipeline",
+            "text": "Automatically test, train and ship on every push, with versioned data and models.",
+            "tags": [
+              "GitHub Actions",
+              "Pytest",
+              "DVC"
+            ]
+          },
+          {
+            "title": "Experiment tracking",
+            "text": "Log every training run, compare results and promote the best model through a registry.",
+            "tags": [
+              "MLflow",
+              "Model Registry",
+              "uv"
+            ]
+          },
+          {
+            "title": "Monitoring & drift",
+            "text": "Detect data drift in production, raise alerts and trigger retraining.",
+            "tags": [
+              "Evidently AI",
+              "Airflow",
+              "AWS"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "experience": {
     "sectionNumber": "04",

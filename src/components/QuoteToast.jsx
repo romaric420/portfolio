@@ -8,6 +8,10 @@ const VISIBLE_TIME = 9000;
 const LEAVE_TIME = 450;
 const GAP_TIME = 1500;
 const SNOOZE_TIME = 20000;
+// Sur téléphone la bulle couvre une bonne part de l'écran : elle revient beaucoup moins souvent
+const MOBILE_QUERY = '(max-width: 639px)';
+const MOBILE_GAP_TIME = 20000;
+const MOBILE_SNOOZE_TIME = 60000;
 
 // Petit réseau de neurones décoratif en fond de bulle
 const NODES = [[12, 60], [34, 22], [36, 66], [62, 40], [86, 14], [90, 58], [112, 32]];
@@ -17,6 +21,7 @@ const LINKS = [[0, 1], [0, 2], [1, 3], [2, 3], [3, 4], [3, 5], [4, 6], [5, 6]];
  * Bulle flottante qui fait défiler des citations IA / Data.
  * Cycle : apparition dès l'arrivée → visible (9 s) → sortie (450 ms) → attente (1,5 s) → citation suivante.
  * Fermer la bulle ne l'arrête pas : elle revient avec la citation suivante 20 s plus tard.
+ * Sur téléphone, l'attente passe à 20 s (60 s après une fermeture) pour ne pas masquer le contenu.
  */
 const QuoteToast = () => {
   const { translations } = useTranslation();
@@ -59,7 +64,12 @@ const QuoteToast = () => {
         setPhase('leaving');
       } else {
         // Après une fermeture, la pause est plus longue avant la citation suivante
-        remainingRef.current = snoozedRef.current ? SNOOZE_TIME : GAP_TIME;
+        const mobile = window.matchMedia(MOBILE_QUERY).matches;
+        if (snoozedRef.current) {
+          remainingRef.current = mobile ? MOBILE_SNOOZE_TIME : SNOOZE_TIME;
+        } else {
+          remainingRef.current = mobile ? MOBILE_GAP_TIME : GAP_TIME;
+        }
         snoozedRef.current = false;
         setIndex((i) => (i + 1) % items.length);
         setPhase('waiting');

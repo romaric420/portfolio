@@ -413,42 +413,42 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
   transition: opacity 0.15s var(--ease);
 }
 
-/* Entrées à l'arrivée sur chaque section */
-.arrive-home > * { animation: arrive-home 1.1s var(--ease) both; }
-.arrive-about > * { animation: arrive-about 1s var(--ease) both; }
-.arrive-skills > * { animation: arrive-skills 1.1s var(--ease) both; }
-.arrive-experience > * { animation: arrive-experience 1.1s var(--ease) both; }
-.arrive-contact > * { animation: arrive-contact 1.2s var(--ease) both; }
+/* Entrées à l'arrivée sur chaque section.
+   Uniquement transform/opacity (animés par le GPU) : pas de flou ni de découpe, coûteux sur mobile. */
+.arrive-home > * { animation: arrive-home 0.9s var(--ease) both; }
+.arrive-about > * { animation: arrive-about 0.9s var(--ease) both; }
+.arrive-skills > * { animation: arrive-skills 0.9s var(--ease) both; }
+.arrive-experience > * { animation: arrive-experience 0.9s var(--ease) both; }
+.arrive-contact > * { animation: arrive-contact 0.9s var(--ease) both; }
 
-/* Accueil : léger dézoom qui se met au point */
+/* Accueil : léger dézoom qui se pose */
 @keyframes arrive-home {
-  from { opacity: 0.35; transform: scale(1.06); filter: blur(10px); }
-  to { opacity: 1; transform: none; filter: none; }
+  from { opacity: 0.4; transform: scale(1.03); }
+  to { opacity: 1; transform: none; }
 }
 
 /* À propos : glisse depuis la gauche en se redressant */
 @keyframes arrive-about {
-  from { opacity: 0.2; transform: translateX(-70px) skewX(4deg); }
+  from { opacity: 0.2; transform: translateX(-50px) skewX(3deg); }
   to { opacity: 1; transform: none; }
 }
 
-/* Compétences : surgit du flou en grossissant */
+/* Compétences : surgit en grossissant */
 @keyframes arrive-skills {
-  from { opacity: 0; transform: scale(0.9); filter: blur(14px) saturate(1.6); }
-  60% { filter: blur(0) saturate(1.2); }
-  to { opacity: 1; transform: none; filter: none; }
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: none; }
 }
 
-/* Parcours : se déroule de haut en bas */
+/* Parcours : monte depuis le bas */
 @keyframes arrive-experience {
-  from { clip-path: inset(0 0 100% 0); transform: translateY(40px); }
-  to { clip-path: inset(0 0 -10% 0); transform: none; }
+  from { opacity: 0.2; transform: translateY(40px); }
+  to { opacity: 1; transform: none; }
 }
 
-/* Contact : s'ouvre en cercle depuis le centre */
+/* Contact : s'ouvre depuis le centre */
 @keyframes arrive-contact {
-  from { clip-path: circle(0% at 50% 45%); transform: scale(0.96); }
-  to { clip-path: circle(150% at 50% 45%); transform: none; }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: none; }
 }
 
 /* Rideau plein écran pour les changements de page */
@@ -543,6 +543,35 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
 @media (hover: none) {
   /* Fond fixe : repeint à chaque frame sur mobile, source de saccades au défilement */
   body { background-attachment: scroll; }
+
+  /* Flou d'arrière-plan recalculé à chaque image de défilement : remplacé par des surfaces plus opaques */
+  :root {
+    --surface: rgba(255, 255, 255, 0.92);
+    --glass-bg: rgba(255, 255, 255, 0.92);
+  }
+
+  :root[data-theme="dark"] {
+    --surface: rgba(17, 25, 43, 0.92);
+    --glass-bg: rgba(15, 22, 40, 0.92);
+  }
+
+  .glass,
+  .card,
+  .info-item,
+  .tech-badge,
+  .contact-item,
+  .footer,
+  .scroll-top,
+  .quote-toast,
+  .projects-back-btn {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Halos flous en rotation continue : figés (visuellement identiques, bien moins coûteux) */
+  .profile-glow,
+  .contact-glow,
+  .bg-orb { animation: none !important; }
 
   /* Pas d'élément qui reste « soulevé » après un tap */
   .card:hover,

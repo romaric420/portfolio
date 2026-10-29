@@ -1,24 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
-import { ArrowLeft, Layers, Sparkles, Brain, TrendingUp, Database, Cpu, Clock } from 'lucide-react';
-import useCarousel, { CAROUSEL_QUERY, useMediaQuery } from '../hooks/useCarousel';
-import CarouselDots from './CarouselDots';
+import {
+  ArrowLeft, ArrowUpRight, Layers, Sparkles, Lock, Github,
+  BarChart3, TrendingUp, UserMinus, MessagesSquare,
+  Server, Workflow, FlaskConical, Activity,
+} from 'lucide-react';
 import '../styles/Projects.css';
 
-// Quatre emplacements de projets, affichés « À venir » en attendant la publication.
-const SLOTS = [
-  { id: 1, icon: Brain, from: '#2563eb', to: '#06b6d4' },
-  { id: 2, icon: TrendingUp, from: '#4f46e5', to: '#7c3aed' },
-  { id: 3, icon: Database, from: '#0891b2', to: '#10b981' },
-  { id: 4, icon: Cpu, from: '#7c3aed', to: '#db2777' },
-];
+// Habillage de chaque piste : couleurs et icônes des 4 projets, dans l'ordre des locales
+const TRACK_STYLES = {
+  ds: { from: '#2563eb', to: '#06b6d4', icons: [BarChart3, TrendingUp, UserMinus, MessagesSquare] },
+  mle: { from: '#7c3aed', to: '#db2777', icons: [Server, Workflow, FlaskConical, Activity] },
+};
+
+const ProjectCard = ({ item, index, Icon, prefix, t }) => (
+  <article className="project-card" style={{ '--i': index }}>
+    <div className="project-card-top">
+      <span className="project-icon"><Icon size={22} strokeWidth={1.8} /></span>
+      <span className="project-num">{prefix}-{String(index + 1).padStart(2, '0')}</span>
+    </div>
+
+    {/* Tant que le projet n'est pas publié, titre et détails restent floutés sous un cadenas */}
+    <div className={`project-details ${item.github ? '' : 'is-locked'}`}>
+      <div className="project-details-content" aria-hidden={!item.github}>
+        <h3 className="project-title">{item.title}</h3>
+        <p className="project-text">{item.text}</p>
+        <ul className="project-tags">
+          {item.tags.map((tag) => <li key={tag}>{tag}</li>)}
+        </ul>
+      </div>
+      {item.github ? null : (
+        <div className="project-lock">
+          <span className="project-lock-icon"><Lock size={18} strokeWidth={2} /></span>
+          <span className="project-lock-text">{t.comingSoon}</span>
+        </div>
+      )}
+    </div>
+
+    {/* Une fois le projet publié, renseigner "github" dans les locales pour activer le lien */}
+    {item.github ? (
+      <a className="project-link" href={item.github} target="_blank" rel="noopener noreferrer">
+        <Github size={16} /> {t.viewCode} <ArrowUpRight size={15} />
+      </a>
+    ) : (
+      <span className="project-link is-soon"><Github size={16} /> {t.codeSoon}</span>
+    )}
+  </article>
+);
 
 const Projects = ({ onBack }) => {
   const { translations } = useTranslation();
   const t = translations.projects || {};
-  const isCarousel = useMediaQuery(CAROUSEL_QUERY);
-  const carousel = useCarousel(SLOTS.length, { enabled: isCarousel, duration: 4000 });
-  const { active, previous, backwards } = carousel;
+  const tracks = t.tracks || [];
+  // Sur mobile, une seule piste affichée à la fois (sélecteur) ; sur grand écran, les deux côte à côte
+  const [selected, setSelected] = useState(tracks[0]?.id);
 
   return (
     <div className="projects-page">
@@ -36,55 +71,55 @@ const Projects = ({ onBack }) => {
         <p className="projects-subtitle">{t.subtitle}</p>
       </header>
 
-      <div
-        ref={carousel.rootRef}
-        className={`projects-grid ${isCarousel ? 'is-carousel' : ''} ${backwards ? 'is-backwards' : ''}`}
-        aria-roledescription={isCarousel ? 'carousel' : undefined}
-        {...carousel.swipeHandlers}
-      >
-        {SLOTS.map((slot, index) => {
-          const Icon = slot.icon;
-          const isActive = !isCarousel || index === active;
-          return (
-            <article
-              key={slot.id}
-              className={`soon-card ${isCarousel && isActive ? 'is-active' : ''} ${isCarousel && index === previous ? 'is-leaving' : ''}`}
-              aria-hidden={!isActive}
-              style={{ '--from': slot.from, '--to': slot.to, '--i': index }}
-            >
-              <div className="soon-inner">
-                <div className="soon-visual">
-                  <span className="soon-ring soon-ring-1" />
-                  <span className="soon-ring soon-ring-2" />
-                  <span className="soon-icon"><Icon size={30} strokeWidth={1.6} /></span>
-                  <span className="soon-particle p1" />
-                  <span className="soon-particle p2" />
-                  <span className="soon-particle p3" />
-                </div>
+      <div className="track-switch" role="group" aria-label={t.switchLabel}>
+        {tracks.map((track) => (
+          <button
+            key={track.id}
+            type="button"
+            className={`track-switch-btn ${selected === track.id ? 'active' : ''}`}
+            style={{ '--from': TRACK_STYLES[track.id].from, '--to': TRACK_STYLES[track.id].to }}
+            aria-pressed={selected === track.id}
+            onClick={() => setSelected(track.id)}
+          >
+            {track.role}
+          </button>
+        ))}
+      </div>
 
-                <div className="soon-body">
-                  <span className="soon-label">{t.projectLabel} {String(slot.id).padStart(2, '0')}</span>
-                  <span className="soon-badge"><Clock size={14} /> {t.comingSoon}</span>
-                  <div className="soon-skeleton" aria-hidden="true">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                  <span className="soon-text">{t.comingText}</span>
-                </div>
+      <div className="tracks">
+        {tracks.map((track) => {
+          const style = TRACK_STYLES[track.id];
+          return (
+            <section
+              key={track.id}
+              className={`track ${selected === track.id ? 'is-selected' : ''}`}
+              style={{ '--from': style.from, '--to': style.to }}
+              aria-labelledby={`track-${track.id}`}
+            >
+              <header className="track-header">
+                <span className="track-label">{track.label}</span>
+                <h2 className="track-title" id={`track-${track.id}`}>
+                  {t.titlePrefix} <span className="track-role">{track.role}</span>
+                </h2>
+                <p className="track-intro">{track.intro}</p>
+              </header>
+
+              <div className="track-grid">
+                {track.items.map((item, index) => (
+                  <ProjectCard
+                    key={item.title}
+                    item={item}
+                    index={index}
+                    Icon={style.icons[index]}
+                    prefix={track.id.toUpperCase()}
+                    t={t}
+                  />
+                ))}
               </div>
-            </article>
+            </section>
           );
         })}
       </div>
-
-      {isCarousel ? (
-        <CarouselDots
-          carousel={carousel}
-          tone="dark"
-          items={SLOTS.map((slot) => ({ label: `${t.projectLabel} ${String(slot.id).padStart(2, '0')}`, tint: slot.from }))}
-        />
-      ) : null}
 
       <div className="projects-cta">
         <p className="projects-cta-text">{t.ctaText}</p>

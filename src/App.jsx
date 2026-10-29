@@ -37,8 +37,8 @@ function Pages() {
     <div className="app">
       <AIBackground />
       <ScrollToTop />
-      {/* Hors du switch de pages : le cycle des citations continue sans interruption */}
-      <QuoteToast />
+      {/* Citations uniquement sur l'accueil : sur la page Projets, elles masqueraient les cartes */}
+      {currentPage === 'home' ? <QuoteToast /> : null}
 
       {currentPage === 'home' ? (
         <>

@@ -74,17 +74,24 @@ const AIBackground = () => {
       });
     };
 
+    // Sur téléphone, une image sur deux suffit à ce mouvement très lent et libère le processeur pour le défilement
+    const lowPower = window.matchMedia('(max-width: 640px), (hover: none)').matches;
+    const speed = lowPower ? 2 : 1;
+    let skip = false;
+
     const step = () => {
+      frame = window.requestAnimationFrame(step);
+      skip = lowPower && !skip;
+      if (skip) return;
       nodes.forEach((n) => {
-        n.x += n.vx;
-        n.y += n.vy;
+        n.x += n.vx * speed;
+        n.y += n.vy * speed;
         if (n.x < -20) n.x = width + 20;
         if (n.x > width + 20) n.x = -20;
         if (n.y < -20) n.y = height + 20;
         if (n.y > height + 20) n.y = -20;
       });
       draw();
-      frame = window.requestAnimationFrame(step);
     };
 
     const start = () => {

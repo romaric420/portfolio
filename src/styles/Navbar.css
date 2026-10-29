@@ -297,7 +297,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .mobile-toggle:hover {
-    background: white;
+    background: var(--surface-strong);
     border-color: var(--color-border-hover);
   }
 
@@ -321,21 +321,19 @@
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: rgba(11, 18, 32, 0.28);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(11, 18, 32, 0.42);
   opacity: 0;
   visibility: hidden;
   /* Aucun défilement de la page à travers le voile */
   touch-action: none;
-  transition: opacity 0.45s var(--ease), visibility 0s linear 0.45s;
+  transition: opacity 0.25s var(--ease), visibility 0s linear 0.25s;
 }
 
 .navbar.menu-open .nav-backdrop {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition: opacity 0.45s var(--ease), visibility 0s;
+  transition: opacity 0.3s var(--ease), visibility 0s;
 }
 
 .navbar.menu-open .navbar-container {
@@ -343,9 +341,9 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Panneau : révélation circulaire depuis le burger */
+/* Panneau : fondu et léger zoom depuis le burger.
+   Uniquement transform/opacity : animé par le GPU, sans repeindre le panneau à chaque image. */
 .mobile-menu {
-  --origin: calc(100% - 46px) -36px;
   display: none;
   position: absolute;
   top: calc(100% + 12px);
@@ -366,15 +364,17 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
-  clip-path: circle(0px at var(--origin));
+  opacity: 0;
+  transform: translateY(-10px) scale(0.97);
+  transform-origin: top right;
   visibility: hidden;
   isolation: isolate;
-  transition: clip-path 0.5s cubic-bezier(0.55, 0, 0.75, 0.2) 0.12s, visibility 0s linear 0.62s;
+  transition: opacity 0.2s var(--ease), transform 0.25s var(--ease), visibility 0s linear 0.25s;
 }
 
 .mobile-menu::-webkit-scrollbar { display: none; }
 
-/* Décor du panneau : halos en dégradé qui dérivent doucement + trame de points.
+/* Décor du panneau : halos en dégradé + trame de points, statiques (aucun coût pendant l'animation).
    Calque découpé à la taille du panneau pour ne jamais créer de défilement fantôme. */
 .mobile-menu-decor {
   position: absolute;
@@ -400,13 +400,6 @@
     radial-gradient(40% 32% at 10% 45%, rgba(37, 99, 235, 0.18), transparent 70%),
     radial-gradient(38% 30% at 80% 88%, rgba(79, 70, 229, 0.2), transparent 70%),
     radial-gradient(25% 20% at 25% 95%, rgba(236, 72, 153, 0.12), transparent 70%);
-  filter: blur(8px);
-  animation: menu-glow 14s ease-in-out infinite alternate;
-  animation-play-state: paused;
-}
-
-.mobile-menu.open .mobile-menu-decor::before {
-  animation-play-state: running;
 }
 
 .mobile-menu-decor::after {
@@ -416,16 +409,11 @@
   mask-image: linear-gradient(160deg, #000 0%, transparent 45%, transparent 60%, #000 100%);
 }
 
-@keyframes menu-glow {
-  0% { transform: translate(0, 0) rotate(0deg); }
-  50% { transform: translate(4%, -3%) rotate(6deg); }
-  100% { transform: translate(-3%, 4%) rotate(-4deg); }
-}
-
 .mobile-menu.open {
-  clip-path: circle(150% at var(--origin));
+  opacity: 1;
+  transform: none;
   visibility: visible;
-  transition: clip-path 0.75s var(--ease), visibility 0s;
+  transition: opacity 0.3s var(--ease), transform 0.4s var(--ease), visibility 0s;
 }
 
 .mobile-menu-label {
@@ -459,16 +447,15 @@
 .mobile-menu-actions {
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 0.25s var(--ease), transform 0.3s var(--ease);
-  transition-delay: calc((var(--count) - var(--i)) * 30ms);
+  transition: opacity 0.15s var(--ease), transform 0.2s var(--ease);
 }
 
 .mobile-menu.open .mobile-menu-item,
 .mobile-menu.open .mobile-menu-actions {
   opacity: 1;
   transform: none;
-  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
-  transition-delay: calc(0.15s + var(--i) * 55ms);
+  transition: opacity 0.35s var(--ease), transform 0.45s var(--ease);
+  transition-delay: calc(0.05s + var(--i) * 35ms);
 }
 
 .mobile-link {
@@ -686,7 +673,6 @@
   }
 
   .mobile-menu {
-    --origin: calc(100% - 29px) -30px;
     padding: 18px 12px 14px;
   }
 
@@ -786,7 +772,6 @@
   .mobile-menu-actions,
   .mobile-toggle span,
   .lang-thumb,
-  .mobile-menu-decor::before,
   .nav-backdrop {
     animation: none !important;
     transition-duration: 0.01ms !important;
@@ -811,4 +796,15 @@
     radial-gradient(120% 60% at 100% 0%, rgba(124, 58, 237, 0.14), transparent 60%),
     radial-gradient(90% 50% at 0% 100%, rgba(37, 99, 235, 0.14), transparent 60%),
     #0f172a;
+}
+
+/* Écrans tactiles : barre opaque plutôt que floutée, le flou étant recalculé à chaque image de défilement */
+@media (hover: none) {
+  .navbar-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  :root[data-theme="dark"] .navbar-container { background: rgba(13, 20, 36, 0.95); }
 }
