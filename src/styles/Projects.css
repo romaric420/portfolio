@@ -107,7 +107,8 @@
 
 .track-switch-btn {
   min-height: 44px;
-  padding: 0 14px;
+  padding: 4px 12px;
+  line-height: 1.2;
   border-radius: var(--radius-full);
   font-size: 0.92rem;
   font-weight: 600;
@@ -181,6 +182,22 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Barre entre « ML Engineer » et « MLOps », plus discrète que le texte */
+.role-sep {
+  font-weight: 400;
+  opacity: 0.45;
+}
+
+.role-part { white-space: nowrap; }
+
+.track-switch-btn .role-sep { opacity: 0.6; }
+
+/* Très petits écrans : le sélecteur passe sur deux lignes, la barre devient inutile */
+@media (max-width: 360px) {
+  .track-switch-btn .role-sep { display: none; }
+  .track-switch-btn .role-part { display: block; }
 }
 
 .track-intro { margin-top: 10px; max-width: 46ch; font-size: 0.98rem; color: #b6c2d6; }
@@ -341,6 +358,49 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Bouton « Tester en direct » (piste ML Engineer) */
+.project-demo {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 4px;
+  padding: 0 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--from), var(--to));
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--from) 35%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform var(--transition-fast), box-shadow var(--transition-normal);
+}
+
+/* Point « en ligne » qui pulse */
+.project-demo-live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.project-demo.is-soon {
+  color: #7f8ea6;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(148, 163, 184, 0.28);
+  box-shadow: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a.project-demo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px color-mix(in srgb, var(--from) 45%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+}
+
 .project-link {
   display: inline-flex;
   align-items: center;
@@ -356,6 +416,13 @@
 
 .project-link:hover { color: color-mix(in srgb, var(--to) 60%, white); }
 .project-link.is-soon { color: #7f8ea6; }
+
+/* Main au survol de toute la page Projets : cartes et leurs actions, sélecteur, boutons */
+.projects-page .project-card,
+.projects-page .project-card *,
+.projects-page .track-switch-btn,
+.projects-page .projects-back-btn,
+.projects-page .btn { cursor: pointer; }
 
 @media (hover: hover) and (pointer: fine) {
   .project-card:hover {

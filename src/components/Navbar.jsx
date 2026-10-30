@@ -12,6 +12,8 @@ const SECTION_IDS = ['home', 'about', 'skills', 'experience', 'contact'];
 const ACTIVE_OFFSET = 150;
 // Filet de sécurité si le défilement animé n'aboutit jamais (interrompu, page trop courte…)
 const SCROLL_LOCK_MS = 2500;
+// Le défilement vers la section attend que le menu mobile ait fini de se replier
+const MENU_CLOSE_MS = 320;
 
 // Interrupteur de langue : un seul bouton, la pastille glisse de FR à EN comme un switch on/off
 const LangSwitch = ({ lang, onToggle, tabIndex }) => (
@@ -50,6 +52,8 @@ const Navbar = ({ onProjectsClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileOpen, setMobileOpen] = useState(false);
+  // Lien touché dans le menu mobile : reste en surbrillance pendant la fermeture
+  const [chosen, setChosen] = useState(null);
   const containerRef = useRef(null);
   const toggleRef = useRef(null);
   const pendingScroll = useRef(null);
@@ -154,9 +158,13 @@ const Navbar = ({ onProjectsClick }) => {
     return () => {
       root.classList.remove('nav-locked');
       root.style.removeProperty('--scrollbar-comp');
-      // Le scroll vers la section demandée ne part qu'une fois la page déverrouillée
-      pendingScroll.current?.();
+      // Le scroll vers la section demandée ne part qu'une fois la page déverrouillée et le menu replié
+      const run = pendingScroll.current;
       pendingScroll.current = null;
+      if (run) {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.setTimeout(run, reduceMotion ? 0 : MENU_CLOSE_MS);
+      }
       document.removeEventListener('keydown', handleKey);
       document.removeEventListener('pointerdown', handlePointer);
       desktop.removeEventListener('change', handleBreakpoint);
@@ -183,6 +191,7 @@ const Navbar = ({ onProjectsClick }) => {
 
     if (mobileOpen) {
       pendingScroll.current = go;
+      setChosen(sectionId);
       setMobileOpen(false);
     } else {
       go();
@@ -251,7 +260,10 @@ const Navbar = ({ onProjectsClick }) => {
             ref={toggleRef}
             type="button"
             className={`mobile-toggle ${mobileOpen ? 'active' : ''}`}
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => {
+              if (!mobileOpen) setChosen(null);
+              setMobileOpen(!mobileOpen);
+            }}
             aria-label={toggleLabel}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
@@ -274,10 +286,14 @@ const Navbar = ({ onProjectsClick }) => {
           <p className="mobile-menu-label">Menu</p>
           <ul className="mobile-menu-list">
             {navItems.map((item, i) => (
-              <li key={item.id} className="mobile-menu-item" style={{ '--i': i }}>
+              <li
+                key={item.id}
+                className={`mobile-menu-item ${chosen === item.id ? 'is-chosen' : ''}`}
+                style={{ '--i': i }}
+              >
                 <button
                   type="button"
-                  className={`mobile-link ${activeSection === item.id ? 'active' : ''}`}
+                  className={`mobile-link ${activeSection === item.id ? 'active' : ''} ${chosen === item.id ? 'is-chosen' : ''}`}
                   onClick={() => scrollToSection(item.id)}
                   tabIndex={menuTabIndex}
                   aria-current={activeSection === item.id ? 'true' : undefined}

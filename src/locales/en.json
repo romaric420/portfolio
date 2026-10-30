@@ -212,6 +212,8 @@
     "switchLabel": "Choose a track",
     "codeSoon": "Code soon on GitHub",
     "viewCode": "View code",
+    "liveDemo": "Try it live",
+    "demoSoon": "Live demo coming soon",
     "tracks": [
       {
         "id": "ds",
@@ -260,7 +262,7 @@
       {
         "id": "mle",
         "label": "Track 02",
-        "role": "ML Engineer",
+        "role": "ML Engineer | MLOps",
         "intro": "Industrialise models: from notebook to a reliable, tested and monitored service.",
         "items": [
           {

@@ -212,6 +212,8 @@
     "switchLabel": "Choisir une piste",
     "codeSoon": "Code bientôt sur GitHub",
     "viewCode": "Voir le code",
+    "liveDemo": "Tester en direct",
+    "demoSoon": "Démo en direct bientôt",
     "tracks": [
       {
         "id": "ds",
@@ -260,7 +262,7 @@
       {
         "id": "mle",
         "label": "Piste 02",
-        "role": "ML Engineer",
+        "role": "ML Engineer | MLOps",
         "intro": "Industrialiser les modèles : du notebook à un service fiable, testé et surveillé.",
         "items": [
           {

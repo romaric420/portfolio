@@ -1,19 +1,33 @@
 import React, { useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import {
-  ArrowLeft, ArrowUpRight, Layers, Sparkles, Lock, Github,
+  ArrowLeft, ArrowUpRight, Layers, Sparkles, Lock, Github, MonitorPlay,
   BarChart3, TrendingUp, UserMinus, MessagesSquare,
   Server, Workflow, FlaskConical, Activity,
 } from 'lucide-react';
 import '../styles/Projects.css';
 
-// Habillage de chaque piste : couleurs et icônes des 4 projets, dans l'ordre des locales
+// Habillage de chaque piste : couleurs et icônes des 4 projets, dans l'ordre des locales.
+// `demo` : les projets de la piste proposent un bouton « Tester en direct ».
 const TRACK_STYLES = {
   ds: { from: '#2563eb', to: '#06b6d4', icons: [BarChart3, TrendingUp, UserMinus, MessagesSquare] },
-  mle: { from: '#7c3aed', to: '#db2777', icons: [Server, Workflow, FlaskConical, Activity] },
+  mle: { from: '#7c3aed', to: '#db2777', icons: [Server, Workflow, FlaskConical, Activity], demo: true },
 };
 
-const ProjectCard = ({ item, index, Icon, prefix, t }) => (
+// « ML Engineer | MLOps » : la barre est atténuée pour séparer les deux facettes
+const RoleLabel = ({ role }) => {
+  const [main, extra] = role.split(' | ');
+  if (!extra) return role;
+  // Chaque partie reste insécable : sur écran étroit, « | MLOps » passe à la ligne d'un bloc
+  return (
+    <>
+      <span className="role-part">{main}</span>{' '}
+      <span className="role-part"><span className="role-sep" aria-hidden="true">|</span> {extra}</span>
+    </>
+  );
+};
+
+const ProjectCard = ({ item, index, Icon, prefix, hasDemo, t }) => (
   <article className="project-card" style={{ '--i': index }}>
     <div className="project-card-top">
       <span className="project-icon"><Icon size={22} strokeWidth={1.8} /></span>
@@ -36,6 +50,18 @@ const ProjectCard = ({ item, index, Icon, prefix, t }) => (
         </div>
       )}
     </div>
+
+    {/* Démo en ligne : renseigner "demo" dans les locales pour activer le bouton */}
+    {hasDemo ? (
+      item.demo ? (
+        <a className="project-demo" href={item.demo} target="_blank" rel="noopener noreferrer">
+          <span className="project-demo-live" aria-hidden="true" />
+          <MonitorPlay size={17} /> {t.liveDemo} <ArrowUpRight size={15} />
+        </a>
+      ) : (
+        <span className="project-demo is-soon"><MonitorPlay size={17} /> {t.demoSoon}</span>
+      )
+    ) : null}
 
     {/* Une fois le projet publié, renseigner "github" dans les locales pour activer le lien */}
     {item.github ? (
@@ -81,7 +107,7 @@ const Projects = ({ onBack }) => {
             aria-pressed={selected === track.id}
             onClick={() => setSelected(track.id)}
           >
-            {track.role}
+            <RoleLabel role={track.role} />
           </button>
         ))}
       </div>
@@ -99,7 +125,7 @@ const Projects = ({ onBack }) => {
               <header className="track-header">
                 <span className="track-label">{track.label}</span>
                 <h2 className="track-title" id={`track-${track.id}`}>
-                  {t.titlePrefix} <span className="track-role">{track.role}</span>
+                  {t.titlePrefix} <span className="track-role"><RoleLabel role={track.role} /></span>
                 </h2>
                 <p className="track-intro">{track.intro}</p>
               </header>
@@ -112,6 +138,7 @@ const Projects = ({ onBack }) => {
                     index={index}
                     Icon={style.icons[index]}
                     prefix={track.id.toUpperCase()}
+                    hasDemo={Boolean(style.demo)}
                     t={t}
                   />
                 ))}

@@ -326,7 +326,7 @@
   visibility: hidden;
   /* Aucun défilement de la page à travers le voile */
   touch-action: none;
-  transition: opacity 0.25s var(--ease), visibility 0s linear 0.25s;
+  transition: opacity 0.45s var(--ease) 0.1s, visibility 0s linear 0.55s;
 }
 
 .navbar.menu-open .nav-backdrop {
@@ -341,8 +341,15 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Panneau : fondu et léger zoom depuis le burger.
-   Uniquement transform/opacity : animé par le GPU, sans repeindre le panneau à chaque image. */
+/* Panneau « tapis » : il se déroule vers le bas à l'ouverture et s'enroule vers le haut à la fermeture.
+   --unroll (0 = enroulé, 1 = déroulé) pilote à la fois la découpe du panneau et la position du rouleau. */
+@property --unroll {
+  syntax: '<number>';
+  /* Hérité : le rouleau (::after) lit la même valeur que le panneau */
+  inherits: true;
+  initial-value: 0;
+}
+
 .mobile-menu {
   display: none;
   position: absolute;
@@ -364,12 +371,37 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
-  opacity: 0;
-  transform: translateY(-10px) scale(0.97);
-  transform-origin: top right;
+  --unroll: 0;
+  /* Le bas de la découpe suit le dessous du rouleau ; marges négatives pour garder l'ombre visible
+     (et, déroulé, l'ombre du bas du panneau) */
+  clip-path: inset(-12px -48px calc((1 - var(--unroll)) * (100% - 22px) - var(--unroll) * 48px) -48px);
   visibility: hidden;
   isolation: isolate;
-  transition: opacity 0.2s var(--ease), transform 0.25s var(--ease), visibility 0s linear 0.25s;
+  /* Fermeture : le tapis s'enroule vers le haut, accélère puis se pose contre la barre */
+  transition:
+    --unroll 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+    visibility 0s linear 0.55s;
+}
+
+/* Rouleau : cylindre en relief collé au bord du tapis, il grossit à mesure qu'il s'enroule */
+.mobile-menu::after {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  left: 6px;
+  right: 6px;
+  /* Reste dans le panneau (pas de défilement fantôme) tout en suivant le bord de la découpe */
+  top: calc(var(--unroll) * (100% - 22px));
+  height: 22px;
+  border-radius: 11px;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #eef0ff 28%, #c9cff5 72%, #a9b1ea 100%);
+  box-shadow:
+    0 8px 16px rgba(15, 23, 42, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -2px 3px rgba(79, 70, 229, 0.25);
+  transform: scaleY(calc(1.5 - var(--unroll) * 0.6));
+  pointer-events: none;
 }
 
 .mobile-menu::-webkit-scrollbar { display: none; }
@@ -409,12 +441,19 @@
   mask-image: linear-gradient(160deg, #000 0%, transparent 45%, transparent 60%, #000 100%);
 }
 
+/* Ouverture : le tapis se déroule depuis la barre */
 .mobile-menu.open {
-  opacity: 1;
-  transform: none;
+  --unroll: 1;
   visibility: visible;
-  transition: opacity 0.3s var(--ease), transform 0.4s var(--ease), visibility 0s;
+  transition: --unroll 0.6s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s;
 }
+
+.mobile-menu.open::after {
+  opacity: 0;
+  transition: opacity 0.25s var(--ease) 0.4s;
+}
+
+/* Visible uniquement pendant le mouvement : il réapparaît dès que le tapis commence à s'enrouler */
 
 .mobile-menu-label {
   margin: 0 0 10px;
@@ -425,12 +464,12 @@
   text-transform: uppercase;
   color: var(--color-text-light);
   opacity: 0;
-  transition: opacity 0.3s var(--ease);
+  transition: opacity 0s linear 0.55s;
 }
 
 .mobile-menu.open .mobile-menu-label {
   opacity: 1;
-  transition-delay: 0.15s;
+  transition: opacity 0.3s var(--ease) 0.15s;
 }
 
 .mobile-menu-list {
@@ -442,12 +481,24 @@
   gap: 4px;
 }
 
-/* Cascade : entrée de haut en bas, sortie de bas en haut */
+/* Lignes : à l'ouverture elles descendent en cascade derrière le tapis qui se déroule.
+   À la fermeture elles restent en place, avalées par le rouleau, puis sont réinitialisées. */
 .mobile-menu-item,
 .mobile-menu-actions {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.15s var(--ease), transform 0.2s var(--ease);
+  transform: translateY(-10px);
+  transition: opacity 0s linear 0.55s, transform 0s linear 0.55s;
+}
+
+/* Lien touché : reste en surbrillance pendant que le tapis s'enroule, pour confirmer le choix */
+
+.mobile-link.is-chosen::after { opacity: 1; transform: none; }
+.mobile-link.is-chosen::before { height: 60%; }
+.mobile-link.is-chosen .mobile-link-label {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .mobile-menu.open .mobile-menu-item,
@@ -455,7 +506,7 @@
   opacity: 1;
   transform: none;
   transition: opacity 0.35s var(--ease), transform 0.45s var(--ease);
-  transition-delay: calc(0.05s + var(--i) * 35ms);
+  transition-delay: calc(0.08s + var(--i) * 45ms);
 }
 
 .mobile-link {
@@ -777,6 +828,8 @@
     transition-duration: 0.01ms !important;
     transition-delay: 0s !important;
   }
+
+  .mobile-menu::after { display: none; }
 }
 
 /* ============================================
@@ -796,6 +849,14 @@
     radial-gradient(120% 60% at 100% 0%, rgba(124, 58, 237, 0.14), transparent 60%),
     radial-gradient(90% 50% at 0% 100%, rgba(37, 99, 235, 0.14), transparent 60%),
     #0f172a;
+}
+
+:root[data-theme="dark"] .mobile-menu::after {
+  background: linear-gradient(180deg, #475569 0%, #2a3550 30%, #18213a 72%, #0b1222 100%);
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -2px 3px rgba(124, 58, 237, 0.3);
 }
 
 /* Écrans tactiles : barre opaque plutôt que floutée, le flou étant recalculé à chaque image de défilement */
